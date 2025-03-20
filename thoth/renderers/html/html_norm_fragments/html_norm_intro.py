@@ -4,11 +4,8 @@
 
 # own imports
 from model.norm import Norm
+from .html_norm__common import classed_div
 
 
 def intro(norm: Norm, language: str) -> list[str]:
-    return [
-        """<div class="norm-intro">""",
-        norm.intro[language],
-        """</div>""",
-    ]
+    return classed_div("norm-intro", norm.intro[language])

@@ -4,18 +4,14 @@
 
 # own imports
 from model.indicator import Indicator
-from .html_norm__common import sub_part, sub_sub_part, sub_sub_part_title
+from .html_norm__common import sub_part, classed_div
 from .html_norm_indicator_conformities import conformities
 from .html_norm_indicator_description import description
 from .html_norm_indicator_explanation import explanation
 
 
 def indicator(indicator: Indicator, language: str, _id_prefix: str) -> list:
-    title = [
-        """<div class="indicator-title">""",
-        f"""  {indicator.identifier} {indicator.title[language]}""",
-        """</div>""",
-    ]
+    title = classed_div("indicator-title", f"{indicator.identifier} {indicator.title[language]}")
     return sub_part(
         title,
         description(indicator.description, language),

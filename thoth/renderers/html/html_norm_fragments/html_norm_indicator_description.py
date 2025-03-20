@@ -4,11 +4,8 @@
 
 # own imports
 from model.multi_lingual_text import MultiLingualText
+from .html_norm__common import classed_div
 
 
 def description(text: MultiLingualText, language: str) -> list:
-    return [
-        "<div>",
-        text[language],
-        "</div>",
-    ]
+    return classed_div("", text[language])

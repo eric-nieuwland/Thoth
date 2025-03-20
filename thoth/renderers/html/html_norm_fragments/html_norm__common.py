@@ -20,47 +20,43 @@ def mono_lingual_list(texts: list[str]) -> list:
     ]
 
 
-# internal helpers
+# divs
 
-def _wrapper_div(div_class: str, lst: tuple) -> list:
+def classed_div(div_class: str, *lst: str) -> list:
     return [
-        f"""<div class="{div_class}">""",
+        f"""<div class="{div_class}">""" if div_class else "<div>",
         lst,
         f"""</div>""",
     ]
 
-def _title_div(div_class: str, title:str) -> list[str]:
-    return [
-        f"""<div class="{div_class}">""",
-        f"""  <p>{title}</p>""",
-        f"""</div>""",
-    ]
+def title_div(div_class: str, title:str) -> list[str]:
+    return classed_div(div_class, f"<p>{title}</p>")
 
 
 # parts
 
 def part(*lst) -> list:
-    return _wrapper_div("part", lst)
+    return classed_div("part", *lst)
 
 
 def part_title(title: str) -> list:
-    return _title_div("part-title", title)
+    return title_div("part-title", title)
 
 
 def sub_part(*lst) -> list:
-    return _wrapper_div("sub-part", lst)
+    return classed_div("sub-part", *lst)
 
 
 def sub_part_title(title: str) -> list:
-    return _title_div("sub-part-title", title)
+    return title_div("sub-part-title", title)
 
 
 def sub_sub_part(*lst) -> list:
-    return _wrapper_div("sub-sub-part", lst)
+    return classed_div("sub-sub-part", *lst)
 
 
 def sub_sub_part_title(title: str) -> list:
-    return _title_div("sub-sub-part-title", title)
+    return title_div("sub-sub-part-title", title)
 
 
 # tables

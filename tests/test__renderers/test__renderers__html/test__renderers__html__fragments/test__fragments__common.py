@@ -122,7 +122,7 @@ class TestWrapperDiv(unittest.TestCase):
             "foo",
         )
         # when
-        actual = html_norm__common._wrapper_div(div_class, lst)
+        actual = html_norm__common.classed_div(div_class, lst)
         # then
         expect = [
             '<div class="div_class">',
@@ -149,7 +149,7 @@ class TestTitleDiv(unittest.TestCase):
         div_class = "div_class"
         title = "baz bar foo"
         # when
-        actual = html_norm__common._title_div(div_class, title)
+        actual = html_norm__common.title_div(div_class, title)
         # then
         expect = [
             '<div class="div_class">',
