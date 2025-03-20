@@ -6,8 +6,11 @@ from pydantic import BaseModel
 import yaml
 
 # own imports
+from utils.flatten import flatten
+from utils.yaml_norm_beautifier import yaml_norm_beautifier
 from .driver import Driver
 from .indicator import Indicator
+from .meta import Meta
 from .multi_lingual_text import MultiLingualText
 from .reference import Reference
 from .utils import count_multi_lingual_helper
@@ -27,6 +30,11 @@ class Norm(BaseModel):
     indicators: list[Indicator]
     references: list[Reference] | None = None
 
+    # checks
+
+    def check_identifiers(self) -> list:
+        return flatten([indicator.check_identifiers([nr]) for nr, indicator in enumerate(self.indicators, 1)])
+
     # multi-lingual
 
     def count_multi_lingual(self) -> tuple[int, dict[str, int]]:
@@ -45,6 +53,26 @@ class Norm(BaseModel):
                 self.indicators,
                 self.references,
             ),
+        )
+
+    # split/merge
+
+    def isolate_language(self, language: str) -> Self:
+        """
+        A version of this norm, restricted to a single language
+        """
+        return self.__class__(
+            identifier=self.identifier,
+            title=self.title.isolate_language(language),
+            intro=self.intro.isolate_language(language),
+            scope=self.scope.isolate_language(language),
+            triggers=[trigger.isolate_language(language) for trigger in self.triggers],
+            criteria=[criterium.isolate_language(language) for criterium in self.criteria],
+            objectives=[objective.isolate_language(language) for objective in self.objectives],
+            risks=[risk.isolate_language(language) for risk in self.risks],
+            drivers=self.drivers,
+            indicators=[indicator.isolate_language(language) for indicator in self.indicators],
+            references=[reference.isolate_language(language) for reference in self.references] if self.references else None,
         )
 
     # template / example
@@ -97,4 +125,10 @@ class Norm(BaseModel):
         """
         the YAML definition of this norm
         """
-        return yaml.dump(self.model_dump(), default_flow_style=False, sort_keys=False)
+        return yaml_norm_beautifier(
+            yaml.safe_dump(
+                self.model_dump(by_alias=True),
+                default_flow_style=False,
+                sort_keys=False,
+            )
+        )

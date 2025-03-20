@@ -16,16 +16,16 @@ from . import html_norm_title
 from . import html_norm_triggers
 
 
-def render(norm: Norm, language: str) -> list:
+def norm(norm: Norm, language: str) -> list:
     return [
-        html_norm_title.render(norm, language),
-        html_norm_intro.render(norm, language),
-        html_norm_scope.render(norm, language),
-        html_norm_triggers.render(norm, language),
-        html_norm_criteria.render(norm, language),
-        html_norm_objectives.render(norm, language),
-        html_norm_risks.render(norm, language),
-        html_norm_drivers.render(norm, language),
-        html_norm_indicators.render(norm, language),
-        html_norm_references.render(norm, language),
+        html_norm_title.title(norm, language),
+        html_norm_intro.intro(norm, language),
+        html_norm_scope.scope(norm, language),
+        html_norm_triggers.triggers(norm, language),
+        html_norm_criteria.criteria(norm, language),
+        html_norm_objectives.objectives(norm, language),
+        html_norm_risks.risks(norm, language),
+        html_norm_drivers.drivers(norm, language),
+        html_norm_indicators.indicators(norm, language),
+        html_norm_references.references(norm, language),
     ]

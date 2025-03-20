@@ -1,4 +1,5 @@
 # standard library imports
+from typing import Self
 
 # third party imports
 from pydantic import BaseModel
@@ -24,6 +25,18 @@ class Reference(BaseModel):
             (
                 self.notes,
             ),
+        )
+
+    # split/merge
+
+    def isolate_language(self, language: str) -> Self:
+        """
+        A version of this reference, restricted to a single language
+        """
+        return self.__class__(
+            name=self.name,
+            url=self.url,
+            notes=[note.isolate_language(language) for note in self.notes] if self.notes else None
         )
 
     # template / example

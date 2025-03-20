@@ -34,7 +34,7 @@ def _references(references: list[Reference], language: str) -> list:
     ]
 
 
-def render(norm: Norm, language: str) -> list:
+def references(norm: Norm, language: str) -> list:
     return part(
         part_title("references"),
         _references(norm.references, language),

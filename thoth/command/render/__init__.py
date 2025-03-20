@@ -4,7 +4,7 @@
 import typer
 
 # own imports
-from .render_norm import render_norm
+from ..norm.render_norm import render_norm
 from .render_translation import render_translation
 
 

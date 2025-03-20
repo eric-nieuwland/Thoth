@@ -5,7 +5,7 @@
 # own imports
 
 
-def render() -> list[str]:
+def styles() -> list[str]:
     return [
         """
     <style>

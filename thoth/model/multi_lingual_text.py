@@ -4,17 +4,13 @@ from typing import Self
 # third party imports
 from pydantic import RootModel, model_validator
 
+# own imports
+from ._language import known_language_or_error
+
 
 __all__ = [
     "MultiLingualText",
 ]
-
-
-__LANGUAGE_CODES__ = {
-    # TODO: this should come from the outside, e.g. the configuration
-    "en",
-    "nl",
-}
 
 
 class MultiLingualText(RootModel):
@@ -26,13 +22,10 @@ class MultiLingualText(RootModel):
     @model_validator(mode="after")
     def check_values(self) -> Self:
         for key in self.root:
-            self.__check_language_code__(key)
+            known_language_or_error(key)
+        for key, value in self.root.items():
+            self.root[key] = " ".join(line.strip() for line in value.splitlines())
         return self
-
-    @staticmethod
-    def __check_language_code__(code: str):
-        if code not in __LANGUAGE_CODES__:
-            raise ValueError(f"'{code}' is not a valid language code")
 
     def __str__(self):
         return f"""<T|{
@@ -52,7 +45,7 @@ class MultiLingualText(RootModel):
         ).strip()
 
     def __setitem__(self, language: str, text: str):
-        self.__check_language_code__(language)
+        known_language_or_error(language)
         if language in self.root:
             raise KeyError(f"Text for '{language}' already set to '{self.root[language]}'")
         self.root[language] = text
@@ -61,6 +54,18 @@ class MultiLingualText(RootModel):
 
     def count_multi_lingual(self) -> tuple[int, dict[str, int]]:
         return 1, {language: 1 for language in self.root}
+
+    # split/merge
+
+    def isolate_language(self, language: str) -> Self:
+        """
+        A version of this text, restricted to a single language
+        """
+        return self.__class__(
+            {
+                language: self.root.get(language, "[text needed]")
+            }
+        )
 
     # template / example
 

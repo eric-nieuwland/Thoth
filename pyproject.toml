@@ -1,0 +1,23 @@
+[build-system]
+requires = [
+  "pip",
+]
+
+[project]
+name = "Thoth"
+description = "Make the Ma'at of Secure Software Development readable"
+readme = "README.md"
+authors = [
+  {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
+]
+maintainers = [
+  {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
+]
+requires-python = ">= 3.12"
+dependencies = [
+  "pydantic",
+  "python-docx",
+  "pyyaml",
+  "typer",
+]
+

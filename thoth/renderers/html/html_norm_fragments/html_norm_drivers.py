@@ -3,45 +3,31 @@
 # third party imports
 
 # own imports
-from model.driver import Driver
 from model.norm import Norm
-from .html_norm__common import part, part_title, sub_part, sub_part_title, table, table_row, table_cell
+from .html_norm__common import part, part_title, sub_part
+from .html_norm_driver import driver
 
 
-def _details(details: list[str] | None) -> list:
-    if details is None or len(details) == 0:
-        return []
-    return table(
-        *[
-            table_row(table_cell(detail)) for detail in details
-        ],
-    )
+def drivers(norm: Norm, language: str) -> list:
+    title = part_title("drivers")
+    if norm.drivers is None or len(norm.drivers) == 0:
+        return [title]
 
-
-def _driver(driver: Driver, _language: str, width: int, nr: int) -> list:
-    return [
-        f"""<td width="{"*" if nr == 0 else f"{width}%"}">""",
-        sub_part_title(driver.name),
-        _details(driver.details),
-        """</td>""",
-    ]
-
-
-def _drivers(drivers: list[Driver] | None, language: str) -> list:
-    if drivers is None or len(drivers) == 0:
-        return []
-    width = 100 // len(drivers)
-    return sub_part(
-        """  <table width="100%">""",
-        """    <tr>""",
-        [_driver(driver, language, width, nr) for nr, driver in enumerate(drivers)],
-        """    </tr>""",
-        """  </table>""",
-    )
-
-
-def render(norm: Norm, language: str) -> list:
+    width = 100 // len(norm.drivers)
     return part(
-        part_title("drivers"),
-        _drivers(norm.drivers, language),
+        title,
+        sub_part(
+            """<table width="100%">""",
+            "  <tr>",
+            [
+                [
+                    f"""    <td width="{"*" if nr == 0 else f"{width}%"}">""",
+                    driver(drvr, language),
+                    """    </td>""",
+                ]
+                for nr, drvr in enumerate(norm.drivers)
+            ],
+            "  </tr>",
+            "</table>",
+        ),
     )

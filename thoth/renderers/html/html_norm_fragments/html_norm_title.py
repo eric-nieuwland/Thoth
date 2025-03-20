@@ -6,7 +6,7 @@
 from model.norm import Norm
 
 
-def render(norm: Norm, language: str) -> list[str]:
+def title(norm: Norm, language: str) -> list[str]:
     return [
         """<div class="norm-title">""",
         f"  {norm.identifier} - {norm.title[language]}",

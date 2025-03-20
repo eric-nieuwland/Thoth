@@ -1,4 +1,5 @@
 # standard library imports
+from typing import Self
 
 # third party imports
 from pydantic import BaseModel
@@ -17,6 +18,16 @@ class Indicator(BaseModel):
     conformities: list[Conformity]
     explanation: MultiLingualText
 
+    # checks
+
+    def check_identifiers(self, nrs: list[int]) -> list:
+        return [
+            f"indicator #{nrs[-1]} has identifier '{self.identifier}'"
+            if f"{nrs[-1]:0{len(self.identifier)}d}" != self.identifier else
+            [],
+            [conformity.check_identifiers(nrs + [nr]) for nr, conformity in enumerate(self.conformities, 1)],
+        ]
+
     # multi-lingual
 
     def count_multi_lingual(self) -> tuple[int, dict[str, int]]:
@@ -30,6 +41,20 @@ class Indicator(BaseModel):
                 self.conformities,
                 self.explanation,
             ),
+        )
+
+    # split/merge
+
+    def isolate_language(self, language: str) -> Self:
+        """
+        A version of this indicator, restricted to a single language
+        """
+        return self.__class__(
+            identifier=self.identifier,
+            title=self.title.isolate_language(language),
+            description=self.description.isolate_language(language),
+            conformities=[conformity.isolate_language(language) for conformity in self.conformities],
+            explanation = self.explanation.isolate_language(language),
         )
 
     # template / example

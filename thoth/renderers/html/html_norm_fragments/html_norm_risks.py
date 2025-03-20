@@ -12,7 +12,7 @@ def _risks(risks: list[MultiLingualText], language: str) -> list:
     return multi_lingual_list(risks, language)
 
 
-def render(norm: Norm, language: str) -> list:
+def risks(norm: Norm, language: str) -> list:
     return part(
         part_title("risks"),
         _risks(norm.risks, language),

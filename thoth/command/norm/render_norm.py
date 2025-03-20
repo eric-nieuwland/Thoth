@@ -58,7 +58,7 @@ WARNING: language '{language}' incomplete in - {path}
 
     match format:
         case OutputFormat.HTML:
-            html = html_render_norm_page.render(norm, language)
+            html = html_render_norm_page.render(path.name, norm, language)
             writer(html)
         case _:
             print(f"cannot render .{format.value}, yet")

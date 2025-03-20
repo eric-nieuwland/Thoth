@@ -12,7 +12,7 @@ def _objectives(objectives: list[MultiLingualText], language: str) -> list:
     return multi_lingual_list(objectives, language)
 
 
-def render(norm: Norm, language: str) -> list:
+def objectives(norm: Norm, language: str) -> list:
     return part(
         part_title("objectives"),
         _objectives(norm.objectives, language),

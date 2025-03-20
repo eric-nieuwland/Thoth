@@ -12,7 +12,7 @@ def _criteria(criteria: list[MultiLingualText], language: str) -> list[str]:
     return multi_lingual_list(criteria, language)
 
 
-def render(norm: Norm, language: str) -> list:
+def criteria(norm: Norm, language: str) -> list:
     return part(
         part_title("criteria"),
         _criteria(norm.criteria, language),
