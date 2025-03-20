@@ -44,25 +44,25 @@ def styles() -> list[str]:
       .part {
         margin: 0px 6px;
       }
-      .part-title {
-        margin: 6px 0px;
-        font-weight: bold;
-        font-size: larger;
-      }
       .sub-part {
         margin: 16px 6px;
-      }
-      .sub-part-title {
-        margin: 6px 0px;
-        font-weight: bold;
-        font-size: medium;
       }
       .sub-sub-part {
         margin: 16px 0px;
       }
+      .part-title,
+      .sub-part-title,
       .sub-sub-part-title {
         margin: 6px 0px;
         font-weight: bold;
+      }
+      .part-title {
+        font-size: larger;
+      }
+      .sub-part-title {
+        font-size: medium;
+      }
+      .sub-sub-part-title {
         font-size: medium;
         color: #2E5E7E;
       }
