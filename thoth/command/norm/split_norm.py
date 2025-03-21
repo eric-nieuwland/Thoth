@@ -19,6 +19,7 @@ def split_norm(
         path: Path,
         language: str,
         output: Path | None = None,
+        rest: Path | None = None,
         force: bool = False,
 ):
     """
@@ -30,6 +31,9 @@ def split_norm(
 
     if output is not None and output.exists() and not force:
         print(f"file exists - {output}", file=sys.stderr)
+        sys.exit(1)
+    if rest is not None and rest.exists() and not force:
+        print(f"file exists - {rest}", file=sys.stderr)
         sys.exit(1)
 
     norm = Norm.from_yaml(path.open())
@@ -47,3 +51,27 @@ def split_norm(
 
     lang_norm = norm.isolate_language(language)
     writer(lang_norm.as_yaml())
+
+    if output is None and rest and str(rest).strip() == "-":
+        print("")
+        print(f"--- # isolated language '{language}' above - remaining languages below")
+        print("")
+
+    if rest:
+        retained_languages = [lang for lang in language_counts if lang != language]
+        if len(retained_languages) == 0:
+            # no languages left -> empty file
+            rest.write_text("")
+            sys.exit(0)
+        if len(retained_languages) == len(language_counts):
+            rest_norm = norm  # no need to get smart
+        else:
+            rest_norm = norm.isolate_language(retained_languages[0])
+            retained_languages.pop(0)
+            while retained_languages:
+                rest_norm = rest_norm | norm.isolate_language(retained_languages[0])
+                retained_languages.pop(0)
+
+        writer = print if str(rest).strip() == "-" else rest.write_text
+
+        writer(rest_norm.as_yaml())

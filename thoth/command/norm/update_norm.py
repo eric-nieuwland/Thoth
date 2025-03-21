@@ -1,4 +1,5 @@
 # standard library imports
+from enum import Enum
 from pathlib import Path
 import sys
 
@@ -15,14 +16,14 @@ def _report_issues(path: Path, issue_kind: str, issues: list[str]) -> None:
             print(f"  - {issue}")
 
 
-def join_norm(
+def update_norm(
         path1: Path,
         path2: Path,
         output: Path | None = None,
         force: bool = False,
 ):
     """
-    join two norms iff they only differ in language
+    update norm from a second norm
     """
     if not path1.is_file():
         print(f"so such file - {path1}", file=sys.stderr)
@@ -42,8 +43,16 @@ def join_norm(
 
     shared_languages = set(language_counts1) & set(language_counts2)
     if shared_languages:
-        print(f"shared languages '{"', '".join(sorted(shared_languages))}'", file=sys.stderr)
-        sys.exit(1)
+        retained_languages = list(set(language_counts1) - shared_languages)
+        if len(retained_languages) == 0:
+            print(f"'{path2}' completely replaces '{path1}'", file=sys.stderr)
+            sys.exit(1)
+        _norm1 = norm1.isolate_language(retained_languages[0])
+        retained_languages.pop(0)
+        while retained_languages:
+            _norm1 = _norm1 | norm1.isolate_language(retained_languages[0])
+            retained_languages.pop(0)
+        norm1 = _norm1
 
     try:
         new_norm = norm1 | norm2

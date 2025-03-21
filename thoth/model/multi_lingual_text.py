@@ -75,7 +75,8 @@ class MultiLingualText(RootModel):
     def join(cls, text1: MultiLingualText, text2: MultiLingualText) -> MultiLingualText:
         if len(set(text1.root) & set(text2.root)) > 0:
             raise ValueError("language overlap")
-        return cls(root=text1.root | text2.root)
+        # keep languages in alphabetical order
+        return cls(root=dict(sorted([*text1.root.items(), *text2.root.items()])))
 
     # template / example
 
