@@ -1,4 +1,5 @@
 # standard library imports
+from __future__ import annotations
 from typing import Self
 
 # third party imports
@@ -10,7 +11,6 @@ from utils.flatten import flatten
 from utils.yaml_norm_beautifier import yaml_norm_beautifier
 from .driver import Driver
 from .indicator import Indicator
-from .meta import Meta
 from .multi_lingual_text import MultiLingualText
 from .reference import Reference
 from .utils import count_multi_lingual_helper
@@ -73,6 +73,42 @@ class Norm(BaseModel):
             drivers=self.drivers,
             indicators=[indicator.isolate_language(language) for indicator in self.indicators],
             references=[reference.isolate_language(language) for reference in self.references] if self.references else None,
+        )
+
+    def __or__(self, other: Self) -> Self:
+        return self.join(self, other)
+
+    @classmethod
+    def join(cls, norm1: Norm, norm2: Norm) -> Norm:
+        if not all(
+            (
+                norm1.identifier == norm2.identifier,
+                len(norm1.triggers) == len(norm2.triggers),
+                len(norm1.criteria) == len(norm2.criteria),
+                len(norm1.objectives) == len(norm2.objectives),
+                len(norm1.risks) == len(norm2.risks),
+                norm1.drivers == norm2.drivers,
+                len(norm1.indicators) == len(norm2.indicators),
+                (
+                    (norm1.references is None and norm2.references is None) or
+                    len(norm1.references) == len(norm2.references)
+                ),
+            )
+        ):
+            raise ValueError("not equally structured")
+
+        return cls(
+            identifier=norm1.identifier,
+            title=norm1.title | norm2.title,
+            intro=norm1.intro | norm2.intro,
+            scope=norm1.scope | norm2.scope,
+            triggers=[trigger1 | trigger2 for trigger1, trigger2 in zip(norm1.triggers, norm2.triggers)],
+            criteria=[criterium1 | criterium2 for criterium1, criterium2 in zip(norm1.criteria, norm2.criteria)],
+            objectives=[objective1 | objective2 for objective1, objective2 in zip(norm1.objectives, norm2.objectives)],
+            risks=[risk1 | risk2 for risk1, risk2 in zip(norm1.risks, norm2.risks)],
+            drivers=norm1.drivers,
+            indicators=[indicator1 | indicator2 for indicator1, indicator2 in zip(norm1.indicators, norm2.indicators)],
+            references=[reference1 | reference2 for reference1, reference2 in zip(norm1.references, norm2.references)] if norm1.references else None,
         )
 
     # template / example

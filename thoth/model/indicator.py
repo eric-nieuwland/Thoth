@@ -1,4 +1,5 @@
 # standard library imports
+from __future__ import annotations
 from typing import Self
 
 # third party imports
@@ -55,6 +56,30 @@ class Indicator(BaseModel):
             description=self.description.isolate_language(language),
             conformities=[conformity.isolate_language(language) for conformity in self.conformities],
             explanation = self.explanation.isolate_language(language),
+        )
+
+    def __or__(self, other: Self) -> Self:
+        return self.join(self, other)
+
+    @classmethod
+    def join(cls, indicator1: Indicator, indicator2: Indicator) -> Indicator:
+        if not all(
+            (
+                    indicator1.identifier == indicator2.identifier,
+                    len(indicator1.conformities) == len(indicator2.conformities),
+            )
+        ):
+            raise ValueError("not equally structured")
+
+        return cls(
+            identifier=indicator1.identifier,
+            title=indicator1.title | indicator2.title,
+            description=indicator1.description | indicator2.description,
+            conformities=[
+                conformity1 | conformity2
+                for conformity1, conformity2 in zip(indicator1.conformities, indicator2.conformities)
+            ],
+            explanation=indicator1.explanation | indicator2.explanation,
         )
 
     # template / example

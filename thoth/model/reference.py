@@ -1,10 +1,12 @@
 # standard library imports
+from __future__ import annotations
 from typing import Self
 
 # third party imports
 from pydantic import BaseModel
 
 # own imports
+from utils.list_joiner import list_joiner
 from .multi_lingual_text import MultiLingualText
 from .utils import count_multi_lingual_helper
 
@@ -37,6 +39,29 @@ class Reference(BaseModel):
             name=self.name,
             url=self.url,
             notes=[note.isolate_language(language) for note in self.notes] if self.notes else None
+        )
+
+    def __or__(self, other: Self) -> Self:
+        return self.join(self, other)
+
+    @classmethod
+    def join(cls, reference1: Reference, reference2: Reference) -> Reference:
+        if not all(
+            (
+                reference1.name == reference2.name,
+                reference1.url == reference2.url,
+                (
+                    (reference1.notes is None and reference2.notes is None) or
+                    len(reference1.notes) == len(reference2.notes)
+                ),
+            )
+        ):
+            raise ValueError("not equally structured")
+
+        return cls(
+            name=reference1.name,
+            url=reference1.url,
+            notes=list_joiner(reference1.notes, reference2.notes),
         )
 
     # template / example

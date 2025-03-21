@@ -22,7 +22,7 @@ def split_norm(
         force: bool = False,
 ):
     """
-    split a specific langauge off a norm
+    split a specific language off a norm
     """
     if not path.is_file():
         print(f"so such file - {path}", file=sys.stderr)

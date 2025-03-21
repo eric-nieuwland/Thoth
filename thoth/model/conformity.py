@@ -1,4 +1,5 @@
 # standard library imports
+from __future__ import annotations
 from typing import Self
 
 # third party imports
@@ -34,6 +35,25 @@ class Conformity(BaseModel):
             identifier=self.identifier,
             description=self.description.isolate_language(language),
             guidance = self.guidance.isolate_language(language) if self.guidance else None,
+        )
+
+    def __or__(self, other: Self) -> Self:
+        return self.join(self, other)
+
+    @classmethod
+    def join(cls, conformity1: Conformity, conformity2: Conformity) -> Conformity:
+        if not all(
+            (
+                    conformity1.identifier == conformity2.identifier,
+                    (conformity1.guidance is None) == (conformity2.guidance is None),
+            )
+        ):
+            raise ValueError("not equally structured")
+
+        return cls(
+            identifier=conformity1.identifier,
+            description=conformity1.description | conformity2.description,
+            guidance=conformity1.guidance | conformity2.guidance if conformity1.guidance else None,
         )
 
     # multi-lingual

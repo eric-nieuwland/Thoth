@@ -1,4 +1,5 @@
 # standard library imports
+from __future__ import annotations
 from typing import Self
 
 # third party imports
@@ -66,6 +67,15 @@ class MultiLingualText(RootModel):
                 language: self.root.get(language, "[text needed]")
             }
         )
+
+    def __or__(self, other: Self) -> Self:
+        return self.join(self, other)
+
+    @classmethod
+    def join(cls, text1: MultiLingualText, text2: MultiLingualText) -> MultiLingualText:
+        if len(set(text1.root) & set(text2.root)) > 0:
+            raise ValueError("language overlap")
+        return cls(root=text1.root | text2.root)
 
     # template / example
 

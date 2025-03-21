@@ -26,14 +26,6 @@ def _x_difference(what: str, v1, v2) -> list:
     return [f"{what}: {v1} <-> {v2}"] if v1 != v2 else []
 
 
-def _x_meta(meta1: Meta, meta2: Meta) -> list:
-    return [
-        _x_difference("ssd-version", meta1.ssd_version, meta2.ssd_version),
-        _x_difference("status", meta1.status, meta2.status),
-        _x_difference("language", meta1.language, meta2.language),
-    ]
-
-
 def _x_identifier(id1: str, id2: str) -> list:
     return [
         _x_difference("identifier", id1, id2),
@@ -109,7 +101,6 @@ def xcheck_norm(path1: Path, path2: Path):
 
     differences = flatten(
         [
-            # _x_meta(norm1.meta, norm2.meta),
             _x_identifier(norm1.identifier, norm2.identifier),
             _x_drivers(norm1.drivers, norm2.drivers),
             _x_indicators(norm1.indicators, norm2.indicators),
