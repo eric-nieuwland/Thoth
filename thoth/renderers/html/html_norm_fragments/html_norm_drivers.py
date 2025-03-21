@@ -33,11 +33,9 @@ def drivers(norm: Norm, language: str) -> list:
 
     return part(
         title,
-        sub_part(
-            _equal_width_horizontal_layout(
-                [
-                    driver(drvr, language) for nr, drvr in enumerate(norm.drivers)
-                ]
-            ),
+        _equal_width_horizontal_layout(
+            [
+                driver(drvr, language) for nr, drvr in enumerate(norm.drivers)
+            ]
         ),
     )

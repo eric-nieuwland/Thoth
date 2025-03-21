@@ -30,7 +30,7 @@ def classed_div(div_class: str, *lst: str) -> list:
     ]
 
 def title_div(div_class: str, title:str) -> list[str]:
-    return classed_div(div_class, f"<p>{title}</p>")
+    return classed_div(div_class, title)
 
 
 # parts

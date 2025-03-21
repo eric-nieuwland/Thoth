@@ -31,7 +31,7 @@ def styles() -> list[str]:
         padding: 1px;
       }
       .norm-title {
-        margin: 12px 0px;
+        margin: 1em 0px;
         padding: 4px 6px;
         font-weight: bold;
         font-size: larger;
@@ -45,16 +45,21 @@ def styles() -> list[str]:
         margin: 0px 6px;
       }
       .sub-part {
-        margin: 16px 6px;
+        margin: 1em 6px;
       }
       .sub-sub-part {
-        margin: 16px 0px;
+        margin: 1em 0px;
       }
       .part-title,
       .sub-part-title,
       .sub-sub-part-title {
-        margin: 6px 0px;
+        margin: 1em 0px;
         font-weight: bold;
+      }
+      td > .part-title,
+      td > .sub-part-title,
+      td > .sub-sub-part-title {
+        margin: 0px;
       }
       .part-title {
         font-size: larger;
