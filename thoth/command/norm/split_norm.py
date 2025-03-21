@@ -35,10 +35,11 @@ def split_norm(
     norm = Norm.from_yaml(path.open())
     total, language_counts = norm.count_multi_lingual()
 
-    if language not in language_counts and not force:
+    count = language_counts.get(language)
+    if count is None and not force:
         print(f"language not in '{path}' - '{language}'", file=sys.stderr)
         sys.exit(1)
-    if language_counts[language] != total and not force:
+    if count is not None and count != total and not force:
         print(f"language incomplete in '{path}' - '{language}'", file=sys.stderr)
         sys.exit(1)
 
