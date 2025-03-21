@@ -8,6 +8,7 @@ import yaml
 
 # own imports
 from utils.flatten import flatten
+from utils.list_joiner import list_joiner
 from utils.yaml_norm_beautifier import yaml_norm_beautifier
 from .driver import Driver
 from .indicator import Indicator
@@ -102,13 +103,13 @@ class Norm(BaseModel):
             title=norm1.title | norm2.title,
             intro=norm1.intro | norm2.intro,
             scope=norm1.scope | norm2.scope,
-            triggers=[trigger1 | trigger2 for trigger1, trigger2 in zip(norm1.triggers, norm2.triggers)],
-            criteria=[criterium1 | criterium2 for criterium1, criterium2 in zip(norm1.criteria, norm2.criteria)],
-            objectives=[objective1 | objective2 for objective1, objective2 in zip(norm1.objectives, norm2.objectives)],
-            risks=[risk1 | risk2 for risk1, risk2 in zip(norm1.risks, norm2.risks)],
+            triggers=list_joiner(norm1.triggers, norm2.triggers),
+            criteria=list_joiner(norm1.criteria, norm2.criteria),
+            objectives=list_joiner(norm1.objectives, norm2.objectives),
+            risks=list_joiner(norm1.risks, norm2.risks),
             drivers=norm1.drivers,
-            indicators=[indicator1 | indicator2 for indicator1, indicator2 in zip(norm1.indicators, norm2.indicators)],
-            references=[reference1 | reference2 for reference1, reference2 in zip(norm1.references, norm2.references)] if norm1.references else None,
+            indicators=list_joiner(norm1.indicators, norm2.indicators),
+            references=list_joiner(norm1.references, norm2.references) if norm1.references else None,
         )
 
     # template / example

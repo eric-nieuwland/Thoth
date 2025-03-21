@@ -6,6 +6,7 @@ from typing import Self
 from pydantic import BaseModel
 
 # own imports
+from utils.list_joiner import list_joiner
 from .conformity import Conformity
 from .multi_lingual_text import MultiLingualText
 from .utils import count_multi_lingual_helper
@@ -75,10 +76,7 @@ class Indicator(BaseModel):
             identifier=indicator1.identifier,
             title=indicator1.title | indicator2.title,
             description=indicator1.description | indicator2.description,
-            conformities=[
-                conformity1 | conformity2
-                for conformity1, conformity2 in zip(indicator1.conformities, indicator2.conformities)
-            ],
+            conformities=list_joiner(indicator1.conformities, indicator2.conformities),
             explanation=indicator1.explanation | indicator2.explanation,
         )
 
