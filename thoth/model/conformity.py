@@ -27,14 +27,14 @@ class Conformity(BaseModel):
 
     # split/merge
 
-    def copy_for_language(self, language: str) -> Self:
+    def copy_for_language(self, *languages: str) -> Self:
         """
         A version of this conformity, restricted to a single language
         """
         return self.__class__(
             identifier=self.identifier,
-            description=self.description.copy_for_language(language),
-            guidance = self.guidance.copy_for_language(language) if self.guidance else None,
+            description=self.description.copy_for_language(*languages),
+            guidance = self.guidance.copy_for_language(*languages) if self.guidance else None,
         )
 
     def __or__(self, other: Self) -> Self:

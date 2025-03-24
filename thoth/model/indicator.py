@@ -47,16 +47,16 @@ class Indicator(BaseModel):
 
     # split/merge
 
-    def copy_for_language(self, language: str) -> Self:
+    def copy_for_language(self, *languages: str) -> Self:
         """
-        A version of this indicator, restricted to a single language
+        A version of this indicator, restricted in languages
         """
         return self.__class__(
             identifier=self.identifier,
-            title=self.title.copy_for_language(language),
-            description=self.description.copy_for_language(language),
-            conformities=[conformity.copy_for_language(language) for conformity in self.conformities],
-            explanation = self.explanation.copy_for_language(language),
+            title=self.title.copy_for_language(*languages),
+            description=self.description.copy_for_language(*languages),
+            conformities=[conformity.copy_for_language(*languages) for conformity in self.conformities],
+            explanation = self.explanation.copy_for_language(*languages),
         )
 
     def __or__(self, other: Self) -> Self:

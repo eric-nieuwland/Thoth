@@ -58,22 +58,22 @@ class Norm(BaseModel):
 
     # split/merge
 
-    def copy_for_language(self, language: str) -> Self:
+    def copy_for_language(self, *languages: str) -> Self:
         """
-        A version of this norm, restricted to a single language
+        A version of this norm, restricted in languages
         """
         return self.__class__(
             identifier=self.identifier,
-            title=self.title.copy_for_language(language),
-            intro=self.intro.copy_for_language(language),
-            scope=self.scope.copy_for_language(language),
-            triggers=[trigger.copy_for_language(language) for trigger in self.triggers],
-            criteria=[criterium.copy_for_language(language) for criterium in self.criteria],
-            objectives=[objective.copy_for_language(language) for objective in self.objectives],
-            risks=[risk.copy_for_language(language) for risk in self.risks],
+            title=self.title.copy_for_language(*languages),
+            intro=self.intro.copy_for_language(*languages),
+            scope=self.scope.copy_for_language(*languages),
+            triggers=[trigger.copy_for_language(*languages) for trigger in self.triggers],
+            criteria=[criterium.copy_for_language(*languages) for criterium in self.criteria],
+            objectives=[objective.copy_for_language(*languages) for objective in self.objectives],
+            risks=[risk.copy_for_language(*languages) for risk in self.risks],
             drivers=self.drivers,
-            indicators=[indicator.copy_for_language(language) for indicator in self.indicators],
-            references=[reference.copy_for_language(language) for reference in self.references] if self.references else None,
+            indicators=[indicator.copy_for_language(*languages) for indicator in self.indicators],
+            references=[reference.copy_for_language(*languages) for reference in self.references] if self.references else None,
         )
 
     def __or__(self, other: Self) -> Self:

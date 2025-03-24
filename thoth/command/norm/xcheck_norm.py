@@ -9,7 +9,6 @@ import sys
 from model.conformity import Conformity
 from model.driver import Driver
 from model.indicator import Indicator
-from model.meta import Meta
 from model.norm import Norm
 from utils.flatten import flatten
 

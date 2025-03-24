@@ -53,13 +53,14 @@ class MultiLingualText(RootModel):
 
     # split/merge
 
-    def copy_for_language(self, language: str) -> Self:
+    def copy_for_language(self, *languages: str) -> Self:
         """
-        A version of this text, restricted to a single language
+        A version of this text, restricted in languages
         """
         return self.__class__(
             {
                 language: self.root.get(language, template_text(language))
+                for language in languages
             }
         )
 

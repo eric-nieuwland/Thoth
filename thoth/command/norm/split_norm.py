@@ -36,6 +36,9 @@ def split_norm(
         print(f"file exists - {rest}", file=sys.stderr)
         sys.exit(1)
 
+    output_writer = None if output is None else (print if str(output).strip() == "-" else output.write_text)
+    rest_writer = None if rest is None else (print if str(rest).strip() == "-" else rest.write_text)
+
     norm = Norm.from_yaml(path.open())
     total, language_counts = norm.count_multi_lingual()
 
@@ -47,31 +50,19 @@ def split_norm(
         print(f"language incomplete in '{path}' - '{language}'", file=sys.stderr)
         sys.exit(1)
 
-    if output:
-        writer = print if str(output).strip() == "-" else output.write_text
+    if output_writer:
         lang_norm = norm.copy_for_language(language)
-        writer(lang_norm.as_yaml())
+        output_writer(lang_norm.as_yaml())
 
-    if output is None and rest and str(rest).strip() == "-":
-        print("")
-        print(f"--- # selected language '{language}' above - remaining languages below")
-        print("")
+    if output_writer == print and rest_writer == print:
+        print(f"\n\n--- # selected language '{language}' above - remaining languages below\n\n")
 
-    if rest:
+    if rest_writer:
         retained_languages = [lang for lang in language_counts if lang != language]
-        if len(retained_languages) == 0:
-            # no languages left -> empty file
-            rest.write_text("")
-            sys.exit(0)
-        if len(retained_languages) == len(language_counts):
-            rest_norm = norm  # no need to get smart
-        else:
-            rest_norm = norm.copy_for_language(retained_languages[0])
-            retained_languages.pop(0)
-            while retained_languages:
-                rest_norm = rest_norm | norm.copy_for_language(retained_languages[0])
-                retained_languages.pop(0)
-
-        writer = print if str(rest).strip() == "-" else rest.write_text
-
-        writer(rest_norm.as_yaml())
+        if len(retained_languages) > 0:  # non-empty rest
+            rest_norm = (
+                norm
+                if len(retained_languages) == len(language_counts) else
+                norm.copy_for_language(*retained_languages)
+            )
+            rest_writer(rest_norm.as_yaml())
