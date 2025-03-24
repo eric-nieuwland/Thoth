@@ -7,7 +7,7 @@ from pathlib import Path
 from model.norm import Norm
 
 
-def languages(path: Path):
+def languages_in_norm(path: Path):
     """
     which languages are in the document and in howmany translations is each language present?
     """
