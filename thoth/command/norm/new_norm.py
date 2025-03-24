@@ -8,7 +8,11 @@ import sys
 from model.norm import Norm
 
 
-def lorem_ipsum(output: Path | None = None, force: bool = False):
+def new_norm(
+        language: str,
+        output: Path | None = None,
+        force: bool = False,
+):
     """
     create a starting point for a norm definition
     """
@@ -18,4 +22,4 @@ def lorem_ipsum(output: Path | None = None, force: bool = False):
 
     writer = print if output is None else output.write_text
 
-    writer(Norm.lorem_ipsum().as_yaml())
+    writer(Norm.template(language).as_yaml())

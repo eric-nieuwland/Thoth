@@ -47,10 +47,10 @@ def update_norm(
         if len(retained_languages) == 0:
             print(f"'{path2}' completely replaces '{path1}'", file=sys.stderr)
             sys.exit(1)
-        _norm1 = norm1.isolate_language(retained_languages[0])
+        _norm1 = norm1.copy_for_language(retained_languages[0])
         retained_languages.pop(0)
         while retained_languages:
-            _norm1 = _norm1 | norm1.isolate_language(retained_languages[0])
+            _norm1 = _norm1 | norm1.copy_for_language(retained_languages[0])
             retained_languages.pop(0)
         norm1 = _norm1
 

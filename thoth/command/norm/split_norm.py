@@ -47,14 +47,14 @@ def split_norm(
         print(f"language incomplete in '{path}' - '{language}'", file=sys.stderr)
         sys.exit(1)
 
-    writer = print if output is None else output.write_text
-
-    lang_norm = norm.isolate_language(language)
-    writer(lang_norm.as_yaml())
+    if output:
+        writer = print if str(output).strip() == "-" else output.write_text
+        lang_norm = norm.copy_for_language(language)
+        writer(lang_norm.as_yaml())
 
     if output is None and rest and str(rest).strip() == "-":
         print("")
-        print(f"--- # isolated language '{language}' above - remaining languages below")
+        print(f"--- # selected language '{language}' above - remaining languages below")
         print("")
 
     if rest:
@@ -66,10 +66,10 @@ def split_norm(
         if len(retained_languages) == len(language_counts):
             rest_norm = norm  # no need to get smart
         else:
-            rest_norm = norm.isolate_language(retained_languages[0])
+            rest_norm = norm.copy_for_language(retained_languages[0])
             retained_languages.pop(0)
             while retained_languages:
-                rest_norm = rest_norm | norm.isolate_language(retained_languages[0])
+                rest_norm = rest_norm | norm.copy_for_language(retained_languages[0])
                 retained_languages.pop(0)
 
         writer = print if str(rest).strip() == "-" else rest.write_text

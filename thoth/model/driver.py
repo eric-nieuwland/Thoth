@@ -5,6 +5,7 @@ from typing import Self
 from pydantic import BaseModel
 
 # own imports
+from ._language import template_driver_text
 
 
 class Driver(BaseModel):
@@ -15,11 +16,12 @@ class Driver(BaseModel):
     # template / example
 
     @classmethod
-    def lorem_ipsum(cls):
+    def template(cls, language: str):
+        name, detail = template_driver_text(language)
         return cls(
-            name="driverius namum",
+            name=name,
             details=[
-                "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                detail.format(nr=1),
+                detail.format(nr=2),
             ]
         )

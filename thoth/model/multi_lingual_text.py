@@ -6,12 +6,7 @@ from typing import Self
 from pydantic import RootModel, model_validator
 
 # own imports
-from ._language import known_language_or_error
-
-
-__all__ = [
-    "MultiLingualText",
-]
+from ._language import known_language_or_error, template_text
 
 
 class MultiLingualText(RootModel):
@@ -58,13 +53,13 @@ class MultiLingualText(RootModel):
 
     # split/merge
 
-    def isolate_language(self, language: str) -> Self:
+    def copy_for_language(self, language: str) -> Self:
         """
         A version of this text, restricted to a single language
         """
         return self.__class__(
             {
-                language: self.root.get(language, "[text needed]")
+                language: self.root.get(language, template_text(language))
             }
         )
 
@@ -81,10 +76,9 @@ class MultiLingualText(RootModel):
     # template / example
 
     @classmethod
-    def lorem_ipsum(cls) -> Self:
+    def template(cls, language: str) -> Self:
         return cls(
             root={
-                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                language: template_text(language),
             }
         )

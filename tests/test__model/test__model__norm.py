@@ -5,18 +5,18 @@ from model.norm import Norm
 
 class TestNormLoremIpsum(unittest.TestCase):
     """
-    tests using the lorem_ipsum() function
+    tests using the template() function
     """
 
     def setUp(self):
         self.maxDiff = None
 
-    def test_lorem_ipsum_python(self):
+    def test_template_python(self):
         """
         conversion to plain Python objects
         """
         # given
-        norm = Norm.lorem_ipsum()
+        norm = Norm.template()
         # when
         actual = norm.model_dump()
         # then
@@ -162,12 +162,12 @@ class TestNormLoremIpsum(unittest.TestCase):
         }
         self.assertDictEqual(expect, actual)
 
-    def test_lorem_ipsum_yaml(self):
+    def test_template_yaml(self):
         """
         conversion to YAML definition
         """
         # given
-        norm = Norm.lorem_ipsum()
+        norm = Norm.template()
         # when
         actual = norm.as_yaml().strip()
         # then
@@ -259,12 +259,12 @@ references:
         """.strip()
         self.assertEqual(expect, actual)
 
-    def test_lorem_ipsum_full_circle(self):
+    def test_template_full_circle(self):
         """
         load YAML definition
         """
         # given
-        norm = Norm.lorem_ipsum()
+        norm = Norm.template()
         # when
         actual = Norm.from_yaml(norm.as_yaml())
         # then

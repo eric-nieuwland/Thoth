@@ -47,16 +47,16 @@ class Indicator(BaseModel):
 
     # split/merge
 
-    def isolate_language(self, language: str) -> Self:
+    def copy_for_language(self, language: str) -> Self:
         """
         A version of this indicator, restricted to a single language
         """
         return self.__class__(
             identifier=self.identifier,
-            title=self.title.isolate_language(language),
-            description=self.description.isolate_language(language),
-            conformities=[conformity.isolate_language(language) for conformity in self.conformities],
-            explanation = self.explanation.isolate_language(language),
+            title=self.title.copy_for_language(language),
+            description=self.description.copy_for_language(language),
+            conformities=[conformity.copy_for_language(language) for conformity in self.conformities],
+            explanation = self.explanation.copy_for_language(language),
         )
 
     def __or__(self, other: Self) -> Self:
@@ -83,16 +83,15 @@ class Indicator(BaseModel):
     # template / example
 
     @classmethod
-    def lorem_ipsum(cls):
-        multi_lingual_text = MultiLingualText.lorem_ipsum()
-        conformity = Conformity.lorem_ipsum()
+    def template(cls, language: str, identifier: str):
+        multi_lingual_text = MultiLingualText.template(language)
         return cls(
-            identifier="identificatio indicatros",
+            identifier=identifier,
             title=multi_lingual_text,
             description=multi_lingual_text,
             conformities=[
-                conformity,
-                conformity,
+                Conformity.template(language, "01"),
+                Conformity.template(language, "02"),
             ],
             explanation=multi_lingual_text,
         )

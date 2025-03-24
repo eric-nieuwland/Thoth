@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 # own imports
 from utils.list_joiner import list_joiner
+from ._language import template_reference_text
 from .multi_lingual_text import MultiLingualText
 from .utils import count_multi_lingual_helper
 
@@ -31,14 +32,14 @@ class Reference(BaseModel):
 
     # split/merge
 
-    def isolate_language(self, language: str) -> Self:
+    def copy_for_language(self, language: str) -> Self:
         """
         A version of this reference, restricted to a single language
         """
         return self.__class__(
             name=self.name,
             url=self.url,
-            notes=[note.isolate_language(language) for note in self.notes] if self.notes else None
+            notes=[note.copy_for_language(language) for note in self.notes] if self.notes else None
         )
 
     def __or__(self, other: Self) -> Self:
@@ -67,11 +68,11 @@ class Reference(BaseModel):
     # template / example
 
     @classmethod
-    def lorem_ipsum(cls):
+    def template(cls, language: str):
         return cls(
-            name="referentia namum",
-            url="http://loremipsum.io",
+            name=template_reference_text(language),
+            url="https://optional.url",
             notes=[
-                MultiLingualText.lorem_ipsum(),
+                MultiLingualText.template(language),
             ]
         )

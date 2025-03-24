@@ -58,22 +58,22 @@ class Norm(BaseModel):
 
     # split/merge
 
-    def isolate_language(self, language: str) -> Self:
+    def copy_for_language(self, language: str) -> Self:
         """
         A version of this norm, restricted to a single language
         """
         return self.__class__(
             identifier=self.identifier,
-            title=self.title.isolate_language(language),
-            intro=self.intro.isolate_language(language),
-            scope=self.scope.isolate_language(language),
-            triggers=[trigger.isolate_language(language) for trigger in self.triggers],
-            criteria=[criterium.isolate_language(language) for criterium in self.criteria],
-            objectives=[objective.isolate_language(language) for objective in self.objectives],
-            risks=[risk.isolate_language(language) for risk in self.risks],
+            title=self.title.copy_for_language(language),
+            intro=self.intro.copy_for_language(language),
+            scope=self.scope.copy_for_language(language),
+            triggers=[trigger.copy_for_language(language) for trigger in self.triggers],
+            criteria=[criterium.copy_for_language(language) for criterium in self.criteria],
+            objectives=[objective.copy_for_language(language) for objective in self.objectives],
+            risks=[risk.copy_for_language(language) for risk in self.risks],
             drivers=self.drivers,
-            indicators=[indicator.isolate_language(language) for indicator in self.indicators],
-            references=[reference.isolate_language(language) for reference in self.references] if self.references else None,
+            indicators=[indicator.copy_for_language(language) for indicator in self.indicators],
+            references=[reference.copy_for_language(language) for reference in self.references] if self.references else None,
         )
 
     def __or__(self, other: Self) -> Self:
@@ -115,13 +115,13 @@ class Norm(BaseModel):
     # template / example
 
     @classmethod
-    def lorem_ipsum(cls) -> Self:
+    def template(cls, language: str) -> Self:
         """
         Norm with random content to serve as a template/example.
         """
-        multi_lingual_text = MultiLingualText.lorem_ipsum()
+        multi_lingual_text = MultiLingualText.template(language)
         return cls(
-            identifier="identifioram normii",
+            identifier="|[ norm identifier ]|",
             title=multi_lingual_text,
             intro=multi_lingual_text,
             scope=multi_lingual_text,
@@ -138,14 +138,14 @@ class Norm(BaseModel):
                 multi_lingual_text,
             ],
             drivers=[
-                Driver.lorem_ipsum(),
+                Driver.template(language),
             ],
             indicators=[
-                Indicator.lorem_ipsum(),
-                Indicator.lorem_ipsum(),
+                Indicator.template(language, "01"),
+                Indicator.template(language, "02"),
             ],
             references=[
-                Reference.lorem_ipsum(),
+                Reference.template(language),
             ],
         )
 

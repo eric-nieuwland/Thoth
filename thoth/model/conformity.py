@@ -27,14 +27,14 @@ class Conformity(BaseModel):
 
     # split/merge
 
-    def isolate_language(self, language: str) -> Self:
+    def copy_for_language(self, language: str) -> Self:
         """
         A version of this conformity, restricted to a single language
         """
         return self.__class__(
             identifier=self.identifier,
-            description=self.description.isolate_language(language),
-            guidance = self.guidance.isolate_language(language) if self.guidance else None,
+            description=self.description.copy_for_language(language),
+            guidance = self.guidance.copy_for_language(language) if self.guidance else None,
         )
 
     def __or__(self, other: Self) -> Self:
@@ -72,10 +72,10 @@ class Conformity(BaseModel):
     # template / example
 
     @classmethod
-    def lorem_ipsum(cls):
-        multi_lingual_text = MultiLingualText.lorem_ipsum()
+    def template(cls, language: str, identifier: str):
+        multi_lingual_text = MultiLingualText.template(language)
         return cls(
-            identifier="identia conformus",
+            identifier=identifier,
             description=multi_lingual_text,
             guidance=multi_lingual_text,
         )
