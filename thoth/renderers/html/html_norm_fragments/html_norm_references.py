@@ -3,17 +3,17 @@
 # third party imports
 
 # own imports
-from model.norm import Norm
+from model.reference import Reference
 from .html_norm__common import part, part_title
 from .html_norm_reference import reference
 
 
-def references(norm: Norm, language: str) -> list:
+def references(references: list[Reference] | None, language: str) -> list:
     title = part_title("references")
-    if not norm.references:
+    if not references:
         return [title]
 
     return part(
         title,
-        [reference(ref, language) for ref in norm.references],
+        [reference(ref, language) for ref in references],
     )

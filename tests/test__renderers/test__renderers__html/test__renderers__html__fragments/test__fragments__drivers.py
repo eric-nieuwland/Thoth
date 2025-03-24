@@ -9,191 +9,226 @@ class TestDrivers(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    def test_none(self):
+    @patch.object(html_norm_drivers, "driver")
+    @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
+    def test_none(self, mock_equal_width_horizontal_layout, mock_driver):
+        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
+        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
         # given
-        drivers = None
+        norm = MagicMock()
+        norm.drivers = []
         language = "py"
         # when
-        actual = html_norm_drivers._drivers(drivers, language)
+        actual = html_norm_drivers.drivers(norm, language)
         # then
         expect = []
+        self.assertListEqual(expect, mock_driver.mock_calls)
+        self.assertListEqual(expect, mock_equal_width_horizontal_layout.mock_calls)
+        expect = [
+            [
+                '<div class="part-title">',
+                (
+                    "drivers",
+                ),
+                "</div>",
+            ],
+        ]
         self.assertListEqual(expect, actual)
 
-    def test_empty(self):
+    @patch.object(html_norm_drivers, "driver")
+    @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
+    def test_empty(self, mock_equal_width_horizontal_layout, mock_driver):
+        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
+        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
         # given
-        drivers = []
+        norm = MagicMock()
+        norm.drivers = []
         language = "py"
         # when
-        actual = html_norm_drivers._drivers(drivers, language)
+        actual = html_norm_drivers.drivers(norm, language)
         # then
         expect = []
+        self.assertListEqual(expect, mock_driver.mock_calls)
+        self.assertListEqual(expect, mock_equal_width_horizontal_layout.mock_calls)
+        expect = [
+            [
+                '<div class="part-title">',
+                (
+                    "drivers",
+                ),
+                "</div>",
+            ],
+        ]
         self.assertListEqual(expect, actual)
 
-    @patch.object(html_norm_drivers, "_driver")
-    def test_one(self, mock_driver):
-        mock_driver.side_effect = lambda *args: [f"{args}"]
+    @patch.object(html_norm_drivers, "driver")
+    @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
+    def test_one(self, mock_equal_width_horizontal_layout, mock_driver):
+        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
+        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
         # given
         drivers = [
-            "foo",
+            "Driver #1",
         ]
         language = "py"
         # when
-        actual = html_norm_drivers._drivers(drivers, language)
+        actual = html_norm_drivers.drivers(drivers, language)
         # then
         expect = [
-            call("foo", "py", 100, 0),
+            call("Driver #1", "py"),
         ]
         self.assertListEqual(expect, mock_driver.mock_calls)
         expect = [
-            '<div class="sub-part">',
-            (
-                '  <table width="100%">',
-                '    <tr>',
+            call(
                 [
-                    ["('foo', 'py', 100, 0)"],
+                    "MOCK driver('Driver #1', 'py')",
                 ],
-                '    </tr>',
-                '  </table>',
             ),
-            '</div>',
+        ]
+        self.assertListEqual(expect, mock_equal_width_horizontal_layout.mock_calls)
+        expect = [
+            '<div class="part">',
+            (
+                [
+                    '<div class="part-title">',
+                    (
+                        "drivers",
+                    ),
+                    "</div>",
+                ],
+                'MOCK _equal_width_horizontal_layout('
+                '['
+                '"MOCK driver(\'Driver #1\', \'py\')"'
+                ']'
+                ')',
+            ),
+            "</div>",
         ]
         self.assertListEqual(expect, actual)
 
-    @patch.object(html_norm_drivers, "_driver")
-    def test_some(self, mock_driver):
-        mock_driver.side_effect = lambda *args: [f"{args}"]
+    @patch.object(html_norm_drivers, "driver")
+    @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
+    def test_some(self, mock_equal_width_horizontal_layout, mock_driver):
+        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
+        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
         # given
         drivers = [
-            "foo",
-            "bar",
-            "baz",
+            "Driver #1",
+            "Driver #2",
+            "Driver #3",
         ]
         language = "py"
         # when
-        actual = html_norm_drivers._drivers(drivers, language)
+        actual = html_norm_drivers.drivers(drivers, language)
         # then
         expect = [
-            call("foo", "py", 33, 0),
-            call("bar", "py", 33, 1),
-            call("baz", "py", 33, 2),
+            call("Driver #1", "py"),
+            call("Driver #2", "py"),
+            call("Driver #3", "py"),
         ]
         self.assertListEqual(expect, mock_driver.mock_calls)
         expect = [
-            '<div class="sub-part">',
-            (
-                '  <table width="100%">',
-                '    <tr>',
+            call(
                 [
-                    ["('foo', 'py', 33, 0)"],
-                    ["('bar', 'py', 33, 1)"],
-                    ["('baz', 'py', 33, 2)"],
+                    "MOCK driver('Driver #1', 'py')",
+                    "MOCK driver('Driver #2', 'py')",
+                    "MOCK driver('Driver #3', 'py')",
                 ],
-                '    </tr>',
-                '  </table>',
             ),
-            '</div>',
+        ]
+        self.assertListEqual(expect, mock_equal_width_horizontal_layout.mock_calls)
+        expect = [
+            '<div class="part">',
+            (
+                [
+                    '<div class="part-title">',
+                    (
+                        "drivers",
+                    ),
+                    "</div>",
+                ],
+                'MOCK _equal_width_horizontal_layout('
+                '['
+                '"MOCK driver(\'Driver #1\', \'py\')", '
+                '"MOCK driver(\'Driver #2\', \'py\')", '
+                '"MOCK driver(\'Driver #3\', \'py\')"'
+                ']'
+                ')',
+            ),
+            "</div>",
         ]
         self.assertListEqual(expect, actual)
 
 
-class TestDetails(unittest.TestCase):
+class TestEqualWidthHorizontalLayout(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
 
-    def test_none(self):
-        # given
-        details = None
-        # when
-        actual = html_norm_drivers._details(details)
-        # then
-        expect = []
-        self.assertListEqual(expect, actual)
-
     def test_empty(self):
         # given
-        details = []
+        elements = []
         # when
-        actual = html_norm_drivers._details(details)
+        actual = html_norm_drivers._equal_width_horizontal_layout(elements)
         # then
         expect = []
         self.assertListEqual(expect, actual)
 
     def test_one(self):
         # given
-        details = [
+        elements = [
             "foo",
         ]
         # when
-        actual = html_norm_drivers._details(details)
+        actual = html_norm_drivers._equal_width_horizontal_layout(elements)
         # then
         expect = [
-            '<table>',
-            (
+            """<table width="100%">""",
+            "  <tr>",
+            [
                 [
-                    '<tr>',
-                    (
-                        [
-                            '<td>',
-                            ('foo',),
-                            '</td>'
-                        ],
-                    ),
-                    '</tr>'
+                    f"""    <td width="*">""",
+                    "foo",
+                    """    </td>""",
                 ],
-            ),
-            '</table>',
+            ],
+            "  </tr>",
+            "</table>",
         ]
         self.assertListEqual(expect, actual)
 
     def test_some(self):
         # given
-        details = [
+        elements = [
             "foo",
             "bar",
             "baz",
         ]
         # when
-        actual = html_norm_drivers._details(details)
+        actual = html_norm_drivers._equal_width_horizontal_layout(elements)
         # then
         expect = [
-            '<table>',
-            (
+            """<table width="100%">""",
+            "  <tr>",
+            [
                 [
-                    '<tr>',
-                    (
-                        [
-                            '<td>',
-                            ('foo',),
-                            '</td>'
-                        ],
-                    ),
-                    '</tr>'
+                    f"""    <td width="*">""",
+                    "foo",
+                    """    </td>""",
                 ],
                 [
-                    '<tr>',
-                    (
-                        [
-                            '<td>',
-                            ('bar',),
-                            '</td>'
-                        ],
-                    ),
-                    '</tr>'
+                    f"""    <td width="33%">""",
+                    "bar",
+                    """    </td>""",
                 ],
                 [
-                    '<tr>',
-                    (
-                        [
-                            '<td>',
-                            ('baz',),
-                            '</td>'
-                        ],
-                    ),
-                    '</tr>'
+                    f"""    <td width="33%">""",
+                    "baz",
+                    """    </td>""",
                 ],
-            ),
-            '</table>',
+            ],
+            "  </tr>",
+            "</table>",
         ]
         self.assertListEqual(expect, actual)
 

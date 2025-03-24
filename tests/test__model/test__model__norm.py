@@ -3,7 +3,7 @@ import unittest
 
 from model.norm import Norm
 
-class TestNormLoremIpsum(unittest.TestCase):
+class TestTemplate(unittest.TestCase):
     """
     tests using the template() function
     """
@@ -16,145 +16,123 @@ class TestNormLoremIpsum(unittest.TestCase):
         conversion to plain Python objects
         """
         # given
-        norm = Norm.template()
+        norm = Norm.template("en")
         # when
         actual = norm.model_dump()
         # then
         expect = {
-            "identifier": "identifioram normii",
+            "identifier": "|[ norm identifier ]|",
             "title": {
-                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                "en": "|[ please fill with text ]|",
             },
             "intro": {
-                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                "en": "|[ please fill with text ]|",
             },
             "scope": {
-                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                "en": "|[ please fill with text ]|",
             },
             "triggers": [
                 {
-                    "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                    "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                    "en": "|[ please fill with text ]|",
                 },
             ],
             "criteria": [
                 {
-                    "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                    "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                    "en": "|[ please fill with text ]|",
                 },
             ],
             "objectives": [
                 {
-                    "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                    "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                    "en": "|[ please fill with text ]|",
                 },
             ],
             "risks": [
                 {
-                    "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                    "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                    "en": "|[ please fill with text ]|",
                 },
             ],
             "drivers": [
                 {
-                    "name": "driverius namum",
+                    "name": "|[ please name driver ]|",
                     "details": [
-                        "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                        "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                        "|[ driver detail #1 ]|",
+                        "|[ driver detail #2 ]|",
                     ],
                 },
             ],
             "indicators": [
                 {
-                    "identifier": "identificatio indicatros",
+                    "identifier": "01",
                     "title": {
-                        "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                        "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                        "en": "|[ please fill with text ]|",
                     },
                     "description": {
-                        "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                        "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                        "en": "|[ please fill with text ]|",
                     },
                     "conformities": [
                         {
-                            "identifier": "identia conformus",
+                            "identifier": "01",
                             "description": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                             "guidance": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                         },
                         {
-                            "identifier": "identia conformus",
+                            "identifier": "02",
                             "description": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                             "guidance": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                         },
                     ],
                     "explanation": {
-                        "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                        "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                        "en": "|[ please fill with text ]|",
                     },
                 },
                 {
-                    "identifier": "identificatio indicatros",
+                    "identifier": "02",
                     "title": {
-                        "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                        "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                        "en": "|[ please fill with text ]|",
                     },
                     "description": {
-                        "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                        "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                        "en": "|[ please fill with text ]|",
                     },
                     "conformities": [
                         {
-                            "identifier": "identia conformus",
+                            "identifier": "01",
                             "description": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                             "guidance": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                         },
                         {
-                            "identifier": "identia conformus",
+                            "identifier": "02",
                             "description": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                             "guidance": {
-                                "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                                "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                                "en": "|[ please fill with text ]|",
                             },
                         },
                     ],
                     "explanation": {
-                        "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                        "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                        "en": "|[ please fill with text ]|",
                     },
                 },
             ],
             "references": [
                 {
-                    "name": "referentia namum",
-                    "url": "http://loremipsum.io",
+                    "name": "|[ please name reference ]|",
+                    "url": "https://optional.url",
                     "notes": [
                         {
-                            "en": "Lorem ipsum odor amet, consectetuer adipiscing elit.",
-                            "nl": "Ut odio quis primis tortor phasellus nisl aptent auctor a.",
+                            "en": "|[ please fill with text ]|",
                         },
                     ],
                 },
@@ -167,96 +145,99 @@ class TestNormLoremIpsum(unittest.TestCase):
         conversion to YAML definition
         """
         # given
-        norm = Norm.template()
+        norm = Norm.template("en")
         # when
         actual = norm.as_yaml().strip()
         # then
         expect = """
-identifier: identifioram normii
+identifier: '|[ norm identifier ]|'
+
 title:
-  en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-  nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+  en: '|[ please fill with text ]|'
+
 intro:
-  en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-  nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+  en: '|[ please fill with text ]|'
+
 scope:
-  en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-  nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+  en: '|[ please fill with text ]|'
+
 triggers:
-- en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-  nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+- en: '|[ please fill with text ]|'
+
 criteria:
-- en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-  nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+- en: '|[ please fill with text ]|'
+
 objectives:
-- en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-  nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+- en: '|[ please fill with text ]|'
+
 risks:
-- en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-  nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+- en: '|[ please fill with text ]|'
+
 drivers:
-- name: driverius namum
+
+- name: '|[ please name driver ]|'
   details:
-  - Lorem ipsum odor amet, consectetuer adipiscing elit.
-  - Ut odio quis primis tortor phasellus nisl aptent auctor a.
+  - '|[ driver detail #1 ]|'
+  - '|[ driver detail #2 ]|'
+
 indicators:
-- identifier: identificatio indicatros
+# ============================================================================
+- identifier: '01'
   title:
-    en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-    nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+    en: '|[ please fill with text ]|'
   description:
-    en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-    nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+    en: '|[ please fill with text ]|'
+
   conformities:
-  - identifier: identia conformus
+  # ------------------------------------------
+  - identifier: '01'
     description:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+      en: '|[ please fill with text ]|'
     guidance:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
-  - identifier: identia conformus
+      en: '|[ please fill with text ]|'
+  # ------------------------------------------
+  - identifier: '02'
     description:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+      en: '|[ please fill with text ]|'
     guidance:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+      en: '|[ please fill with text ]|'
+  # ------------------------------------------
+
   explanation:
-    en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-    nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
-- identifier: identificatio indicatros
+    en: '|[ please fill with text ]|'
+# ============================================================================
+- identifier: '02'
   title:
-    en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-    nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+    en: '|[ please fill with text ]|'
   description:
-    en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-    nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+    en: '|[ please fill with text ]|'
+
   conformities:
-  - identifier: identia conformus
+  # ------------------------------------------
+  - identifier: '01'
     description:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+      en: '|[ please fill with text ]|'
     guidance:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
-  - identifier: identia conformus
+      en: '|[ please fill with text ]|'
+  # ------------------------------------------
+  - identifier: '02'
     description:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+      en: '|[ please fill with text ]|'
     guidance:
-      en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-      nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+      en: '|[ please fill with text ]|'
+  # ------------------------------------------
+
   explanation:
-    en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-    nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
+    en: '|[ please fill with text ]|'
+# ============================================================================
+
 references:
-- name: referentia namum
-  url: http://loremipsum.io
+
+- name: '|[ please name reference ]|'
+  url: https://optional.url
   notes:
-  - en: Lorem ipsum odor amet, consectetuer adipiscing elit.
-    nl: Ut odio quis primis tortor phasellus nisl aptent auctor a.
-        """.strip()
+  - en: '|[ please fill with text ]|'
+""".strip()
         self.assertEqual(expect, actual)
 
     def test_template_full_circle(self):
@@ -264,7 +245,7 @@ references:
         load YAML definition
         """
         # given
-        norm = Norm.template()
+        norm = Norm.template("en")
         # when
         actual = Norm.from_yaml(norm.as_yaml())
         # then

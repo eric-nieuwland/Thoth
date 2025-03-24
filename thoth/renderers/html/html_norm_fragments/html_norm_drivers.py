@@ -3,12 +3,14 @@
 # third party imports
 
 # own imports
-from model.norm import Norm
+from model.driver import Driver
 from .html_norm__common import part, part_title, sub_part
 from .html_norm_driver import driver
 
 
 def _equal_width_horizontal_layout(elements: list) -> list:
+    if len(elements) == 0:
+        return []
     width = 100 // len(elements)
     return [
         """<table width="100%">""",
@@ -26,16 +28,16 @@ def _equal_width_horizontal_layout(elements: list) -> list:
     ]
 
 
-def drivers(norm: Norm, language: str) -> list:
+def drivers(drivers: list[Driver] | None, language: str) -> list:
     title = part_title("drivers")
-    if norm.drivers is None or len(norm.drivers) == 0:
+    if drivers is None or len(drivers) == 0:
         return [title]
 
     return part(
         title,
         _equal_width_horizontal_layout(
             [
-                driver(drvr, language) for nr, drvr in enumerate(norm.drivers)
+                driver(drvr, language) for nr, drvr in enumerate(drivers)
             ]
         ),
     )

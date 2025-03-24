@@ -105,7 +105,7 @@ class TestMultiLingualList(unittest.TestCase):
         self.assertListEqual(expect, actual)
 
 
-class TestWrapperDiv(unittest.TestCase):
+class TestClassedDiv(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
@@ -122,7 +122,7 @@ class TestWrapperDiv(unittest.TestCase):
             "foo",
         )
         # when
-        actual = html_norm__common.classed_div(div_class, lst)
+        actual = html_norm__common.classed_div(div_class, *lst)
         # then
         expect = [
             '<div class="div_class">',
@@ -153,7 +153,7 @@ class TestTitleDiv(unittest.TestCase):
         # then
         expect = [
             '<div class="div_class">',
-            "  <p>baz bar foo</p>",
+            ("baz bar foo",),
             "</div>",
         ]
         self.assertListEqual(expect, actual)
