@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 
 # third party imports
+from yaml.scanner import ScannerError
 
 # own imports
 from model.norm import Norm

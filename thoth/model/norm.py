@@ -1,10 +1,12 @@
 # standard library imports
 from __future__ import annotations
+import sys
 from typing import Self
 
 # third party imports
 from pydantic import BaseModel
 import yaml
+from yaml.scanner import ScannerError
 
 # own imports
 from utils.flatten import flatten
@@ -152,11 +154,18 @@ class Norm(BaseModel):
     # YAML interface
 
     @classmethod
-    def from_yaml(cls, yaml_src) -> Self:
+    def from_yaml(cls, yaml_src, exit_on_error: bool = True) -> Self:
         """
         create a Norm from its YAML definition
         """
-        return cls.model_validate(yaml.safe_load(yaml_src))
+        try:
+            return cls.model_validate(yaml.safe_load(yaml_src))
+        except ScannerError as err:
+            if exit_on_error:
+                print(f"error loading norm: {err}")
+                sys.exit(1)
+            else:
+                raise ScannerError(str(err)) from None
 
     def as_yaml(self) -> str:
         """
