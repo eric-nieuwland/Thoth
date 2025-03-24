@@ -169,16 +169,14 @@ class TestEqualWidthHorizontalLayout(unittest.TestCase):
         actual = html_norm_drivers._equal_width_horizontal_layout(elements)
         # then
         expect = [
-            """<table width="100%">""",
-            "  <tr>",
+            '<table width="100%">',
+            "<tr>",
             [
-                [
-                    f"""    <td width="*">""",
-                    "foo",
-                    """    </td>""",
-                ],
+                '<td width="*">',
+                "foo",
+                "</td>",
             ],
-            "  </tr>",
+            "</tr>",
             "</table>",
         ]
         self.assertListEqual(expect, actual)
@@ -194,26 +192,24 @@ class TestEqualWidthHorizontalLayout(unittest.TestCase):
         actual = html_norm_drivers._equal_width_horizontal_layout(elements)
         # then
         expect = [
-            """<table width="100%">""",
-            "  <tr>",
+            '<table width="100%">',
+            "<tr>",
             [
-                [
-                    f"""    <td width="*">""",
-                    "foo",
-                    """    </td>""",
-                ],
-                [
-                    f"""    <td width="33%">""",
-                    "bar",
-                    """    </td>""",
-                ],
-                [
-                    f"""    <td width="33%">""",
-                    "baz",
-                    """    </td>""",
-                ],
+                '<td width="*">',
+                "foo",
+                "</td>",
             ],
-            "  </tr>",
+            [
+                '<td width="33%">',
+                "bar",
+                "</td>",
+            ],
+            [
+                f'<td width="33%">',
+                "baz",
+                "</td>",
+            ],
+            "</tr>",
             "</table>",
         ]
         self.assertListEqual(expect, actual)

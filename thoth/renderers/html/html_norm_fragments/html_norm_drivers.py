@@ -13,17 +13,17 @@ def _equal_width_horizontal_layout(elements: list) -> list:
         return []
     width = 100 // len(elements)
     return [
-        """<table width="100%">""",
-        "  <tr>",
-        [
+        '<table width="100%">',
+        "<tr>",
+        *[
             [
-                f"""    <td width="{"*" if nr == 0 else f"{width}%"}">""",
+                f'<td width="{"*" if nr == 0 else f"{width}%"}">',
                 element,
-                """    </td>""",
+                "</td>",
             ]
             for nr, element in enumerate(elements)
         ],
-        "  </tr>",
+        "</tr>",
         "</table>",
     ]
 
