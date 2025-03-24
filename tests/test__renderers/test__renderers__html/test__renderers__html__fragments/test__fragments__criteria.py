@@ -24,16 +24,12 @@ class TestCriteria(unittest.TestCase):
         self.assertListEqual(expect, mock_multi_lingual_list.mock_calls)
         expect = [
             '<div class="part">',
-            (
-                [
-                    '<div class="part-title">',
-                    (
-                        "criteria",
-                    ),
-                    "</div>",
-                ],
-                "MOCK multi_lingual_list([], py)",
-            ),
+            [
+                '<div class="part-title">',
+                "criteria",
+                "</div>",
+            ],
+            "MOCK multi_lingual_list([], py)",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -60,16 +56,12 @@ class TestCriteria(unittest.TestCase):
         self.assertListEqual(expect, mock_multi_lingual_list.mock_calls)
         expect = [
             '<div class="part">',
-            (
-                [
-                    '<div class="part-title">',
-                    (
-                        "criteria",
-                    ),
-                    "</div>",
-                ],
-                "MOCK multi_lingual_list(['Criterium #1'], py)",
-            ),
+            [
+                '<div class="part-title">',
+                "criteria",
+                "</div>",
+            ],
+            "MOCK multi_lingual_list(['Criterium #1'], py)",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -100,16 +92,12 @@ class TestCriteria(unittest.TestCase):
         self.assertListEqual(expect, mock_multi_lingual_list.mock_calls)
         expect = [
             '<div class="part">',
-            (
-                [
-                    '<div class="part-title">',
-                    (
-                        "criteria",
-                    ),
-                    "</div>",
-                ],
-                "MOCK multi_lingual_list(['Criterium #1', 'Criterium #2', 'Criterium #3'], py)",
-            ),
+            [
+                '<div class="part-title">',
+                "criteria",
+                "</div>",
+            ],
+            "MOCK multi_lingual_list(['Criterium #1', 'Criterium #2', 'Criterium #3'], py)",
             "</div>",
         ]
         self.assertListEqual(expect, actual)

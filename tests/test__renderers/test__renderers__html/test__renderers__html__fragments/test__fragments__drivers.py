@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch, call
+from unittest.mock import patch, call
 
 from renderers.html.html_norm_fragments import html_norm_drivers
 
@@ -15,11 +15,10 @@ class TestDrivers(unittest.TestCase):
         mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
         mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
         # given
-        norm = MagicMock()
-        norm.drivers = []
+        drivers = []
         language = "py"
         # when
-        actual = html_norm_drivers.drivers(norm, language)
+        actual = html_norm_drivers.drivers(drivers, language)
         # then
         expect = []
         self.assertListEqual(expect, mock_driver.mock_calls)
@@ -27,9 +26,7 @@ class TestDrivers(unittest.TestCase):
         expect = [
             [
                 '<div class="part-title">',
-                (
-                    "drivers",
-                ),
+                "drivers",
                 "</div>",
             ],
         ]
@@ -41,11 +38,10 @@ class TestDrivers(unittest.TestCase):
         mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
         mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
         # given
-        norm = MagicMock()
-        norm.drivers = []
+        drivers = []
         language = "py"
         # when
-        actual = html_norm_drivers.drivers(norm, language)
+        actual = html_norm_drivers.drivers(drivers, language)
         # then
         expect = []
         self.assertListEqual(expect, mock_driver.mock_calls)
@@ -53,9 +49,7 @@ class TestDrivers(unittest.TestCase):
         expect = [
             [
                 '<div class="part-title">',
-                (
-                    "drivers",
-                ),
+                "drivers",
                 "</div>",
             ],
         ]
@@ -88,20 +82,16 @@ class TestDrivers(unittest.TestCase):
         self.assertListEqual(expect, mock_equal_width_horizontal_layout.mock_calls)
         expect = [
             '<div class="part">',
-            (
-                [
-                    '<div class="part-title">',
-                    (
-                        "drivers",
-                    ),
-                    "</div>",
-                ],
-                'MOCK _equal_width_horizontal_layout('
-                '['
-                '"MOCK driver(\'Driver #1\', \'py\')"'
-                ']'
-                ')',
-            ),
+            [
+                '<div class="part-title">',
+                "drivers",
+                "</div>",
+            ],
+            'MOCK _equal_width_horizontal_layout('
+            '['
+            '"MOCK driver(\'Driver #1\', \'py\')"'
+            ']'
+            ')',
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -139,22 +129,18 @@ class TestDrivers(unittest.TestCase):
         self.assertListEqual(expect, mock_equal_width_horizontal_layout.mock_calls)
         expect = [
             '<div class="part">',
-            (
-                [
-                    '<div class="part-title">',
-                    (
-                        "drivers",
-                    ),
-                    "</div>",
-                ],
-                'MOCK _equal_width_horizontal_layout('
-                '['
-                '"MOCK driver(\'Driver #1\', \'py\')", '
-                '"MOCK driver(\'Driver #2\', \'py\')", '
-                '"MOCK driver(\'Driver #3\', \'py\')"'
-                ']'
-                ')',
-            ),
+            [
+                '<div class="part-title">',
+                "drivers",
+                "</div>",
+            ],
+            'MOCK _equal_width_horizontal_layout('
+            '['
+            '"MOCK driver(\'Driver #1\', \'py\')", '
+            '"MOCK driver(\'Driver #2\', \'py\')", '
+            '"MOCK driver(\'Driver #3\', \'py\')"'
+            ']'
+            ')',
             "</div>",
         ]
         self.assertListEqual(expect, actual)

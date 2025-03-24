@@ -31,9 +31,7 @@ class TestDriver(unittest.TestCase):
         expect = [
             [
                 '<div class="sub-part-title">',
-                (
-                    "MOCK driver name",
-                ),
+                "MOCK driver name",
                 "</div>",
             ],
         ]
@@ -61,9 +59,7 @@ class TestDriver(unittest.TestCase):
         expect = [
             [
                 '<div class="sub-part-title">',
-                (
-                    "MOCK driver name",
-                ),
+                "MOCK driver name",
                 "</div>",
             ],
         ]
@@ -101,9 +97,7 @@ class TestDriver(unittest.TestCase):
         expect = [
             [
                 '<div class="sub-part-title">',
-                (
-                    "MOCK driver name",
-                ),
+                "MOCK driver name",
                 "</div>",
             ],
             """MOCK table("""
@@ -156,9 +150,7 @@ class TestDriver(unittest.TestCase):
         expect = [
             [
                 '<div class="sub-part-title">',
-                (
-                    "MOCK driver name",
-                ),
+                "MOCK driver name",
                 "</div>",
             ],
             """MOCK table("""

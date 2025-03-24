@@ -126,11 +126,9 @@ class TestClassedDiv(unittest.TestCase):
         # then
         expect = [
             '<div class="div_class">',
-            (
-                "bar",
-                "baz",
-                "foo",
-            ),
+            "bar",
+            "baz",
+            "foo",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -153,7 +151,7 @@ class TestTitleDiv(unittest.TestCase):
         # then
         expect = [
             '<div class="div_class">',
-            ("baz bar foo",),
+            "baz bar foo",
             "</div>",
         ]
         self.assertListEqual(expect, actual)

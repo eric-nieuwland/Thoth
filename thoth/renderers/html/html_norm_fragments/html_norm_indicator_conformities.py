@@ -13,7 +13,7 @@ def conformities(conformities: list[Conformity], language: str, id_prefix: str) 
         return sub_sub_part(title)
 
     return sub_sub_part(
-        sub_sub_part(title),
+        title,
         table(
             *[
                 [

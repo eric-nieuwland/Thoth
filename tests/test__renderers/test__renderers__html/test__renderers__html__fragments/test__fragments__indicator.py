@@ -42,18 +42,14 @@ class TestIndicator(unittest.TestCase):
         self.assertListEqual(expect, mock_explanation.mock_calls)
         expect = [
             '<div class="sub-part">',
-            (
-                [
-                    '<div class="indicator-title">',
-                    (
-                        'MOCK indicator identifier MOCK indicator title',
-                    ),
-                    '</div>',
-                ],
-                "MOCK description(('MOCK indicator description', 'py'))",
-                "MOCK conformities(('MOCK indicator conformities', 'py', 'MOCK indicator identifier'))",
-                "MOCK explanation(('MOCK indicator explanation', 'py'))",
-            ),
+            [
+                '<div class="indicator-title">',
+                'MOCK indicator identifier MOCK indicator title',
+                '</div>',
+            ],
+            "MOCK description(('MOCK indicator description', 'py'))",
+            "MOCK conformities(('MOCK indicator conformities', 'py', 'MOCK indicator identifier'))",
+            "MOCK explanation(('MOCK indicator explanation', 'py'))",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -77,86 +73,67 @@ class TestIndicator(unittest.TestCase):
         # then
         expect = [
             '<div class="sub-part">',
-            (
+            [
+                '<div class="indicator-title">',
+                "MOCK indicator identifier MOCK indicator title",
+                "</div>",
+            ],
+            [
+                '<div class="sub-sub-part">',
+                "MOCK indicator description",
+                "</div>",
+            ],
+            [
+                '<div class="sub-sub-part">',
                 [
-                    '<div class="indicator-title">',
-                    (
-                        "MOCK indicator identifier MOCK indicator title",
-                    ),
+                    '<div class="sub-sub-part-title">',
+                    "Conformity indicators",
                     "</div>",
                 ],
                 [
-                    "<div>",
-                    (
-                        "MOCK indicator description",
-                    ),
-                    "</div>",
-                ],
-                [
-                    '<div class="sub-sub-part">',
-                    (
+                    "<table>",
+                    [
                         [
-                            '<div class="sub-sub-part">',
-                            (
-                                [
-                                    '<div class="sub-sub-part-title">',
-                                    (
-                                        "Conformity indicators",
-                                    ),
-                                    "</div>",
-                                ],
-                            ),
-                            "</div>",
+                            "<tr>",
+                               [
+                                   "<td>",
+                                   "MOCK indicator identifier/MOCK conformity identifier",
+                                   "</td>",
+                               ],
+                               [
+                                   "<td>",
+                                   "MOCK conformity description",
+                                   "</td>",
+                               ],
+                            "</tr>",
                         ],
                         [
-                            "<table>",
+                            "<tr>",
                             [
-                                [
-                                    "<tr>",
-                                       [
-                                           "<td>",
-                                           "MOCK indicator identifier/MOCK conformity identifier",
-                                           "</td>",
-                                       ],
-                                       [
-                                           "<td>",
-                                           "MOCK conformity description",
-                                           "</td>",
-                                       ],
-                                    "</tr>",
-                                ],
-                                [
-                                    "<tr>",
-                                    [
-                                        "<td/>",
-                                    ],
-                                    [
-                                        "<td>",
-                                        "<em>MOCK conformity guidance</em>",
-                                        "</td>",
-                                    ],
-                                    "</tr>",
-                                ],
+                                "<td/>",
                             ],
-                            "</table>",
+                            [
+                                "<td>",
+                                "<em>MOCK conformity guidance</em>",
+                                "</td>",
+                            ],
+                            "</tr>",
                         ],
-                    ),
-                    "</div>",
+                    ],
+                    "</table>",
                 ],
+                "</div>",
+            ],
+            [
+                '<div class="sub-sub-part">',
                 [
-                    '<div class="sub-sub-part">',
-                    (
-                        [
-                            '<div class="sub-sub-part-title">',
-                            (
-                                "Explanation",
-                            ),
-                            "</div>",
-                        ],
-                        'MOCK indicator explanation'),
+                    '<div class="sub-sub-part-title">',
+                    "Explanation",
                     "</div>",
                 ],
-            ),
+                'MOCK indicator explanation',
+                "</div>",
+            ],
             "</div>",
         ]
         self.assertListEqual(expect, actual)
