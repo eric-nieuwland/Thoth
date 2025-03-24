@@ -179,11 +179,9 @@ class TestTable(unittest.TestCase):
         # then
         expect = [
             "<table>",
-            (
-                "bar",
-                "baz",
-                "foo",
-            ),
+            "bar",
+            "baz",
+            "foo",
             "</table>",
         ]
         self.assertListEqual(expect, actual)
@@ -209,11 +207,9 @@ class TestTableRow(unittest.TestCase):
         # then
         expect = [
             "<tr>",
-            (
-                "bar",
-                "baz",
-                "foo",
-            ),
+            "bar",
+            "baz",
+            "foo",
             "</tr>",
         ]
         self.assertListEqual(expect, actual)
@@ -253,11 +249,9 @@ class TestTableCell(unittest.TestCase):
         # then
         expect = [
             "<td>",
-            (
-                "bar",
-                "baz",
-                "foo",
-            ),
+            "bar",
+            "baz",
+            "foo",
             "</td>",
         ]
         self.assertListEqual(expect, actual)

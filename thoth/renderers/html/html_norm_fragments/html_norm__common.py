@@ -64,7 +64,7 @@ def sub_sub_part_title(title: str) -> list:
 def table(*rows) -> list:
     return [
         "<table>",
-        rows,
+        *rows,
         "</table>",
     ]
 
@@ -72,7 +72,7 @@ def table(*rows) -> list:
 def table_row(*cells) -> list:
     return [
         "<tr>",
-        cells,
+        *cells,
         "</tr>",
     ]
 
@@ -82,6 +82,6 @@ def table_cell(*content) -> list:
         return ["<td/>"]
     return [
         "<td>",
-        content,
+        *content,
         "</td>",
     ]
