@@ -12,7 +12,7 @@ from .html_norm_fragments import html_styles, html_norm
 def footer(source: str, language: str) -> list[str]:
     return [
         """<div class="footer">""",
-        f"  rendered by Thoth on {datetime.now().strftime("%Y/%m/%d at %H:%M")} in '{language}' from {source}",
+        f"rendered by Thoth on {datetime.now().strftime("%Y/%m/%d at %H:%M")} in '{language}' from {source}",
         """</div>""",
     ]
 
@@ -22,13 +22,13 @@ def render(source: str, norm: Norm, language: str) -> str:
         flatten(
             [
                 "<html>",
-                "  <head>",
+                "<head>",
                 html_styles.styles(),
-                "  </head>",
-                "  <body>",
+                "</head>",
+                "<body>",
                 html_norm.norm(norm, language),
                 footer(source, language),
-                "  </body>",
+                "</body>",
                 "</html>",
             ],
         )

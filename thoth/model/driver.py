@@ -5,7 +5,7 @@ from typing import Self
 from pydantic import BaseModel
 
 # own imports
-from ._language import template_driver_text
+from ._translation import template_driver_text
 
 
 class Driver(BaseModel):

@@ -1,23 +1,33 @@
-[build-system]
-requires = [
-  "pip",
-]
-
 [project]
-name = "Thoth"
-description = "Make the Ma'at of Secure Software Development readable"
-readme = "README.md"
+name = "Thoth-dhwtj"
+version = "1.0.0"
+description = "Maintain the Ma'at of Secure Software Development"
+license="Apache-2.0"
 authors = [
   {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
 ]
-maintainers = [
-  {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
+readme = "README.md"
+requires-python = ">= 3.13"
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Framework :: Pydantic",
+  "Framework :: Typer",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Documentation",
 ]
-requires-python = ">= 3.12"
 dependencies = [
-  "pydantic",
-  "python-docx",
-  "pyyaml",
-  "typer",
+  "pydantic==2.10.6",
+  "pyyaml==6.0.2",
+  "typer==0.15.2",
 ]
 
+[project.optional-dependencies]
+test = [
+    "black==25.1.0",
+    "mypy==1.15.0",
+    "pytest==8.3.5",
+    "pytest-cov==6.0.0",
+]

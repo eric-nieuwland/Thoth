@@ -6,7 +6,8 @@ from typing import Self
 from pydantic import RootModel, model_validator
 
 # own imports
-from ._language import known_language_or_error, template_text
+from utils.iso_639 import known_iso_639_language_code_or_error
+from ._translation import template_text
 
 
 class MultiLingualText(RootModel):
@@ -18,7 +19,7 @@ class MultiLingualText(RootModel):
     @model_validator(mode="after")
     def check_values(self) -> Self:
         for key in self.root:
-            known_language_or_error(key)
+            known_iso_639_language_code_or_error(key)
         for key, value in self.root.items():
             self.root[key] = " ".join(line.strip() for line in value.splitlines())
         return self
@@ -41,7 +42,7 @@ class MultiLingualText(RootModel):
         ).strip()
 
     def __setitem__(self, language: str, text: str):
-        known_language_or_error(language)
+        known_iso_639_language_code_or_error(language)
         if language in self.root:
             raise KeyError(f"Text for '{language}' already set to '{self.root[language]}'")
         self.root[language] = text

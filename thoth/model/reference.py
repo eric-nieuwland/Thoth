@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 # own imports
 from utils.list_joiner import list_joiner
-from ._language import template_reference_text
+from ._translation import template_reference_text
 from .multi_lingual_text import MultiLingualText
 from .utils import count_multi_lingual_helper
 
