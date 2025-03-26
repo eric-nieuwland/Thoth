@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
+
+## v1.0.0 - 2025/03/25
+
+### Commands in initial release
+
 - `about` command
 
 - `norm` subcommands to create, translate, render, and maintain SSD norm definitions:
@@ -22,8 +27,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
   | update            | update norm from a second norm                          |
   | xcheck            | check whether two norm definitions match                |
 
-## v1.0.0 - YYYY-MM-DD
-
-### Added
-
-- [TBD]
