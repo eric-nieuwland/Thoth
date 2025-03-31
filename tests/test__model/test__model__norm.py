@@ -1,7 +1,7 @@
 import unittest
 
 
-from model.norm import Norm
+from model.norm_definition.norm import Norm
 
 class TestTemplate(unittest.TestCase):
     """

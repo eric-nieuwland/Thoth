@@ -5,7 +5,7 @@ import sys
 # third party imports
 
 # own imports
-from model.norm import Norm
+from model.norm_definition.norm import Norm
 
 
 def _report_issues(path: Path, issue_kind: str, issues: list[str]) -> None:

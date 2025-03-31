@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import MagicMock, call
 
 
-from model.utils import count_multi_lingual_helper
+from model.norm_definition.utils import count_multi_lingual_helper
 
 
 class TestCountMultiLingualHelper(unittest.TestCase):

@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from model.conformity import Conformity
+from model.norm_definition.conformity import Conformity
 from .html_norm__common import sub_sub_part, sub_sub_part_title, table, table_row, table_cell
 
 

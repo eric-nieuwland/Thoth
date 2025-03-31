@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from model.multi_lingual_text import MultiLingualText
+from model.norm_definition.multi_lingual_text import MultiLingualText
 
 
 # lists

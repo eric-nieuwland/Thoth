@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from model.norm import Norm
+from model.norm_definition.norm import Norm
 from . import html_norm_criteria
 from . import html_norm_drivers
 from . import html_norm_indicators
