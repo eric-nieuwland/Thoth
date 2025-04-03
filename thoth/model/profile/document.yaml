@@ -1,0 +1,24 @@
+identifier: false/true
+title: false/true
+intro: false/true
+scope: false/true
+triggers: false/true
+criteria: false/true
+objectives: false/true
+risks: false/true
+drivers:
+  name: false/true
+  details: false/true
+indicators:
+  identifier: false/true
+  title: false/true
+  description: false/true
+  conformities:
+    identifier: false/true
+    description: false/true
+    guidance: false/true
+  explanation: false/true
+references:
+  name: false/true
+  url: false/true
+  notes: false/true
