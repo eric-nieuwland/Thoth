@@ -11,7 +11,7 @@ from yaml.scanner import ScannerError
 # own imports
 from utils.flatten import flatten
 from utils.list_joiner import list_joiner
-from utils.yaml_norm_beautifier import yaml_norm_beautifier
+from .yaml_norm_layout_enhancer import yaml_norm_layout_enhancer
 from .driver import Driver
 from .indicator import Indicator
 from .multi_lingual_text import MultiLingualText
@@ -171,7 +171,7 @@ class Norm(BaseModel):
         """
         the YAML definition of this norm
         """
-        return yaml_norm_beautifier(
+        return yaml_norm_layout_enhancer(
             yaml.safe_dump(
                 self.model_dump(by_alias=True),
                 default_flow_style=False,

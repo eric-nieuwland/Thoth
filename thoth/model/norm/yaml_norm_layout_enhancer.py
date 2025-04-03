@@ -15,7 +15,7 @@ class State(Enum):
     IN_INDICATOR_EXPLANATION = "in indicator explanation"
     IN_REFERENCES = "in references"
 
-def yaml_norm_beautifier(text: str) -> str:
+def yaml_norm_layout_enhancer(text: str) -> str:
     """
     produce a nicer version of a norm in YAML form
     """
