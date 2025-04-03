@@ -8,13 +8,6 @@ import sys
 from model.norm.norm import Norm
 
 
-def _report_issues(path: Path, issue_kind: str, issues: list[str]) -> None:
-    if issues:
-        print(f"{issue_kind} found in '{path}':")
-        for issue in issues:
-            print(f"  - {issue}")
-
-
 def split_norm(
         path: Path,
         language: str,
