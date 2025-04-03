@@ -5,7 +5,7 @@ import sys
 # third party imports
 
 # own imports
-from model.norm_definition.norm import Norm
+from model.norm.norm import Norm
 from renderers.html import html_render_translation_page
 from command._shared import OutputFormat
 

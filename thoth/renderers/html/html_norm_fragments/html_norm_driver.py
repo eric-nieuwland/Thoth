@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from model.norm_definition.driver import Driver
+from model.norm.driver import Driver
 from .html_norm__common import sub_part_title, table, table_row, table_cell
 
 

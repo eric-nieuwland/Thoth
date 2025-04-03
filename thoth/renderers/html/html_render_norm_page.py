@@ -4,7 +4,7 @@ from datetime import datetime
 # third party imports
 
 # own imports
-from model.norm_definition.norm import Norm
+from model.norm.norm import Norm
 from utils.flatten import flatten
 from .html_norm_fragments import html_styles, html_norm
 

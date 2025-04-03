@@ -2,7 +2,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from model.norm_definition.multi_lingual_text import MultiLingualText
+from model.norm.multi_lingual_text import MultiLingualText
 
 
 class TestMultiLingualText(unittest.TestCase):

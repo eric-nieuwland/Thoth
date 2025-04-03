@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from model.norm_definition.norm import Norm
+from model.norm.norm import Norm
 from .html_norm__common import classed_div
 
 

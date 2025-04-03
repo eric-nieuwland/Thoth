@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from model.norm_definition.indicator import Indicator
+from model.norm.indicator import Indicator
 from .html_norm__common import sub_part, title_div
 from .html_norm_indicator_conformities import conformities
 from .html_norm_indicator_description import description
