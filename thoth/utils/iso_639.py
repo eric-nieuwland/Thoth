@@ -12,7 +12,6 @@ Codes and language names obtained from https://en.wikipedia.org/wiki/List_of_ISO
 
 # own imports
 
-
 ISO_639 = {
     "aa": "Afar",
     "ab": "Abkhazian",

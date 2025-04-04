@@ -4,6 +4,7 @@
 
 # own imports
 
+
 def list_joiner(lst1: list | None, lst2: list | None) -> list | None:
     if lst1 is None and lst2 is None:
         return None

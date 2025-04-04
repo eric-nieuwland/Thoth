@@ -15,9 +15,6 @@ def flatten(lst: list | tuple) -> list | tuple:
     maker = tuple if isinstance(lst, tuple) else list
     return maker(
         item
-        for items in [
-            flatten(item) if isinstance(item, list | tuple) else [item]
-            for item in lst
-        ]
+        for items in [flatten(item) if isinstance(item, list | tuple) else [item] for item in lst]
         for item in items
     )
