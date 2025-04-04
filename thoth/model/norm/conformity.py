@@ -18,7 +18,7 @@ class Conformity(BaseModel):
 
     # checks
 
-    def check_identifiers(self, nrs: [int]) -> list:
+    def check_identifiers(self, nrs: list[int]) -> list:
         return [
             f"conformity #{nrs[-1]} in indicator #{nrs[-2]} has identifier '{self.identifier}'"
             if f"{nrs[-1]:0{len(self.identifier)}d}" != self.identifier else
@@ -37,7 +37,7 @@ class Conformity(BaseModel):
             guidance = self.guidance.copy_for_language(*languages) if self.guidance else None,
         )
 
-    def __or__(self, other: Self) -> Self:
+    def __or__(self, other: Conformity) -> Conformity:
         return self.join(self, other)
 
     @classmethod
@@ -50,10 +50,18 @@ class Conformity(BaseModel):
         ):
             raise ValueError("not equally structured")
 
+        if conformity1.guidance and conformity2.guidance:
+            guidance = conformity1.guidance | conformity2.guidance
+        elif conformity1.guidance:
+            guidance = conformity1.guidance
+        elif conformity2.guidance:
+            guidance = conformity2.guidance
+        else:
+            guidance = None
         return cls(
             identifier=conformity1.identifier,
             description=conformity1.description | conformity2.description,
-            guidance=conformity1.guidance | conformity2.guidance if conformity1.guidance else None,
+            guidance=guidance,
         )
 
     # multi-lingual
