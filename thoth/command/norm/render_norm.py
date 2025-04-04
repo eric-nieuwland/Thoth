@@ -31,7 +31,7 @@ def render_norm(
         sys.exit(1)
 
     if format is None:
-        suffix = output.suffix
+        suffix = output.suffix  # type: ignore
         if suffix == "":
             print(f"cannot determine format from - {output}", file=sys.stderr)
             sys.exit(1)
