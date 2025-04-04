@@ -5,8 +5,8 @@ from typing import Self
 
 # third party imports
 from pydantic import BaseModel
-import yaml
-from yaml.scanner import ScannerError
+import yaml  # type: ignore
+from yaml.scanner import ScannerError  # type: ignore
 
 # own imports
 from utils.flatten import flatten
@@ -35,7 +35,7 @@ class Norm(BaseModel):
 
     # checks
 
-    def check_identifiers(self) -> list:
+    def check_identifiers(self) -> list | tuple:
         return flatten([indicator.check_identifiers([nr]) for nr, indicator in enumerate(self.indicators, 1)])
 
     # multi-lingual
@@ -78,7 +78,7 @@ class Norm(BaseModel):
             references=[reference.copy_for_language(*languages) for reference in self.references] if self.references else None,
         )
 
-    def __or__(self, other: Self) -> Self:
+    def __or__(self, other: Norm) -> Norm:
         return self.join(self, other)
 
     @classmethod
@@ -94,7 +94,11 @@ class Norm(BaseModel):
                 len(norm1.indicators) == len(norm2.indicators),
                 (
                     (norm1.references is None and norm2.references is None) or
-                    len(norm1.references) == len(norm2.references)
+                    (
+                        norm1.references is not None and
+                        norm2.references is not None and
+                        len(norm1.references) == len(norm2.references)
+                    )
                 ),
             )
         ):
@@ -105,12 +109,12 @@ class Norm(BaseModel):
             title=norm1.title | norm2.title,
             intro=norm1.intro | norm2.intro,
             scope=norm1.scope | norm2.scope,
-            triggers=list_joiner(norm1.triggers, norm2.triggers),
-            criteria=list_joiner(norm1.criteria, norm2.criteria),
-            objectives=list_joiner(norm1.objectives, norm2.objectives),
-            risks=list_joiner(norm1.risks, norm2.risks),
+            triggers=list_joiner(norm1.triggers, norm2.triggers),  # type: ignore
+            criteria=list_joiner(norm1.criteria, norm2.criteria),  # type: ignore
+            objectives=list_joiner(norm1.objectives, norm2.objectives),  # type: ignore
+            risks=list_joiner(norm1.risks, norm2.risks),  # type: ignore
             drivers=norm1.drivers,
-            indicators=list_joiner(norm1.indicators, norm2.indicators),
+            indicators=list_joiner(norm1.indicators, norm2.indicators),  # type: ignore
             references=list_joiner(norm1.references, norm2.references) if norm1.references else None,
         )
 
