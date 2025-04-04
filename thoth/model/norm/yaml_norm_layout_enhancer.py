@@ -24,7 +24,7 @@ def yaml_norm_layout_enhancer(text: str) -> str:
     indicator_sep = "=" * 76
     conformity_sep = "-" * 42
     lines = text.splitlines()
-    result = []
+    result: list[str] = []
     _dbg_count = 0
     for line in lines:
 
