@@ -495,6 +495,7 @@ def render_translation(norm: Norm, language_1: str, language_2: str) -> str:
       </tr>
       <tr>
       {
+        "" if norm.references is None else
         "\n      </tr>\n      <tr>".join(
             f"""
             <td>{render_reference(reference, language_1)}</td>
