@@ -24,10 +24,35 @@ dependencies = [
   "typer==0.15.2",
 ]
 
+[tool.setuptools.packages.find]
+include = ["thoth", "docs"]
+
 [project.optional-dependencies]
 test = [
-    "black==25.1.0",
     "mypy==1.15.0",
     "pytest==8.3.5",
     "pytest-cov==6.0.0",
+    "ruff==0.11.2",
 ]
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = [
+    "F",   # pyflakes
+    "E",   # pycodestyle
+    "I",   # isort
+    "ANN", # flake8 type annotations
+    "RUF", # ruff-specific rules
+]
+fixable = ["ALL"]
+
+[tool.mypy]
+python_version = "3.13"
