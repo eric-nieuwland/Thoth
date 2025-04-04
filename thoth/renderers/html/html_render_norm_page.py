@@ -4,7 +4,8 @@ from datetime import datetime
 # third party imports
 
 # own imports
-from model.norm import Norm
+from model.norm.norm import Norm
+from model.profile import profile
 from utils.flatten import flatten
 from .html_norm_fragments import html_styles, html_norm
 
@@ -17,7 +18,10 @@ def footer(source: str, language: str) -> list[str]:
     ]
 
 
-def render(source: str, norm: Norm, language: str) -> str:
+def render(source: str, norm: Norm, language: str, prof: profile.Profile | None = None) -> str:
+    if prof is not None and not prof:
+        return ""
+
     return "\n".join(
         flatten(
             [
@@ -26,7 +30,7 @@ def render(source: str, norm: Norm, language: str) -> str:
                 html_styles.styles(),
                 "</head>",
                 "<body>",
-                html_norm.norm(norm, language),
+                html_norm.norm(norm, language, prof),
                 footer(source, language),
                 "</body>",
                 "</html>",

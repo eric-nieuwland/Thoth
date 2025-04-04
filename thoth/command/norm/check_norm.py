@@ -3,10 +3,9 @@ from pathlib import Path
 import sys
 
 # third party imports
-from yaml.scanner import ScannerError
 
 # own imports
-from model.norm import Norm
+from model.norm.norm import Norm
 
 
 def _report_issues(path: Path, issue_kind: str, issues: list[str]) -> None:

@@ -3,7 +3,8 @@
 # third party imports
 
 # own imports
-from model.driver import Driver
+from model.norm.driver import Driver
+from model.profile import profile
 from .html_norm__common import part, part_title, sub_part
 from .html_norm_driver import driver
 
@@ -28,7 +29,10 @@ def _equal_width_horizontal_layout(elements: list) -> list:
     ]
 
 
-def drivers(drivers: list[Driver] | None, language: str) -> list:
+def drivers(drivers: list[Driver] | None, language: str, prof: profile.Drivers | None = None) -> list:
+    if prof is not None and not prof:
+        return []
+
     title = part_title("drivers")
     if drivers is None or len(drivers) == 0:
         return [title]
@@ -37,7 +41,7 @@ def drivers(drivers: list[Driver] | None, language: str) -> list:
         title,
         _equal_width_horizontal_layout(
             [
-                driver(drvr, language) for nr, drvr in enumerate(drivers)
+                driver(drvr, language, prof) for nr, drvr in enumerate(drivers)
             ]
         ),
     )

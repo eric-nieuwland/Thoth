@@ -7,10 +7,10 @@ import sys
 from yaml.scanner import ScannerError
 
 # own imports
-from model.conformity import Conformity
-from model.driver import Driver
-from model.indicator import Indicator
-from model.norm import Norm
+from model.norm.conformity import Conformity
+from model.norm.driver import Driver
+from model.norm.indicator import Indicator
+from model.norm.norm import Norm
 from utils.flatten import flatten
 
 

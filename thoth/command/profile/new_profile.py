@@ -5,22 +5,20 @@ import sys
 # third party imports
 
 # own imports
-from model.norm.norm import Norm
+from model.profile.profile import Profile
 
 
-def reformat_norm(path: Path, output: Path | None = None, force: bool = False):
+def new_profile(
+        output: Path | None = None,
+        force: bool = False,
+):
     """
-    reformat a norm
+    create a starting point for a document profile
     """
-    if not path.is_file():
-        print(f"no such file - {path}", file=sys.stderr)
-        sys.exit(1)
-
     if output is not None and output.exists() and not force:
         print(f"file exists - {output}", file=sys.stderr)
         sys.exit(1)
 
     writer = print if output is None else output.write_text
 
-    norm = Norm.from_yaml(path.open())
-    writer(norm.as_yaml())
+    writer(Profile.template().as_yaml())

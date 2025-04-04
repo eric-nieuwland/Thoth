@@ -3,12 +3,12 @@
 # third party imports
 
 # own imports
-from model.conformity import Conformity
-from model.indicator import Indicator
-from model.driver import Driver
-from model.multi_lingual_text import MultiLingualText
-from model.norm import Norm
-from model.reference import Reference
+from model.norm.conformity import Conformity
+from model.norm.indicator import Indicator
+from model.norm.driver import Driver
+from model.norm.multi_lingual_text import MultiLingualText
+from model.norm.norm import Norm
+from model.norm.reference import Reference
 
 
 def render_list(multi_lingual_list: list[MultiLingualText], language: str) -> str:

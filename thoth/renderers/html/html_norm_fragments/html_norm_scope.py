@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from model.norm import Norm
+from model.norm.norm import Norm
 from .html_norm__common import part, part_title
 
 

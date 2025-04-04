@@ -5,12 +5,12 @@ import sys
 # third party imports
 
 # own imports
-from model.norm.norm import Norm
+from model.profile.profile import Profile
 
 
-def reformat_norm(path: Path, output: Path | None = None, force: bool = False):
+def reformat_profile(path: Path, output: Path | None = None, force: bool = False):
     """
-    reformat a norm
+    reformat a document profile
     """
     if not path.is_file():
         print(f"no such file - {path}", file=sys.stderr)
@@ -22,5 +22,5 @@ def reformat_norm(path: Path, output: Path | None = None, force: bool = False):
 
     writer = print if output is None else output.write_text
 
-    norm = Norm.from_yaml(path.open())
-    writer(norm.as_yaml())
+    document = Profile.from_yaml(path.open())
+    writer(document.as_yaml())
