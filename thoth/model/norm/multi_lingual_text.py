@@ -65,7 +65,7 @@ class MultiLingualText(RootModel):
             }
         )
 
-    def __or__(self, other: Self) -> Self:
+    def __or__(self, other: MultiLingualText) -> MultiLingualText:
         return self.join(self, other)
 
     @classmethod
