@@ -16,5 +16,5 @@ def reference(reference: Reference, language: str, prof: profile.References | No
 
     return sub_part(
         reference_title(reference, language, prof),
-        notes(reference.notes, language) if prof is None or prof.notes else "",
+        notes(reference.notes, language) if reference.notes and (prof is None or prof.notes) else "",
     )
