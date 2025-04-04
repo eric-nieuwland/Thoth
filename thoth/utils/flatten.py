@@ -1,15 +1,11 @@
 # standard library imports
-from typing import Any, Iterable, TypeVar
 
 # third party imports
 
 # own imports
 
 
-T = TypeVar("T")
-
-
-def flatten[T](lst: T) -> T:
+def flatten(lst: list | tuple) -> list | tuple:
     """
     remove all embedded levels of lists and tuples
     return the result as a list or tuple, depending on the type of the argument
