@@ -5,8 +5,8 @@ from typing import Self
 
 # third party imports
 from pydantic import BaseModel
-import yaml
-from yaml.scanner import ScannerError
+import yaml  # type: ignore
+from yaml.scanner import ScannerError  # type: ignore
 
 # own imports
 
