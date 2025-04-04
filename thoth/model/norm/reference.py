@@ -42,7 +42,7 @@ class Reference(BaseModel):
             notes=[note.copy_for_language(language) for note in self.notes] if self.notes else None
         )
 
-    def __or__(self, other: Self) -> Self:
+    def __or__(self, other: Reference) -> Reference:
         return self.join(self, other)
 
     @classmethod
@@ -53,7 +53,11 @@ class Reference(BaseModel):
                 reference1.url == reference2.url,
                 (
                     (reference1.notes is None and reference2.notes is None) or
-                    len(reference1.notes) == len(reference2.notes)
+                    (
+                            reference1.notes is not None and
+                            reference2.notes is not None and
+                            len(reference1.notes) == len(reference2.notes)
+                    )
                 ),
             )
         ):
