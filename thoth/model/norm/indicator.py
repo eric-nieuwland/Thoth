@@ -59,7 +59,7 @@ class Indicator(BaseModel):
             explanation = self.explanation.copy_for_language(*languages),
         )
 
-    def __or__(self, other: Self) -> Self:
+    def __or__(self, other: Indicator) -> Indicator:
         return self.join(self, other)
 
     @classmethod
@@ -76,7 +76,7 @@ class Indicator(BaseModel):
             identifier=indicator1.identifier,
             title=indicator1.title | indicator2.title,
             description=indicator1.description | indicator2.description,
-            conformities=list_joiner(indicator1.conformities, indicator2.conformities),
+            conformities=list_joiner(indicator1.conformities, indicator2.conformities),  # type: ignore
             explanation=indicator1.explanation | indicator2.explanation,
         )
 
