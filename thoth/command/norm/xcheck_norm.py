@@ -4,7 +4,6 @@ from pathlib import Path
 import sys
 
 # third party imports
-from yaml.scanner import ScannerError
 
 # own imports
 from model.norm.conformity import Conformity
@@ -14,7 +13,7 @@ from model.norm.norm import Norm
 from utils.flatten import flatten
 
 
-def _report_issues(path1: Path, path2: Path, issue_kind: str, issues: list[str]) -> None:
+def _report_issues(path1: Path, path2: Path, issue_kind: str, issues: list[str] | tuple[str, ...]) -> None:
     if issues:
         print(f"{issue_kind} found in '{path1}' <-> '{path2}:")
         for issue in issues:
@@ -44,9 +43,13 @@ def _x_drivers(drivers1: list[Driver] | None, drivers2: list[Driver] | None) -> 
 
 def _x_conformity(conformity1: Conformity | None, conformity2: Conformity | None) -> list:
     what = "  conformity/identifier"
+    if conformity1 is None and conformity2 is None:
+        return [
+            _x_difference(what, "--", "--"),
+        ]
     if conformity1 is None:
         return [
-            _x_difference(what, "--", conformity2.identifier),
+            _x_difference(what, "--", conformity2.identifier),  # type: ignore
         ]
     if conformity2 is None:
         return [
@@ -65,9 +68,13 @@ def _x_conformities(conformities1: list[Conformity], conformities2: list[Conform
 
 def _x_indicator(indicator1: Indicator | None, indicator2: Indicator | None) -> list:
     what = "indicator/identifier"
+    if indicator1 is None and indicator2 is None:
+        return [
+            _x_difference(what, "--", "--"),
+        ]
     if indicator1 is None:
         return [
-            _x_difference(what, "--", indicator2.identifier),
+            _x_difference(what, "--", indicator2.identifier),  # type: ignore
         ]
     if indicator2 is None:
         return [
