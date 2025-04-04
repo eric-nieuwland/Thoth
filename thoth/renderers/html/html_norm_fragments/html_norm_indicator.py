@@ -17,9 +17,9 @@ def indicator(indicator: Indicator, language: str, _id_prefix: str, prof: profil
 
     identifier = indicator.identifier if prof is None or prof.identifier else ""
     title = indicator.title[language] if prof is None or prof.title else ""
-    title = title_div("indicator-title", f"{identifier} {title}") if identifier or title else ""
+    title_ = title_div("indicator-title", f"{identifier} {title}") if identifier or title else ""
     return sub_part(
-        title,
+        title_,
         description(indicator.description, language) if prof is None or prof.description else "",
         conformities(indicator.conformities, language, indicator.identifier, None if prof is None else prof.conformities),
         explanation(indicator.explanation, language) if prof is None or prof.explanation else "",
