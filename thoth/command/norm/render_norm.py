@@ -6,6 +6,7 @@ import sys
 
 # own imports
 from model.norm.norm import Norm
+from model.profile.profile import Profile
 from renderers.html import html_render_norm_page
 from command._shared import OutputFormat
 
@@ -13,6 +14,7 @@ from command._shared import OutputFormat
 def render_norm(
         path: Path,
         language: str,
+        profile: Path | None = None,
         output: Path | None = None,
         format: OutputFormat | None = None,
         force: bool = False,
@@ -39,8 +41,17 @@ def render_norm(
             print(f"cannot render - {suffix}", file=sys.stderr)
             sys.exit(1)
 
+    if profile is not None and not profile.exists():
+        print(f"so such file - {profile}", file=sys.stderr)
+        sys.exit(1)
+
     if output is not None and output.exists() and not force:
         print(f"file exists - {output}", file=sys.stderr)
+        sys.exit(1)
+
+    prof = None if profile is None else Profile.from_yaml(profile.open())
+    if prof is not None and not prof:
+        print(f"profile does not select anything - '{profile}'", file=sys.stderr)
         sys.exit(1)
 
     norm = Norm.from_yaml(path.open())
@@ -58,7 +69,7 @@ WARNING: language '{language}' incomplete in - {path}
 
     match format:
         case OutputFormat.HTML:
-            html = html_render_norm_page.render(path.name, norm, language)
+            html = html_render_norm_page.render(path.name, norm, language, prof)
             writer(html)
         case _:
             print(f"cannot render .{format.value}, yet")

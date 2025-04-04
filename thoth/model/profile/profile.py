@@ -16,6 +16,14 @@ class Drivers(BaseModel):
     name: bool
     details: bool
 
+    def __bool__(self):
+        return any((
+            self.name,
+            self.details,
+        ))
+
+    # template / example
+
     @classmethod
     def template(cls) -> Self:
         """
@@ -32,6 +40,13 @@ class Conformities(BaseModel):
     identifier: bool
     description: bool
     guidance: bool
+
+    def __bool__(self):
+        return any((
+            self.identifier,
+            self.description,
+            self.guidance,
+        ))
 
     # template / example
 
@@ -55,6 +70,15 @@ class Indicators(BaseModel):
     conformities: Conformities
     explanation: bool
 
+    def __bool__(self):
+        return any((
+            self.identifier,
+            self.title,
+            self.description,
+            self.conformities,
+            self.explanation,
+        ))
+
     # template / example
 
     @classmethod
@@ -76,6 +100,13 @@ class References(BaseModel):
     name: bool
     url: bool
     notes: bool
+
+    def __bool__(self):
+        return any((
+            self.name,
+            self.url,
+            self.notes,
+        ))
 
     # template / example
 
@@ -104,6 +135,21 @@ class Profile(BaseModel):
     drivers: Drivers
     indicators: Indicators
     references: References
+
+    def __bool__(self):
+        return any((
+            self.identifier,
+            self.title,
+            self.intro,
+            self.scope,
+            self.triggers,
+            self.criteria,
+            self.objectives,
+            self.risks,
+            self.drivers,
+            self.indicators,
+            self.references,
+        ))
 
     # template / example
 
