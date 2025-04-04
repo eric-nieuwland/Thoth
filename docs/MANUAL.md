@@ -129,7 +129,7 @@ Examples:
 ```
 
 
-## Creat a norm
+## Create a norm
 
 To create a new norm first decide in which language you'll write it.
 
@@ -194,3 +194,25 @@ and changes.
    # python thoth.py norm render-translated norms/my-bilingual-norm.yaml nl en ‑‑output my-bilingual-norm-nl-en.html
    ```
    Note: __Thoth__ determines the format from `‑‑output`. If no output is given, use `‑‑format html`.
+
+
+## Selectively render parts of a norm
+
+You can specify which items of a norm must be rendered. For this you create a profile:
+
+1. Let __Thoth__ create a starting point for your profile
+   (if `profile/my-first-profile.yaml` already exists, add `‑‑force`):
+   ```commandline
+   # python thoth.py profile new ‑‑output profile/my-first-profile.yaml
+   ```
+
+2. Use any text editor to modify `profile/my-first-profile.yaml`, but make sure to preserve
+   the indentation structure.
+   Change `true` to `false` to turn off rendering of a norm item.
+   Items with subitems will not be rendered if all subitems are turned off.
+
+
+3. Have __Thoth__ render a norm to HTML using the profile
+   ```commandline
+   # python thoth.py norm render norms/my-bilingual-norm.yaml nl --profile profile/my-first-profile.yaml ‑‑output my-bilingual-norm.html
+   ```
