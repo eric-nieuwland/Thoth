@@ -15,7 +15,9 @@ def render_list(multi_lingual_list: list[MultiLingualText], language: str) -> st
     return f"""
 <ul>
   {
-    "\n  ".join(f"<li>{multi_lingual_text[language]}</li>" for multi_lingual_text in multi_lingual_list)
+    "\n  ".join(
+        f"<li>{multi_lingual_text[language]}</li>" for multi_lingual_text in multi_lingual_list
+    )
   }
 </ul>
     """.strip()
@@ -30,14 +32,14 @@ def render_driver(driver: Driver, _language: str) -> str:
     <table>
       {
         ""
-        if driver.details is None else
-        "\n      ".join(
-            f"""
+        if driver.details is None
+        else "\n      ".join(
+            f'''
             <tr>
               <td/>
               <td>{detail}</td>
             </tr>
-            """.strip()
+            '''.strip()
             for detail in driver.details
         )
       }
@@ -54,7 +56,9 @@ def render_drivers(drivers: list[Driver], language: str) -> str:
     <tr>
       <td width="*">
         {
-          f"""</td>\n<td width="{width}%">""".join(render_driver(driver, language) for driver in drivers)
+          f'''</td>\n<td width="{width}%">'''.join(
+              render_driver(driver, language) for driver in drivers
+          )
         }
       </td>
     </tr>
@@ -63,8 +67,13 @@ def render_drivers(drivers: list[Driver], language: str) -> str:
     """.strip()
 
 
-def render_conformity(indicator: Indicator, conformity: Conformity, language_1: str, language_2: str) -> str:
-    style='"margin-left: 48px;"'
+def render_conformity(
+    indicator: Indicator,
+    conformity: Conformity,
+    language_1: str,
+    language_2: str,
+) -> str:
+    style = '"margin-left: 48px;"'
     return f"""
 <!-- conformity {conformity.identifier} -->
   <tr>
@@ -103,14 +112,14 @@ def render_conformity(indicator: Indicator, conformity: Conformity, language_1: 
     <td width="50%">
       <div class="sub-part">
         <div class="sub-sub-part" style={style}>
-          {"" if conformity.guidance is None else f"""<em>{conformity.guidance[language_1]}</em>"""}
+          {"" if conformity.guidance is None else f'''<em>{conformity.guidance[language_1]}</em>'''}
         </div>
       </div>
     </td>
     <td width="*">
       <div class="sub-part">
         <div class="sub-sub-part" style={style}>
-          {"" if conformity.guidance is None else f"""<em>{conformity.guidance[language_2]}</em>"""}
+          {"" if conformity.guidance is None else f'''<em>{conformity.guidance[language_2]}</em>'''}
         </div>
       </div>
     </td>
@@ -227,9 +236,7 @@ def render_reference(reference: Reference, language: str) -> str:
   <div class="sub-part">
     <div class="reference">
       {reference.name}{
-        ""
-        if reference.url is None else
-        f""" - <a href="{reference.url}">{reference.url}</a>"""
+        "" if reference.url is None else f''' - <a href="{reference.url}">{reference.url}</a>'''
       }
     </div>
     {"" if reference.notes is None else render_list(reference.notes, language)}
@@ -478,7 +485,11 @@ def render_translation(norm: Norm, language_1: str, language_2: str) -> str:
             </div>
         </td>
       </tr>
-      {"\n".join(render_indicator(indicator, language_1, language_2) for indicator in norm.indicators)}
+      {
+        "\n".join(
+            render_indicator(indicator, language_1, language_2) for indicator in norm.indicators
+        )
+      }
       <tr>
         <td width="50%">
           <div class="part">
@@ -495,12 +506,13 @@ def render_translation(norm: Norm, language_1: str, language_2: str) -> str:
       </tr>
       <tr>
       {
-        "" if norm.references is None else
-        "\n      </tr>\n      <tr>".join(
-            f"""
+        ""
+        if norm.references is None
+        else "\n      </tr>\n      <tr>".join(
+            f'''
             <td>{render_reference(reference, language_1)}</td>
             <td>{render_reference(reference, language_2)}</td>
-            """
+            '''
             for reference in norm.references
         )
       }

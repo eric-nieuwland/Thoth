@@ -13,7 +13,7 @@ from .html_norm_fragments import html_styles, html_norm
 def footer(source: str, language: str) -> list[str]:
     return [
         """<div class="footer">""",
-        f"rendered by Thoth on {datetime.now().strftime("%Y/%m/%d at %H:%M")} in '{language}' from {source}",
+        f"rendered by Thoth on {datetime.now().strftime('%Y/%m/%d at %H:%M')} in '{language}' from {source}",
         """</div>""",
     ]
 
