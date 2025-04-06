@@ -9,8 +9,8 @@ from model.profile.profile import NormRenderProfile
 
 
 def new_profile(
-        output: Path | None = None,
-        force: bool = False,
+    output: Path | None = None,
+    force: bool = False,
 ):
     """
     create a starting point for a document profile
