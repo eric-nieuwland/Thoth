@@ -11,6 +11,9 @@ from .utils import count_multi_lingual_helper
 
 
 class Conformity(BaseModel):
+    """
+    An SSD norm indicator conformity
+    """
 
     identifier: str
     description: MultiLingualText
@@ -21,8 +24,8 @@ class Conformity(BaseModel):
     def check_identifiers(self, nrs: list[int]) -> list:
         return [
             f"conformity #{nrs[-1]} in indicator #{nrs[-2]} has identifier '{self.identifier}'"
-            if f"{nrs[-1]:0{len(self.identifier)}d}" != self.identifier else
-            [],
+            if f"{nrs[-1]:0{len(self.identifier)}d}" != self.identifier
+            else [],
         ]
 
     # split/merge
@@ -34,7 +37,7 @@ class Conformity(BaseModel):
         return self.__class__(
             identifier=self.identifier,
             description=self.description.copy_for_language(*languages),
-            guidance = self.guidance.copy_for_language(*languages) if self.guidance else None,
+            guidance=self.guidance.copy_for_language(*languages) if self.guidance else None,
         )
 
     def __or__(self, other: Conformity) -> Conformity:
@@ -44,8 +47,8 @@ class Conformity(BaseModel):
     def join(cls, conformity1: Conformity, conformity2: Conformity) -> Conformity:
         if not all(
             (
-                    conformity1.identifier == conformity2.identifier,
-                    (conformity1.guidance is None) == (conformity2.guidance is None),
+                conformity1.identifier == conformity2.identifier,
+                (conformity1.guidance is None) == (conformity2.guidance is None),
             )
         ):
             raise ValueError("not equally structured")

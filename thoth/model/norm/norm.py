@@ -20,6 +20,9 @@ from .utils import count_multi_lingual_helper
 
 
 class Norm(BaseModel):
+    """
+    An SSD norm
+    """
 
     identifier: str
     title: MultiLingualText
@@ -36,7 +39,9 @@ class Norm(BaseModel):
     # checks
 
     def check_identifiers(self) -> list | tuple:
-        return flatten([indicator.check_identifiers([nr]) for nr, indicator in enumerate(self.indicators, 1)])
+        return flatten(
+            [indicator.check_identifiers([nr]) for nr, indicator in enumerate(self.indicators, 1)]
+        )
 
     # multi-lingual
 
@@ -75,7 +80,11 @@ class Norm(BaseModel):
             risks=[risk.copy_for_language(*languages) for risk in self.risks],
             drivers=self.drivers,
             indicators=[indicator.copy_for_language(*languages) for indicator in self.indicators],
-            references=[reference.copy_for_language(*languages) for reference in self.references] if self.references else None,
+            references=(
+                [reference.copy_for_language(*languages) for reference in self.references]
+                if self.references
+                else None
+            ),
         )
 
     def __or__(self, other: Norm) -> Norm:
@@ -93,11 +102,11 @@ class Norm(BaseModel):
                 norm1.drivers == norm2.drivers,
                 len(norm1.indicators) == len(norm2.indicators),
                 (
-                    (norm1.references is None and norm2.references is None) or
-                    (
-                        norm1.references is not None and
-                        norm2.references is not None and
-                        len(norm1.references) == len(norm2.references)
+                    (norm1.references is None and norm2.references is None)
+                    or (
+                        norm1.references is not None
+                        and norm2.references is not None
+                        and len(norm1.references) == len(norm2.references)
                     )
                 ),
             )
@@ -115,7 +124,9 @@ class Norm(BaseModel):
             risks=list_joiner(norm1.risks, norm2.risks),  # type: ignore
             drivers=norm1.drivers,
             indicators=list_joiner(norm1.indicators, norm2.indicators),  # type: ignore
-            references=list_joiner(norm1.references, norm2.references) if norm1.references else None,
+            references=(
+                list_joiner(norm1.references, norm2.references) if norm1.references else None
+            ),
         )
 
     # template / example

@@ -13,6 +13,9 @@ from .utils import count_multi_lingual_helper
 
 
 class Reference(BaseModel):
+    """
+    An SSD norm reference
+    """
 
     name: str
     url: str | None = None
@@ -25,9 +28,7 @@ class Reference(BaseModel):
         count the number of multilingual elements and the languages therein
         """
         return count_multi_lingual_helper(
-            (
-                self.notes,
-            ),
+            (self.notes,),
         )
 
     # split/merge
@@ -39,7 +40,7 @@ class Reference(BaseModel):
         return self.__class__(
             name=self.name,
             url=self.url,
-            notes=[note.copy_for_language(language) for note in self.notes] if self.notes else None
+            notes=[note.copy_for_language(language) for note in self.notes] if self.notes else None,
         )
 
     def __or__(self, other: Reference) -> Reference:
@@ -52,11 +53,11 @@ class Reference(BaseModel):
                 reference1.name == reference2.name,
                 reference1.url == reference2.url,
                 (
-                    (reference1.notes is None and reference2.notes is None) or
-                    (
-                            reference1.notes is not None and
-                            reference2.notes is not None and
-                            len(reference1.notes) == len(reference2.notes)
+                    (reference1.notes is None and reference2.notes is None)
+                    or (
+                        reference1.notes is not None
+                        and reference2.notes is not None
+                        and len(reference1.notes) == len(reference2.notes)
                     )
                 ),
             )
@@ -78,5 +79,5 @@ class Reference(BaseModel):
             url="https://optional.url",
             notes=[
                 MultiLingualText.template(language),
-            ]
+            ],
         )

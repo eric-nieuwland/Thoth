@@ -14,6 +14,7 @@ class MultiLingualText(RootModel):
     """
     A text string in several languages
     """
+
     root: dict[str, str]
 
     @model_validator(mode="after")
@@ -30,7 +31,9 @@ class MultiLingualText(RootModel):
         }|T>""".strip()
 
     def __repr__(self):
-        texts = "".join(f"\n  |{language}| '{text}'" for language, text in sorted(self.root.items()))
+        texts = "".join(
+            f"\n  |{language}| '{text}'" for language, text in sorted(self.root.items())
+        )
         return f"""<{self.__class__.__name__}:{"".join(texts)}{"\n" if texts else ""}>""".strip()
 
     def __getitem__(self, language: str) -> str:
@@ -59,10 +62,7 @@ class MultiLingualText(RootModel):
         A version of this text, restricted in languages
         """
         return self.__class__(
-            {
-                language: self.root.get(language, template_text(language))
-                for language in languages
-            }
+            {language: self.root.get(language, template_text(language)) for language in languages}
         )
 
     def __or__(self, other: MultiLingualText) -> MultiLingualText:

@@ -59,7 +59,7 @@ class TestDrivers(unittest.TestCase):
     @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
     def test_one(self, mock_equal_width_horizontal_layout, mock_driver):
         mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
-        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
+        mock_driver.side_effect = lambda *args: f"MOCK driver{args}"
         # given
         drivers = [
             "Driver #1",
@@ -69,13 +69,13 @@ class TestDrivers(unittest.TestCase):
         actual = html_norm_drivers.drivers(drivers, language)
         # then
         expect = [
-            call("Driver #1", "py"),
+            call("Driver #1", "py", None),
         ]
         self.assertListEqual(expect, mock_driver.mock_calls)
         expect = [
             call(
                 [
-                    "MOCK driver('Driver #1', 'py')",
+                    "MOCK driver('Driver #1', 'py', None)",
                 ],
             ),
         ]
@@ -89,7 +89,7 @@ class TestDrivers(unittest.TestCase):
             ],
             'MOCK _equal_width_horizontal_layout('
             '['
-            '"MOCK driver(\'Driver #1\', \'py\')"'
+            '"MOCK driver(\'Driver #1\', \'py\', None)"'
             ']'
             ')',
             "</div>",
@@ -100,7 +100,7 @@ class TestDrivers(unittest.TestCase):
     @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
     def test_some(self, mock_equal_width_horizontal_layout, mock_driver):
         mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
-        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
+        mock_driver.side_effect = lambda *args: f"MOCK driver{args}"
         # given
         drivers = [
             "Driver #1",
@@ -112,17 +112,17 @@ class TestDrivers(unittest.TestCase):
         actual = html_norm_drivers.drivers(drivers, language)
         # then
         expect = [
-            call("Driver #1", "py"),
-            call("Driver #2", "py"),
-            call("Driver #3", "py"),
+            call("Driver #1", "py", None),
+            call("Driver #2", "py", None),
+            call("Driver #3", "py", None),
         ]
         self.assertListEqual(expect, mock_driver.mock_calls)
         expect = [
             call(
                 [
-                    "MOCK driver('Driver #1', 'py')",
-                    "MOCK driver('Driver #2', 'py')",
-                    "MOCK driver('Driver #3', 'py')",
+                    "MOCK driver('Driver #1', 'py', None)",
+                    "MOCK driver('Driver #2', 'py', None)",
+                    "MOCK driver('Driver #3', 'py', None)",
                 ],
             ),
         ]
@@ -136,9 +136,9 @@ class TestDrivers(unittest.TestCase):
             ],
             'MOCK _equal_width_horizontal_layout('
             '['
-            '"MOCK driver(\'Driver #1\', \'py\')", '
-            '"MOCK driver(\'Driver #2\', \'py\')", '
-            '"MOCK driver(\'Driver #3\', \'py\')"'
+            '"MOCK driver(\'Driver #1\', \'py\', None)", '
+            '"MOCK driver(\'Driver #2\', \'py\', None)", '
+            '"MOCK driver(\'Driver #3\', \'py\', None)"'
             ']'
             ')',
             "</div>",

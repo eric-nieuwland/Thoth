@@ -8,8 +8,8 @@ from functools import reduce
 
 
 def reducer(
-        a: tuple[int, dict[str, int]],
-        b: tuple[int, dict[str, int]],
+    a: tuple[int, dict[str, int]],
+    b: tuple[int, dict[str, int]],
 ) -> tuple[int, dict[str, int]]:
     return a[0] + b[0], {key: a[1].get(key, 0) + b[1].get(key, 0) for key in set(a[1]) | set(b[1])}
 
