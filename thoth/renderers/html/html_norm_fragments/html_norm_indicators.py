@@ -9,7 +9,12 @@ from .html_norm__common import part, part_title
 from .html_norm_indicator import indicator
 
 
-def indicators(indicators: list[Indicator], language: str, id_prefix: str, prof: profile.Indicators | None = None) -> list:
+def indicators(
+    indicators: list[Indicator],
+    language: str,
+    id_prefix: str,
+    prof: profile.Indicators | None = None,
+) -> list:
     if prof is not None and not prof:
         return []
 

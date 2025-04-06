@@ -11,7 +11,12 @@ from .html_norm_indicator_description import description
 from .html_norm_indicator_explanation import explanation
 
 
-def indicator(indicator: Indicator, language: str, _id_prefix: str, prof: profile.Indicators | None = None) -> list:
+def indicator(
+    indicator: Indicator,
+    language: str,
+    _id_prefix: str,
+    prof: profile.Indicators | None = None,
+) -> list:
     if prof is not None and not prof:
         return []
 
@@ -21,6 +26,11 @@ def indicator(indicator: Indicator, language: str, _id_prefix: str, prof: profil
     return sub_part(
         title_,
         description(indicator.description, language) if prof is None or prof.description else "",
-        conformities(indicator.conformities, language, indicator.identifier, None if prof is None else prof.conformities),
+        conformities(
+            indicator.conformities,
+            language,
+            indicator.identifier,
+            None if prof is None else prof.conformities,
+        ),
         explanation(indicator.explanation, language) if prof is None or prof.explanation else "",
     )

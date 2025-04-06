@@ -24,9 +24,26 @@ def norm(norm: Norm, language: str, prof: profile.Profile | None = None) -> list
         html_norm_scope.scope(norm, language) if not prof or prof.scope else "",
         html_norm_triggers.triggers(norm.triggers, language) if not prof or prof.triggers else "",
         html_norm_criteria.criteria(norm.criteria, language) if not prof or prof.criteria else "",
-        html_norm_objectives.objectives(norm.objectives, language) if not prof or prof.objectives else "",
+        (
+            html_norm_objectives.objectives(norm.objectives, language)
+            if not prof or prof.objectives
+            else ""
+        ),
         html_norm_risks.risks(norm.risks, language) if not prof or prof.risks else "",
-        html_norm_drivers.drivers(norm.drivers, language, None if prof is None else prof.drivers),
-        html_norm_indicators.indicators(norm.indicators, language, norm.identifier, None if prof is None else prof.indicators),
-        html_norm_references.references(norm.references, language, None if prof is None else prof.references),
+        html_norm_drivers.drivers(
+            norm.drivers,
+            language,
+            None if prof is None else prof.drivers,
+        ),
+        html_norm_indicators.indicators(
+            norm.indicators,
+            language,
+            norm.identifier,
+            None if prof is None else prof.indicators,
+        ),
+        html_norm_references.references(
+            norm.references,
+            language,
+            None if prof is None else prof.references,
+        ),
     ]

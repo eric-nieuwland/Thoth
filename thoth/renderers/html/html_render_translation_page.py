@@ -20,7 +20,7 @@ def render_list(multi_lingual_list: list[MultiLingualText], language: str) -> st
     )
   }
 </ul>
-    """.strip()
+    """.strip()  # fmt: skip
 
 
 def render_driver(driver: Driver, _language: str) -> str:
@@ -45,7 +45,7 @@ def render_driver(driver: Driver, _language: str) -> str:
       }
     </table>
 <!-- driver {driver.name} -->
-    """.strip()
+    """.strip()  # fmt: skip
 
 
 def render_drivers(drivers: list[Driver], language: str) -> str:
@@ -64,7 +64,7 @@ def render_drivers(drivers: list[Driver], language: str) -> str:
     </tr>
   </table>
 </div>
-    """.strip()
+    """.strip()  # fmt: skip
 
 
 def render_conformity(
@@ -242,7 +242,7 @@ def render_reference(reference: Reference, language: str) -> str:
     {"" if reference.notes is None else render_list(reference.notes, language)}
   </div>
 <!-- reference {reference.name} -->
-    """.strip()
+    """.strip()  # fmt: skip
 
 
 def render_translation(norm: Norm, language_1: str, language_2: str) -> str:
@@ -520,4 +520,4 @@ def render_translation(norm: Norm, language_1: str, language_2: str) -> str:
     </table>
   </body>
 </html>
-    """.strip()
+    """.strip()  # fmt: skip

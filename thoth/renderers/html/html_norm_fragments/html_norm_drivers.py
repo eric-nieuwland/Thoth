@@ -29,7 +29,11 @@ def _equal_width_horizontal_layout(elements: list) -> list:
     ]
 
 
-def drivers(drivers: list[Driver] | None, language: str, prof: profile.Drivers | None = None) -> list:
+def drivers(
+    drivers: list[Driver] | None,
+    language: str,
+    prof: profile.Drivers | None = None,
+) -> list:
     if prof is not None and not prof:
         return []
 
@@ -40,8 +44,6 @@ def drivers(drivers: list[Driver] | None, language: str, prof: profile.Drivers |
     return part(
         title,
         _equal_width_horizontal_layout(
-            [
-                driver(drvr, language, prof) for nr, drvr in enumerate(drivers)
-            ]
+            [driver(drvr, language, prof) for nr, drvr in enumerate(drivers)]
         ),
     )

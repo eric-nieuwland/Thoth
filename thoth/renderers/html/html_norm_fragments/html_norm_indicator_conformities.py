@@ -8,7 +8,12 @@ from model.profile import profile
 from .html_norm__common import sub_sub_part, sub_sub_part_title, table, table_row, table_cell
 
 
-def conformities(conformities: list[Conformity], language: str, id_prefix: str, prof: profile.Conformities | None = None) -> list:
+def conformities(
+    conformities: list[Conformity],
+    language: str,
+    id_prefix: str,
+    prof: profile.Conformities | None = None,
+) -> list:
     if prof is not None and not prof:
         return []
 
@@ -22,10 +27,20 @@ def conformities(conformities: list[Conformity], language: str, id_prefix: str, 
             *[
                 [
                     table_row(
-                        table_cell(f"{id_prefix}/{conformity.identifier}" if prof is None or prof.identifier else ""),
-                        table_cell(conformity.description[language] if prof is None or prof.description else ""),
+                        table_cell(
+                            f"{id_prefix}/{conformity.identifier}"
+                            if prof is None or prof.identifier
+                            else ""
+                        ),
+                        table_cell(
+                            conformity.description[language]
+                            if prof is None or prof.description
+                            else ""
+                        ),
                     ),
-                    [] if not conformity.guidance or (prof is not None and not prof.guidance) else table_row(
+                    []
+                    if not conformity.guidance or (prof is not None and not prof.guidance)
+                    else table_row(
                         table_cell(),
                         table_cell(f"<em>{conformity.guidance[language]}</em>"),
                     ),
