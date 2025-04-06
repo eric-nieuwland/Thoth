@@ -5,7 +5,7 @@ import sys
 # third party imports
 
 # own imports
-from model.profile.profile import Profile
+from model.profile.profile import NormRenderProfile
 
 
 def new_profile(
@@ -21,4 +21,4 @@ def new_profile(
 
     writer = print if output is None else output.write_text
 
-    writer(Profile.template().as_yaml())
+    writer(NormRenderProfile.template().as_yaml())

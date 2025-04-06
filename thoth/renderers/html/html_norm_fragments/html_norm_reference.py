@@ -10,7 +10,11 @@ from .html_norm_reference_notes import notes
 from .html_norm_reference_title import reference_title
 
 
-def reference(reference: Reference, language: str, prof: profile.References | None = None) -> list:
+def reference(
+    reference: Reference,
+    language: str,
+    prof: profile.ReferencesRenderProfile | None = None,
+) -> list:
     if prof is not None and not prof:
         return []
 

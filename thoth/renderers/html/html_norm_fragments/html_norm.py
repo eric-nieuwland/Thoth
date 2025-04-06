@@ -17,7 +17,7 @@ from . import html_norm_title
 from . import html_norm_triggers
 
 
-def norm(norm: Norm, language: str, prof: profile.Profile | None = None) -> list:
+def norm(norm: Norm, language: str, prof: profile.NormRenderProfile | None = None) -> list:
     return [
         html_norm_title.title(norm, language) if not prof or prof.title else "",
         html_norm_intro.intro(norm, language) if not prof or prof.intro else "",

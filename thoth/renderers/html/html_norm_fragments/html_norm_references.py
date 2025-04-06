@@ -12,7 +12,7 @@ from .html_norm_reference import reference
 def references(
     references: list[Reference] | None,
     language: str,
-    prof: profile.References | None = None,
+    prof: profile.ReferencesRenderProfile | None = None,
 ) -> list:
     if prof is not None and not prof:
         return []

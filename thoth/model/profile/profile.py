@@ -11,16 +11,21 @@ from yaml.scanner import ScannerError  # type: ignore
 # own imports
 
 
-class Drivers(BaseModel):
+class DriversRenderProfile(BaseModel):
+    """
+    which elements of Drivers to render
+    """
 
     name: bool
     details: bool
 
     def __bool__(self):
-        return any((
-            self.name,
-            self.details,
-        ))
+        return any(
+            (
+                self.name,
+                self.details,
+            )
+        )
 
     # template / example
 
@@ -35,18 +40,23 @@ class Drivers(BaseModel):
         )
 
 
-class Conformities(BaseModel):
+class ConformitiesRenderProfile(BaseModel):
+    """
+    which elements of Conformities to render
+    """
 
     identifier: bool
     description: bool
     guidance: bool
 
     def __bool__(self):
-        return any((
-            self.identifier,
-            self.description,
-            self.guidance,
-        ))
+        return any(
+            (
+                self.identifier,
+                self.description,
+                self.guidance,
+            )
+        )
 
     # template / example
 
@@ -62,22 +72,27 @@ class Conformities(BaseModel):
         )
 
 
-class Indicators(BaseModel):
+class IndicatorsRenderProfile(BaseModel):
+    """
+    which elements of Indicators to render
+    """
 
     identifier: bool
     title: bool
     description: bool
-    conformities: Conformities
+    conformities: ConformitiesRenderProfile
     explanation: bool
 
     def __bool__(self):
-        return any((
-            self.identifier,
-            self.title,
-            self.description,
-            self.conformities,
-            self.explanation,
-        ))
+        return any(
+            (
+                self.identifier,
+                self.title,
+                self.description,
+                self.conformities,
+                self.explanation,
+            )
+        )
 
     # template / example
 
@@ -90,23 +105,28 @@ class Indicators(BaseModel):
             identifier=True,
             title=True,
             description=True,
-            conformities=Conformities.template(),
+            conformities=ConformitiesRenderProfile.template(),
             explanation=True,
         )
 
 
-class References(BaseModel):
+class ReferencesRenderProfile(BaseModel):
+    """
+    which elements of References to render
+    """
 
     name: bool
     url: bool
     notes: bool
 
     def __bool__(self):
-        return any((
-            self.name,
-            self.url,
-            self.notes,
-        ))
+        return any(
+            (
+                self.name,
+                self.url,
+                self.notes,
+            )
+        )
 
     # template / example
 
@@ -122,7 +142,10 @@ class References(BaseModel):
         )
 
 
-class Profile(BaseModel):
+class NormRenderProfile(BaseModel):
+    """
+    which elements of a Norm to render
+    """
 
     identifier: bool
     title: bool
@@ -132,24 +155,26 @@ class Profile(BaseModel):
     criteria: bool
     objectives: bool
     risks: bool
-    drivers: Drivers
-    indicators: Indicators
-    references: References
+    drivers: DriversRenderProfile
+    indicators: IndicatorsRenderProfile
+    references: ReferencesRenderProfile
 
     def __bool__(self):
-        return any((
-            self.identifier,
-            self.title,
-            self.intro,
-            self.scope,
-            self.triggers,
-            self.criteria,
-            self.objectives,
-            self.risks,
-            self.drivers,
-            self.indicators,
-            self.references,
-        ))
+        return any(
+            (
+                self.identifier,
+                self.title,
+                self.intro,
+                self.scope,
+                self.triggers,
+                self.criteria,
+                self.objectives,
+                self.risks,
+                self.drivers,
+                self.indicators,
+                self.references,
+            )
+        )
 
     # template / example
 
@@ -167,9 +192,9 @@ class Profile(BaseModel):
             criteria=True,
             objectives=True,
             risks=True,
-            drivers=Drivers.template(),
-            indicators=Indicators.template(),
-            references=References.template(),
+            drivers=DriversRenderProfile.template(),
+            indicators=IndicatorsRenderProfile.template(),
+            references=ReferencesRenderProfile.template(),
         )
 
     # YAML interface

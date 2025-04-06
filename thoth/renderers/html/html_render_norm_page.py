@@ -18,7 +18,12 @@ def footer(source: str, language: str) -> list[str]:
     ]
 
 
-def render(source: str, norm: Norm, language: str, prof: profile.Profile | None = None) -> str:
+def render(
+    source: str,
+    norm: Norm,
+    language: str,
+    prof: profile.NormRenderProfile | None = None,
+) -> str:
     if prof is not None and not prof:
         return ""
 

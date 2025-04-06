@@ -32,7 +32,7 @@ def _equal_width_horizontal_layout(elements: list) -> list:
 def drivers(
     drivers: list[Driver] | None,
     language: str,
-    prof: profile.Drivers | None = None,
+    prof: profile.DriversRenderProfile | None = None,
 ) -> list:
     if prof is not None and not prof:
         return []

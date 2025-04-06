@@ -1,7 +1,7 @@
 import unittest
 
 
-from model.profile.profile import Profile
+from model.profile.profile import NormRenderProfile
 
 class TestTemplate(unittest.TestCase):
     """
@@ -16,7 +16,7 @@ class TestTemplate(unittest.TestCase):
         conversion to plain Python objects
         """
         # given
-        norm = Profile.template()
+        norm = NormRenderProfile.template()
         # when
         actual = norm.model_dump()
         # then
@@ -57,7 +57,7 @@ class TestTemplate(unittest.TestCase):
         conversion to YAML definition
         """
         # given
-        norm = Profile.template()
+        norm = NormRenderProfile.template()
         # when
         actual = norm.as_yaml().strip()
         # then
@@ -94,9 +94,9 @@ references:
         load YAML definition
         """
         # given
-        norm = Profile.template()
+        norm = NormRenderProfile.template()
         # when
-        actual = Profile.from_yaml(norm.as_yaml())
+        actual = NormRenderProfile.from_yaml(norm.as_yaml())
         # then
         self.assertIsNot(norm, actual)  # not the same object
         expect = norm

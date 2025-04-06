@@ -12,7 +12,7 @@ def conformities(
     conformities: list[Conformity],
     language: str,
     id_prefix: str,
-    prof: profile.Conformities | None = None,
+    prof: profile.ConformitiesRenderProfile | None = None,
 ) -> list:
     if prof is not None and not prof:
         return []

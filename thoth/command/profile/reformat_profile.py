@@ -5,7 +5,7 @@ import sys
 # third party imports
 
 # own imports
-from model.profile.profile import Profile
+from model.profile.profile import NormRenderProfile
 
 
 def reformat_profile(path: Path, output: Path | None = None, force: bool = False):
@@ -22,5 +22,5 @@ def reformat_profile(path: Path, output: Path | None = None, force: bool = False
 
     writer = print if output is None else output.write_text
 
-    document = Profile.from_yaml(path.open())
+    document = NormRenderProfile.from_yaml(path.open())
     writer(document.as_yaml())

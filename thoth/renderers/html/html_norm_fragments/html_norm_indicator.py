@@ -15,7 +15,7 @@ def indicator(
     indicator: Indicator,
     language: str,
     _id_prefix: str,
-    prof: profile.Indicators | None = None,
+    prof: profile.IndicatorsRenderProfile | None = None,
 ) -> list:
     if prof is not None and not prof:
         return []
