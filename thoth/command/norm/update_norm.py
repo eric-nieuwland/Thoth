@@ -10,10 +10,10 @@ from model.norm.norm import Norm
 
 
 def update_norm(
-        path1: Path,
-        path2: Path,
-        output: Path | None = None,
-        force: bool = False,
+    path1: Path,
+    path2: Path,
+    output: Path | None = None,
+    force: bool = False,
 ):
     """
     update norm from a second norm

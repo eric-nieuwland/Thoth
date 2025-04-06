@@ -13,12 +13,17 @@ from model.norm.norm import Norm
 from utils.flatten import flatten
 
 
-def _report_issues(path1: Path, path2: Path, issue_kind: str, issues: list[str] | tuple[str, ...]) -> None:
+def _report_issues(
+    path1: Path,
+    path2: Path,
+    issue_kind: str,
+    issues: list[str] | tuple[str, ...],
+) -> None:
     if issues:
         print(f"{issue_kind} found in '{path1}' <-> '{path2}:")
         for issue in issues:
             extra = len(issue) - len(stripped := issue.lstrip())
-            print(f"  {" "*extra}- {stripped}")
+            print(f"  {' ' * extra}- {stripped}")
 
 
 def _x_difference(what: str, v1, v2) -> list:
@@ -37,7 +42,8 @@ def _x_drivers(drivers1: list[Driver] | None, drivers2: list[Driver] | None) -> 
     if drivers2 is None:
         drivers2 = []
     return [
-        _x_difference("driver", d1, d2) for d1, d2 in zip_longest(drivers1, drivers2, fillvalue="--")
+        _x_difference("driver", d1, d2)
+        for d1, d2 in zip_longest(drivers1, drivers2, fillvalue="--")
     ]
 
 
@@ -62,7 +68,8 @@ def _x_conformity(conformity1: Conformity | None, conformity2: Conformity | None
 
 def _x_conformities(conformities1: list[Conformity], conformities2: list[Conformity]) -> list:
     return [
-        _x_conformity(d1, d2) for d1, d2 in zip_longest(conformities1, conformities2, fillvalue=None)
+        _x_conformity(d1, d2)
+        for d1, d2 in zip_longest(conformities1, conformities2, fillvalue=None)
     ]
 
 

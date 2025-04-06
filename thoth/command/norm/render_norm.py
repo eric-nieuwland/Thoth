@@ -12,12 +12,12 @@ from command._shared import OutputFormat
 
 
 def render_norm(
-        path: Path,
-        language: str,
-        profile: Path | None = None,
-        output: Path | None = None,
-        format: OutputFormat | None = None,
-        force: bool = False,
+    path: Path,
+    language: str,
+    profile: Path | None = None,
+    output: Path | None = None,
+    format: OutputFormat | None = None,
+    force: bool = False,
 ):
     """
     render a norm definition in a document format
@@ -60,10 +60,13 @@ def render_norm(
         print(f"language '{language}' not in - {path}", file=sys.stderr)
         sys.exit(1)
     if language_counts[language] < total_count:
-        print(f"""
+        print(
+            f"""
 WARNING: language '{language}' incomplete in - {path}
          check output for warnings
-        """.strip(), file=sys.stderr)
+        """.strip(),
+            file=sys.stderr,
+        )
 
     writer = print if output is None else output.write_text
 

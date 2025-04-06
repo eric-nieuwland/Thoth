@@ -29,7 +29,9 @@ def check_norm(path: Path):
     _report_issues(path, "inconsistent identifiers", inconsistent_identifiers)
 
     total, language_counts = norm.count_multi_lingual()
-    incomplete_translations = list(sorted(lang for lang, count in language_counts.items() if count != total))
+    incomplete_translations = list(
+        sorted(lang for lang, count in language_counts.items() if count != total)
+    )
     _report_issues(path, "incomplete translations", incomplete_translations)
 
     if not inconsistent_identifiers and not incomplete_translations:

@@ -9,9 +9,9 @@ from model.norm.norm import Norm
 
 
 def new_norm(
-        language: str,
-        output: Path | None = None,
-        force: bool = False,
+    language: str,
+    output: Path | None = None,
+    force: bool = False,
 ):
     """
     create a starting point for a norm definition

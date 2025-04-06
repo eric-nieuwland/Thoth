@@ -11,12 +11,12 @@ from command._shared import OutputFormat
 
 
 def render_translated_norm(
-        path: Path,
-        language_1: str,
-        language_2: str,
-        output: Path | None = None,
-        format: OutputFormat | None = None,
-        force: bool = False,
+    path: Path,
+    language_1: str,
+    language_2: str,
+    output: Path | None = None,
+    format: OutputFormat | None = None,
+    force: bool = False,
 ):
     """
     render a norm definition in two languages, side by side

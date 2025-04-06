@@ -9,11 +9,11 @@ from model.norm.norm import Norm
 
 
 def split_norm(
-        path: Path,
-        language: str,
-        output: Path | None = None,
-        rest: Path | None = None,
-        force: bool = False,
+    path: Path,
+    language: str,
+    output: Path | None = None,
+    rest: Path | None = None,
+    force: bool = False,
 ):
     """
     split a specific language off a norm
@@ -29,7 +29,9 @@ def split_norm(
         print(f"file exists - {rest}", file=sys.stderr)
         sys.exit(1)
 
-    output_writer = None if output is None else (print if str(output).strip() == "-" else output.write_text)
+    output_writer = (
+        None if output is None else (print if str(output).strip() == "-" else output.write_text)
+    )
     rest_writer = None if rest is None else (print if str(rest).strip() == "-" else rest.write_text)
 
     norm = Norm.from_yaml(path.open())
@@ -55,7 +57,7 @@ def split_norm(
         if len(retained_languages) > 0:  # non-empty rest
             rest_norm = (
                 norm
-                if len(retained_languages) == len(language_counts) else
-                norm.copy_for_language(*retained_languages)
+                if len(retained_languages) == len(language_counts)
+                else norm.copy_for_language(*retained_languages)
             )
             rest_writer(rest_norm.as_yaml())
