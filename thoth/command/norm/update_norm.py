@@ -1,7 +1,6 @@
 # standard library imports
-from enum import Enum
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # third party imports
 
@@ -10,10 +9,10 @@ from model.norm.norm import Norm
 
 
 def update_norm(
-        path1: Path,
-        path2: Path,
-        output: Path | None = None,
-        force: bool = False,
+    path1: Path,
+    path2: Path,
+    output: Path | None = None,
+    force: bool = False,
 ):
     """
     update norm from a second norm

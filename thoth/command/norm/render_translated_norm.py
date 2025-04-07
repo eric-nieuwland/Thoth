@@ -1,22 +1,23 @@
 # standard library imports
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # third party imports
 
 # own imports
 from model.norm.norm import Norm
 from renderers.html import html_render_translation_page
-from command._shared import OutputFormat
+
+from command.shared.output_format import OutputFormat
 
 
 def render_translated_norm(
-        path: Path,
-        language_1: str,
-        language_2: str,
-        output: Path | None = None,
-        format: OutputFormat | None = None,
-        force: bool = False,
+    path: Path,
+    language_1: str,
+    language_2: str,
+    output: Path | None = None,
+    format: OutputFormat | None = None,
+    force: bool = False,
 ):
     """
     render a norm definition in two languages, side by side
@@ -26,11 +27,11 @@ def render_translated_norm(
         sys.exit(1)
 
     if format is None and output is None:
-        print(f"need output or format", file=sys.stderr)
+        print("need output or format", file=sys.stderr)
         sys.exit(1)
 
     if format is None:
-        suffix = output.suffix
+        suffix = output.suffix  # type: ignore
         if suffix == "":
             print(f"cannot determine format from - {output}", file=sys.stderr)
             sys.exit(1)

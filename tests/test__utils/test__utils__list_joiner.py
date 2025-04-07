@@ -4,6 +4,9 @@ from utils.list_joiner import list_joiner
 
 
 class TestListJoiner(unittest.TestCase):
+    """
+    test the list_joiner() function
+    """
 
     def setUp(self):
         self.maxDiff = None
@@ -74,8 +77,8 @@ class TestListJoiner(unittest.TestCase):
         even length lists merge elements
         """
         # given
-        lst1 = [{"1.1",}, {"1.2",}, {"1.3",}]
-        lst2 = [{"2.1",}, {"2.2",}, {"2.3",}]
+        lst1 = [{"1.1",}, {"1.2",}, {"1.3",}, ]
+        lst2 = [{"2.1",}, {"2.2",}, {"2.3",}, ]
         # when
         actual = list_joiner(lst1, lst2)
         # then
@@ -87,5 +90,5 @@ class TestListJoiner(unittest.TestCase):
         self.assertListEqual(expect, actual)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

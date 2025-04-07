@@ -1,23 +1,24 @@
 # standard library imports
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # third party imports
 
 # own imports
 from model.norm.norm import Norm
-from model.profile.profile import Profile
+from model.profile.profile import NormRenderProfile
 from renderers.html import html_render_norm_page
-from command._shared import OutputFormat
+
+from command.shared.output_format import OutputFormat
 
 
 def render_norm(
-        path: Path,
-        language: str,
-        profile: Path | None = None,
-        output: Path | None = None,
-        format: OutputFormat | None = None,
-        force: bool = False,
+    path: Path,
+    language: str,
+    profile: Path | None = None,
+    output: Path | None = None,
+    format: OutputFormat | None = None,
+    force: bool = False,
 ):
     """
     render a norm definition in a document format
@@ -27,11 +28,11 @@ def render_norm(
         sys.exit(1)
 
     if format is None and output is None:
-        print(f"need output or format", file=sys.stderr)
+        print("need output or format", file=sys.stderr)
         sys.exit(1)
 
     if format is None:
-        suffix = output.suffix
+        suffix = output.suffix  # type: ignore
         if suffix == "":
             print(f"cannot determine format from - {output}", file=sys.stderr)
             sys.exit(1)
@@ -49,7 +50,7 @@ def render_norm(
         print(f"file exists - {output}", file=sys.stderr)
         sys.exit(1)
 
-    prof = None if profile is None else Profile.from_yaml(profile.open())
+    prof = None if profile is None else NormRenderProfile.from_yaml(profile.open())
     if prof is not None and not prof:
         print(f"profile does not select anything - '{profile}'", file=sys.stderr)
         sys.exit(1)
@@ -60,10 +61,13 @@ def render_norm(
         print(f"language '{language}' not in - {path}", file=sys.stderr)
         sys.exit(1)
     if language_counts[language] < total_count:
-        print(f"""
+        print(
+            f"""
 WARNING: language '{language}' incomplete in - {path}
          check output for warnings
-        """.strip(), file=sys.stderr)
+        """.strip(),
+            file=sys.stderr,
+        )
 
     writer = print if output is None else output.write_text
 

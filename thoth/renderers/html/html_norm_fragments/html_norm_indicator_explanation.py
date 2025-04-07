@@ -4,6 +4,7 @@
 
 # own imports
 from model.norm.multi_lingual_text import MultiLingualText
+
 from .html_norm__common import sub_sub_part, sub_sub_part_title
 
 

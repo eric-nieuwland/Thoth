@@ -4,6 +4,7 @@
 
 # own imports
 from model.norm.norm import Norm
+
 from .html_norm__common import part, part_title
 
 

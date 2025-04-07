@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch, call
+from unittest.mock import MagicMock, call, patch
 
 from renderers.html.html_norm_fragments import html_norm_indicator
 
@@ -13,9 +13,9 @@ class TestIndicator(unittest.TestCase):
     @patch.object(html_norm_indicator, "conformities")
     @patch.object(html_norm_indicator, "description")
     def test_calls(self, mock_description, mock_conformities, mock_explanation):
-        mock_description.side_effect = lambda *args: f"MOCK description({args})"
-        mock_conformities.side_effect = lambda *args: f"MOCK conformities({args})"
-        mock_explanation.side_effect = lambda *args: f"MOCK explanation({args})"
+        mock_description.side_effect = lambda *args: f"MOCK description{args}"
+        mock_conformities.side_effect = lambda *args: f"MOCK conformities{args}"
+        mock_explanation.side_effect = lambda *args: f"MOCK explanation{args}"
         # given
         indicator = MagicMock()
         indicator.identifier = "MOCK indicator identifier"
@@ -33,7 +33,7 @@ class TestIndicator(unittest.TestCase):
         ]
         self.assertListEqual(expect, mock_description.mock_calls)
         expect = [
-            call("MOCK indicator conformities", "py", "MOCK indicator identifier"),
+            call("MOCK indicator conformities", "py", "MOCK indicator identifier", None),
         ]
         self.assertListEqual(expect, mock_conformities.mock_calls)
         expect = [
@@ -44,12 +44,12 @@ class TestIndicator(unittest.TestCase):
             '<div class="sub-part">',
             [
                 '<div class="indicator-title">',
-                'MOCK indicator identifier MOCK indicator title',
-                '</div>',
+                "MOCK indicator identifier MOCK indicator title",
+                "</div>",
             ],
-            "MOCK description(('MOCK indicator description', 'py'))",
-            "MOCK conformities(('MOCK indicator conformities', 'py', 'MOCK indicator identifier'))",
-            "MOCK explanation(('MOCK indicator explanation', 'py'))",
+            "MOCK description('MOCK indicator description', 'py')",
+            "MOCK conformities('MOCK indicator conformities', 'py', 'MOCK indicator identifier', None)",
+            "MOCK explanation('MOCK indicator explanation', 'py')",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -95,16 +95,16 @@ class TestIndicator(unittest.TestCase):
                     [
                         [
                             "<tr>",
-                               [
-                                   "<td>",
-                                   "MOCK indicator identifier/MOCK conformity identifier",
-                                   "</td>",
-                               ],
-                               [
-                                   "<td>",
-                                   "MOCK conformity description",
-                                   "</td>",
-                               ],
+                            [
+                                "<td>",
+                                "MOCK indicator identifier/MOCK conformity identifier",
+                                "</td>",
+                            ],
+                            [
+                                "<td>",
+                                "MOCK conformity description",
+                                "</td>",
+                            ],
                             "</tr>",
                         ],
                         [
@@ -131,7 +131,7 @@ class TestIndicator(unittest.TestCase):
                     "Explanation",
                     "</div>",
                 ],
-                'MOCK indicator explanation',
+                "MOCK indicator explanation",
                 "</div>",
             ],
             "</div>",
@@ -139,5 +139,5 @@ class TestIndicator(unittest.TestCase):
         self.assertListEqual(expect, actual)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

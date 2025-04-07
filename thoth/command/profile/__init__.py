@@ -9,5 +9,6 @@ from .reformat_profile import reformat_profile
 
 
 app = typer.Typer()
+
 app.command("new")(new_profile)
 app.command("reformat")(reformat_profile)

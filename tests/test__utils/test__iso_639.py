@@ -1,6 +1,5 @@
-import unittest
 import random
-
+import unittest
 
 from utils import iso_639
 
@@ -72,5 +71,5 @@ class TestISO639LanguageName(unittest.TestCase):
                 iso_639.iso_639_language_name(code)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

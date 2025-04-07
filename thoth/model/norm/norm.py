@@ -1,25 +1,29 @@
-# standard library imports
 from __future__ import annotations
+
+# standard library imports
 import sys
 from typing import Self
 
 # third party imports
+import yaml  # type: ignore
 from pydantic import BaseModel
-import yaml
-from yaml.scanner import ScannerError
+from yaml.scanner import ScannerError  # type: ignore
 
 # own imports
 from utils.flatten import flatten
 from utils.list_joiner import list_joiner
-from .yaml_norm_layout_enhancer import yaml_norm_layout_enhancer
 from .driver import Driver
 from .indicator import Indicator
 from .multi_lingual_text import MultiLingualText
 from .reference import Reference
 from .utils import count_multi_lingual_helper
+from .yaml_norm_layout_enhancer import yaml_norm_layout_enhancer
 
 
 class Norm(BaseModel):
+    """
+    An SSD norm
+    """
 
     identifier: str
     title: MultiLingualText
@@ -35,8 +39,10 @@ class Norm(BaseModel):
 
     # checks
 
-    def check_identifiers(self) -> list:
-        return flatten([indicator.check_identifiers([nr]) for nr, indicator in enumerate(self.indicators, 1)])
+    def check_identifiers(self) -> list | tuple:
+        return flatten(
+            [indicator.check_identifiers([nr]) for nr, indicator in enumerate(self.indicators, 1)]
+        )
 
     # multi-lingual
 
@@ -75,10 +81,14 @@ class Norm(BaseModel):
             risks=[risk.copy_for_language(*languages) for risk in self.risks],
             drivers=self.drivers,
             indicators=[indicator.copy_for_language(*languages) for indicator in self.indicators],
-            references=[reference.copy_for_language(*languages) for reference in self.references] if self.references else None,
+            references=(
+                [reference.copy_for_language(*languages) for reference in self.references]
+                if self.references
+                else None
+            ),
         )
 
-    def __or__(self, other: Self) -> Self:
+    def __or__(self, other: Norm) -> Norm:
         return self.join(self, other)
 
     @classmethod
@@ -93,8 +103,12 @@ class Norm(BaseModel):
                 norm1.drivers == norm2.drivers,
                 len(norm1.indicators) == len(norm2.indicators),
                 (
-                    (norm1.references is None and norm2.references is None) or
-                    len(norm1.references) == len(norm2.references)
+                    (norm1.references is None and norm2.references is None)
+                    or (
+                        norm1.references is not None
+                        and norm2.references is not None
+                        and len(norm1.references) == len(norm2.references)
+                    )
                 ),
             )
         ):
@@ -105,13 +119,15 @@ class Norm(BaseModel):
             title=norm1.title | norm2.title,
             intro=norm1.intro | norm2.intro,
             scope=norm1.scope | norm2.scope,
-            triggers=list_joiner(norm1.triggers, norm2.triggers),
-            criteria=list_joiner(norm1.criteria, norm2.criteria),
-            objectives=list_joiner(norm1.objectives, norm2.objectives),
-            risks=list_joiner(norm1.risks, norm2.risks),
+            triggers=list_joiner(norm1.triggers, norm2.triggers),  # type: ignore
+            criteria=list_joiner(norm1.criteria, norm2.criteria),  # type: ignore
+            objectives=list_joiner(norm1.objectives, norm2.objectives),  # type: ignore
+            risks=list_joiner(norm1.risks, norm2.risks),  # type: ignore
             drivers=norm1.drivers,
-            indicators=list_joiner(norm1.indicators, norm2.indicators),
-            references=list_joiner(norm1.references, norm2.references) if norm1.references else None,
+            indicators=list_joiner(norm1.indicators, norm2.indicators),  # type: ignore
+            references=(
+                list_joiner(norm1.references, norm2.references) if norm1.references else None
+            ),
         )
 
     # template / example

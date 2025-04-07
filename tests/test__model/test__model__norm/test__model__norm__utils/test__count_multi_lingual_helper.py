@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, call
 
-
 from model.norm.utils import count_multi_lingual_helper
 
 
@@ -121,5 +120,5 @@ class TestCountMultiLingualHelper(unittest.TestCase):
         self.assertTupleEqual(expect, actual)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

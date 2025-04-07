@@ -1,5 +1,4 @@
 # standard library imports
-from typing import Self
 
 # third party imports
 from pydantic import BaseModel
@@ -9,6 +8,9 @@ from ._translation import template_driver_text
 
 
 class Driver(BaseModel):
+    """
+    An SSD norm driver
+    """
 
     name: str
     details: list[str] | None = None
@@ -23,5 +25,5 @@ class Driver(BaseModel):
             details=[
                 detail.format(nr=1),
                 detail.format(nr=2),
-            ]
+            ],
         )

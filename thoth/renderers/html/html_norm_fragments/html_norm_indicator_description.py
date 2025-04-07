@@ -4,6 +4,7 @@
 
 # own imports
 from model.norm.multi_lingual_text import MultiLingualText
+
 from .html_norm__common import classed_div
 
 

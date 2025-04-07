@@ -122,5 +122,5 @@ class TestMultiLingualText(unittest.TestCase):
         self.assertEqual(expect, actual)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

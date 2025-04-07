@@ -37,7 +37,7 @@ def template_text(code: str) -> str:
     return _select_template_text(code, __TEMPLATE_TEXT__, __DEFAULT_LANGUAGE__)
 
 
-def template_driver_text(code: str) -> str:
+def template_driver_text(code: str) -> tuple[str, str]:
     return _select_template_text(code, __TEMPLATE_DRIVER_TEXT__, __DEFAULT_LANGUAGE__)
 
 

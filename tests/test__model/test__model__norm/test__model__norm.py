@@ -1,7 +1,7 @@
 import unittest
 
-
 from model.norm.norm import Norm
+
 
 class TestTemplate(unittest.TestCase):
     """
@@ -254,6 +254,5 @@ references:
         self.assertEqual(expect, actual)  # but same data
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

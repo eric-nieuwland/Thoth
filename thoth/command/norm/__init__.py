@@ -16,6 +16,7 @@ from .xcheck_norm import xcheck_norm
 
 
 app = typer.Typer()
+
 app.command("check")(check_norm)
 app.command("languages")(languages_in_norm)
 app.command("new")(new_norm)

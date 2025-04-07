@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch, call
+from unittest.mock import call, patch
 
 from renderers.html.html_norm_fragments import html_norm_criteria
 
@@ -103,5 +103,5 @@ class TestCriteria(unittest.TestCase):
         self.assertListEqual(expect, actual)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
