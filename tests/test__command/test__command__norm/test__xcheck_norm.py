@@ -1,14 +1,14 @@
-import unittest
-from unittest.mock import MagicMock, patch, call
 import io
+import unittest
+from unittest.mock import MagicMock, call, patch
 
 from command.norm.xcheck_norm import (
     _report_issues,
-    _x_difference,
-    _x_identifier,
-    _x_drivers,
-    _x_conformity,
     _x_conformities,
+    _x_conformity,
+    _x_difference,
+    _x_drivers,
+    _x_identifier,
     _x_indicator,
     _x_indicators,
     xcheck_norm,

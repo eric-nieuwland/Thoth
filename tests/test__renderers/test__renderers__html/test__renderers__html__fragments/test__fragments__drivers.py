@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import call, patch
 
 from renderers.html.html_norm_fragments import html_norm_drivers
 
@@ -209,7 +209,7 @@ class TestEqualWidthHorizontalLayout(unittest.TestCase):
                 "</td>",
             ],
             [
-                f'<td width="33%">',
+                '<td width="33%">',
                 "baz",
                 "</td>",
             ],

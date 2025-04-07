@@ -1,6 +1,5 @@
-import unittest
 import random
-
+import unittest
 
 from utils import iso_639
 

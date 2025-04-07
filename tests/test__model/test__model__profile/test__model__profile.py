@@ -1,7 +1,7 @@
 import unittest
 
-
 from model.profile.profile import NormRenderProfile
+
 
 class TestTemplate(unittest.TestCase):
     """
