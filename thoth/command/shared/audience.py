@@ -6,11 +6,6 @@ from enum import Enum
 # own imports
 
 
-class OutputFormat(Enum):
-    HTML = "html"
-    DOCX = "docx"
-
-
 class Audience(Enum):
     MANAGEMENT = "management"
     DEVELOPERS = "developers"

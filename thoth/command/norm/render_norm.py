@@ -9,7 +9,7 @@ from model.norm.norm import Norm
 from model.profile.profile import NormRenderProfile
 from renderers.html import html_render_norm_page
 
-from command._shared import OutputFormat
+from command.shared.output_format import OutputFormat
 
 
 def render_norm(

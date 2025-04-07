@@ -8,7 +8,7 @@ from pathlib import Path
 from model.norm.norm import Norm
 from renderers.html import html_render_translation_page
 
-from command._shared import OutputFormat
+from command.shared.output_format import OutputFormat
 
 
 def render_translated_norm(
