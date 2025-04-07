@@ -87,5 +87,5 @@ class TestListJoiner(unittest.TestCase):
         self.assertListEqual(expect, actual)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

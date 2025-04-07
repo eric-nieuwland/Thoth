@@ -121,5 +121,5 @@ class TestCountMultiLingualHelper(unittest.TestCase):
         self.assertTupleEqual(expect, actual)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

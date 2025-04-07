@@ -791,5 +791,5 @@ differences found in '{path1}' <-> '{path2}':
 
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
