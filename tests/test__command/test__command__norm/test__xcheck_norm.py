@@ -103,13 +103,13 @@ class TestXDifference(unittest.TestCase):
                 if i1 == i2:
                     continue
                 v2 = self.values[i2]
-            # when
-            actual = _x_difference(what, v1, v2)
-            # then
-            expect = [
-                f"MOCK what: {v1} <-> {v2}"
-            ]
-            self.assertListEqual(expect, actual, msg=f"failed for {v1=}, {v2=}")
+                # when
+                actual = _x_difference(what, v1, v2)
+                # then
+                expect = [
+                    f"MOCK what: {v1} <-> {v2}",
+                ]
+                self.assertListEqual(expect, actual, msg=f"failed for {v1=}, {v2=}")
 
 
 class TestXIdentifier(unittest.TestCase):
@@ -788,7 +788,6 @@ differences found in '{path1}' <-> '{path2}':
   - MOCK X Indicators
         """.strip()
         self.assertEqual(expect, actual)
-
 
 
 if __name__ == "__main__":

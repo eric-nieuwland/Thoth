@@ -12,8 +12,10 @@ class TestDrivers(unittest.TestCase):
     @patch.object(html_norm_drivers, "driver")
     @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
     def test_none(self, mock_equal_width_horizontal_layout, mock_driver):
-        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
-        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
+        mock_equal_width_horizontal_layout.side_effect = (
+            lambda *args: f"MOCK _equal_width_horizontal_layout{args}"
+        )
+        mock_driver.side_effect = lambda *args: f"MOCK driver{args}"
         # given
         drivers = []
         language = "py"
@@ -35,8 +37,10 @@ class TestDrivers(unittest.TestCase):
     @patch.object(html_norm_drivers, "driver")
     @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
     def test_empty(self, mock_equal_width_horizontal_layout, mock_driver):
-        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
-        mock_driver.side_effect = lambda d, l: f"MOCK driver('{d}', '{l}')"
+        mock_equal_width_horizontal_layout.side_effect = (
+            lambda *args: f"MOCK _equal_width_horizontal_layout{args}"
+        )
+        mock_driver.side_effect = lambda *args: f"MOCK driver{args}"
         # given
         drivers = []
         language = "py"
@@ -58,7 +62,9 @@ class TestDrivers(unittest.TestCase):
     @patch.object(html_norm_drivers, "driver")
     @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
     def test_one(self, mock_equal_width_horizontal_layout, mock_driver):
-        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
+        mock_equal_width_horizontal_layout.side_effect = (
+            lambda *args: f"MOCK _equal_width_horizontal_layout{args}"
+        )
         mock_driver.side_effect = lambda *args: f"MOCK driver{args}"
         # given
         drivers = [
@@ -87,11 +93,7 @@ class TestDrivers(unittest.TestCase):
                 "drivers",
                 "</div>",
             ],
-            'MOCK _equal_width_horizontal_layout('
-            '['
-            '"MOCK driver(\'Driver #1\', \'py\', None)"'
-            ']'
-            ')',
+            "MOCK _equal_width_horizontal_layout([\"MOCK driver('Driver #1', 'py', None)\"],)",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -99,7 +101,9 @@ class TestDrivers(unittest.TestCase):
     @patch.object(html_norm_drivers, "driver")
     @patch.object(html_norm_drivers, "_equal_width_horizontal_layout")
     def test_some(self, mock_equal_width_horizontal_layout, mock_driver):
-        mock_equal_width_horizontal_layout.side_effect = lambda x: f"MOCK _equal_width_horizontal_layout({x})"
+        mock_equal_width_horizontal_layout.side_effect = (
+            lambda *args: f"MOCK _equal_width_horizontal_layout{args}"
+        )
         mock_driver.side_effect = lambda *args: f"MOCK driver{args}"
         # given
         drivers = [
@@ -134,13 +138,13 @@ class TestDrivers(unittest.TestCase):
                 "drivers",
                 "</div>",
             ],
-            'MOCK _equal_width_horizontal_layout('
-            '['
-            '"MOCK driver(\'Driver #1\', \'py\', None)", '
-            '"MOCK driver(\'Driver #2\', \'py\', None)", '
-            '"MOCK driver(\'Driver #3\', \'py\', None)"'
-            ']'
-            ')',
+            "MOCK _equal_width_horizontal_layout("
+            "["
+            "\"MOCK driver('Driver #1', 'py', None)\", "
+            "\"MOCK driver('Driver #2', 'py', None)\", "
+            "\"MOCK driver('Driver #3', 'py', None)\""
+            "],"
+            ")",
             "</div>",
         ]
         self.assertListEqual(expect, actual)

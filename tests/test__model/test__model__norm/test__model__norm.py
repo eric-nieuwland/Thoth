@@ -254,6 +254,5 @@ references:
         self.assertEqual(expect, actual)  # but same data
 
 
-
 if __name__ == "__main__":
     unittest.main()

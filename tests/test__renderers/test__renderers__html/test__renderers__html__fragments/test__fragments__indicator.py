@@ -44,8 +44,8 @@ class TestIndicator(unittest.TestCase):
             '<div class="sub-part">',
             [
                 '<div class="indicator-title">',
-                'MOCK indicator identifier MOCK indicator title',
-                '</div>',
+                "MOCK indicator identifier MOCK indicator title",
+                "</div>",
             ],
             "MOCK description('MOCK indicator description', 'py')",
             "MOCK conformities('MOCK indicator conformities', 'py', 'MOCK indicator identifier', None)",
@@ -95,16 +95,16 @@ class TestIndicator(unittest.TestCase):
                     [
                         [
                             "<tr>",
-                               [
-                                   "<td>",
-                                   "MOCK indicator identifier/MOCK conformity identifier",
-                                   "</td>",
-                               ],
-                               [
-                                   "<td>",
-                                   "MOCK conformity description",
-                                   "</td>",
-                               ],
+                            [
+                                "<td>",
+                                "MOCK indicator identifier/MOCK conformity identifier",
+                                "</td>",
+                            ],
+                            [
+                                "<td>",
+                                "MOCK conformity description",
+                                "</td>",
+                            ],
                             "</tr>",
                         ],
                         [
@@ -131,7 +131,7 @@ class TestIndicator(unittest.TestCase):
                     "Explanation",
                     "</div>",
                 ],
-                'MOCK indicator explanation',
+                "MOCK indicator explanation",
                 "</div>",
             ],
             "</div>",
