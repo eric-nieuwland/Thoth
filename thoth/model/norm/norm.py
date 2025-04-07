@@ -1,22 +1,23 @@
-# standard library imports
 from __future__ import annotations
+
+# standard library imports
 import sys
 from typing import Self
 
 # third party imports
-from pydantic import BaseModel
 import yaml  # type: ignore
+from pydantic import BaseModel
 from yaml.scanner import ScannerError  # type: ignore
 
 # own imports
 from utils.flatten import flatten
 from utils.list_joiner import list_joiner
-from .yaml_norm_layout_enhancer import yaml_norm_layout_enhancer
 from .driver import Driver
 from .indicator import Indicator
 from .multi_lingual_text import MultiLingualText
 from .reference import Reference
 from .utils import count_multi_lingual_helper
+from .yaml_norm_layout_enhancer import yaml_norm_layout_enhancer
 
 
 class Norm(BaseModel):

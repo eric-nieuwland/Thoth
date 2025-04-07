@@ -5,7 +5,8 @@
 # own imports
 from model.norm.driver import Driver
 from model.profile import profile
-from .html_norm__common import part, part_title, sub_part
+
+from .html_norm__common import part, part_title
 from .html_norm_driver import driver
 
 

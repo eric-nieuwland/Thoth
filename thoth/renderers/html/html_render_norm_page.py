@@ -7,6 +7,7 @@ from datetime import datetime
 from model.norm.norm import Norm
 from model.profile import profile
 from utils.flatten import flatten
+
 from .html_norm_fragments import html_styles, html_norm
 
 

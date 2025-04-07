@@ -1,5 +1,6 @@
-# standard library imports
 from __future__ import annotations
+
+# standard library imports
 from typing import Self
 
 # third party imports
@@ -7,6 +8,7 @@ from pydantic import BaseModel
 
 # own imports
 from utils.list_joiner import list_joiner
+
 from .conformity import Conformity
 from .multi_lingual_text import MultiLingualText
 from .utils import count_multi_lingual_helper

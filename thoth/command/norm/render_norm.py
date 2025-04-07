@@ -1,6 +1,6 @@
 # standard library imports
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # third party imports
 
@@ -8,6 +8,7 @@ import sys
 from model.norm.norm import Norm
 from model.profile.profile import NormRenderProfile
 from renderers.html import html_render_norm_page
+
 from command._shared import OutputFormat
 
 
@@ -27,7 +28,7 @@ def render_norm(
         sys.exit(1)
 
     if format is None and output is None:
-        print(f"need output or format", file=sys.stderr)
+        print("need output or format", file=sys.stderr)
         sys.exit(1)
 
     if format is None:

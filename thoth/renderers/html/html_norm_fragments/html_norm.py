@@ -5,16 +5,18 @@
 # own imports
 from model.norm.norm import Norm
 from model.profile import profile
-from . import html_norm_criteria
-from . import html_norm_drivers
-from . import html_norm_indicators
-from . import html_norm_intro
-from . import html_norm_objectives
-from . import html_norm_references
-from . import html_norm_risks
-from . import html_norm_scope
-from . import html_norm_title
-from . import html_norm_triggers
+from . import (
+    html_norm_criteria,
+    html_norm_drivers,
+    html_norm_indicators,
+    html_norm_intro,
+    html_norm_objectives,
+    html_norm_references,
+    html_norm_risks,
+    html_norm_scope,
+    html_norm_title,
+    html_norm_triggers,
+)
 
 
 def norm(norm: Norm, language: str, prof: profile.NormRenderProfile | None = None) -> list:

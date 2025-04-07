@@ -1,5 +1,4 @@
 # standard library imports
-from typing import Self
 
 # third party imports
 from pydantic import BaseModel

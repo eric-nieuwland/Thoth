@@ -1,11 +1,12 @@
-# standard library imports
 from __future__ import annotations
+
+# standard library imports
 import sys
 from typing import Self
 
 # third party imports
-from pydantic import BaseModel
 import yaml  # type: ignore
+from pydantic import BaseModel
 from yaml.scanner import ScannerError  # type: ignore
 
 # own imports

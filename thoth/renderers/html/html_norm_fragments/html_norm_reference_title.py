@@ -5,6 +5,7 @@
 # own imports
 from model.norm.reference import Reference
 from model.profile import profile
+
 from .html_norm__common import classed_div
 
 

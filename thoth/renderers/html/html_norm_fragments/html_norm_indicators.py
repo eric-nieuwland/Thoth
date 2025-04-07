@@ -5,6 +5,7 @@
 # own imports
 from model.norm.indicator import Indicator
 from model.profile import profile
+
 from .html_norm__common import part, part_title
 from .html_norm_indicator import indicator
 

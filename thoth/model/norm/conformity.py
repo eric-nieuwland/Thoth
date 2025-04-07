@@ -1,5 +1,6 @@
-# standard library imports
 from __future__ import annotations
+
+# standard library imports
 from typing import Self
 
 # third party imports

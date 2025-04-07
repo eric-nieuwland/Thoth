@@ -4,8 +4,8 @@
 
 # own imports
 from model.norm.conformity import Conformity
-from model.norm.indicator import Indicator
 from model.norm.driver import Driver
+from model.norm.indicator import Indicator
 from model.norm.multi_lingual_text import MultiLingualText
 from model.norm.norm import Norm
 from model.norm.reference import Reference

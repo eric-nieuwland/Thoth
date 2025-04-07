@@ -1,5 +1,6 @@
-# standard library imports
 from __future__ import annotations
+
+# standard library imports
 from typing import Self
 
 # third party imports
@@ -7,6 +8,7 @@ from pydantic import RootModel, model_validator
 
 # own imports
 from utils.iso_639 import known_iso_639_language_code_or_error
+
 from ._translation import template_text
 
 

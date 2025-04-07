@@ -5,6 +5,7 @@
 # own imports
 from model.norm.conformity import Conformity
 from model.profile import profile
+
 from .html_norm__common import sub_sub_part, sub_sub_part_title, table, table_row, table_cell
 
 

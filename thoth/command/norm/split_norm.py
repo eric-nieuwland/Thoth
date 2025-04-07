@@ -1,6 +1,6 @@
 # standard library imports
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # third party imports
 

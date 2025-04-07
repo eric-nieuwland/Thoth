@@ -1,6 +1,6 @@
 # standard library imports
-from enum import Enum
 import re
+from enum import Enum
 
 # third party imports
 

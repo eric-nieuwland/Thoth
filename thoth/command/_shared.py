@@ -1,7 +1,6 @@
 # standard library imports
 from enum import Enum
 
-
 # third party imports
 
 # own imports

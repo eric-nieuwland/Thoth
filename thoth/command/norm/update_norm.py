@@ -1,7 +1,6 @@
 # standard library imports
-from enum import Enum
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # third party imports
 

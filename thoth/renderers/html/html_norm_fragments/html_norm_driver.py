@@ -5,7 +5,8 @@
 # own imports
 from model.norm.driver import Driver
 from model.profile import profile
-from .html_norm__common import sub_part_title, table, table_row, table_cell
+
+from .html_norm__common import sub_part_title, table, table_cell, table_row
 
 
 def driver(

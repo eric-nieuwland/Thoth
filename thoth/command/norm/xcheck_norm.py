@@ -1,7 +1,7 @@
 # standard library imports
+import sys
 from itertools import zip_longest
 from pathlib import Path
-import sys
 
 # third party imports
 

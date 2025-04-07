@@ -1,12 +1,13 @@
 # standard library imports
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # third party imports
 
 # own imports
 from model.norm.norm import Norm
 from renderers.html import html_render_translation_page
+
 from command._shared import OutputFormat
 
 
@@ -26,7 +27,7 @@ def render_translated_norm(
         sys.exit(1)
 
     if format is None and output is None:
-        print(f"need output or format", file=sys.stderr)
+        print("need output or format", file=sys.stderr)
         sys.exit(1)
 
     if format is None:

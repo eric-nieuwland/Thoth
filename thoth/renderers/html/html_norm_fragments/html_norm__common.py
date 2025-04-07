@@ -32,7 +32,7 @@ def classed_div(div_class: str, *lst: str) -> list:
     return [
         f"""<div class="{div_class}">""" if div_class else "<div>",
         *lst,
-        f"""</div>""",
+        "</div>",
     ]
 
 

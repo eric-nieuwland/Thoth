@@ -1,6 +1,6 @@
 # standard library imports
-from typing import Any, Never
 from functools import reduce
+from typing import Any
 
 # third party imports
 

@@ -5,8 +5,8 @@ import typer
 
 # own imports
 from .about import about
-from .profile import app as profile_app
 from .norm import app as norm_app
+from .profile import app as profile_app
 
 
 app = typer.Typer()
