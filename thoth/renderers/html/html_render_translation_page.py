@@ -29,7 +29,7 @@ def render_driver(driver: Driver, _language: str) -> str:
     <div class="sub-part-title">
       {driver.name}
     </div>
-    <table>
+    <table class="driver-table">
       {
         ""
         if driver.details is None
@@ -249,10 +249,10 @@ def render_translation(norm: Norm, language_1: str, language_2: str) -> str:
     return f"""
 <html>
   <head>
+    <!-- standard elements -->
     <style>
-      <!-- standard elements -->
       table {{
-        border-collapse: separate;
+        border-collapse: collapse;
         border-spacing: 0px 6px;
         margin: 24px 0px;
       }}
@@ -264,8 +264,11 @@ def render_translation(norm: Norm, language_1: str, language_2: str) -> str:
         list-style-type: "- ";
       }}
     </style>
+    <!-- custom classes -->
     <style>
-      <!-- custom classes -->
+      .driver-table {{
+        margin: 6px;
+      }}
       .blue-box {{
         background-color: #DDE8F6;
         margin: -1px;

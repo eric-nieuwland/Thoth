@@ -8,10 +8,10 @@
 def styles() -> list[str]:
     return [
         """
+    <!-- standard elements -->
     <style>
-      <!-- standard elements -->
       table {
-        border-collapse: separate;
+        border-collapse: collapse;
         border-spacing: 0px 6px;
         margin: 24px 0px;
       }
@@ -23,11 +23,14 @@ def styles() -> list[str]:
         list-style-type: "- ";
       }
     </style>
+    <!-- custom classes -->
     <style>
-      <!-- custom classes -->
+      .driver-table {
+        margin: 6px;
+      }
       .blue-box {
         background-color: #DDE8F6;
-        margin: -1px;
+        margin: 0px -1px;
         padding: 1px;
       }
       .norm-title {

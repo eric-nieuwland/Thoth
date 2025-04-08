@@ -70,9 +70,10 @@ def sub_sub_part_title(title: str) -> list:
 # tables
 
 
-def table(*rows) -> list:
+def table(*rows, klass=None) -> list:
+    table_start = "<table>" if klass is None else f'<table class="{klass}">'
     return [
-        "<table>",
+        table_start,
         *rows,
         "</table>",
     ]
