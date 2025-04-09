@@ -23,6 +23,7 @@ class TestCriteria(unittest.TestCase):
         ]
         self.assertListEqual(expect, mock_multi_lingual_list.mock_calls)
         expect = [
+            '<div class="blue-box">',
             '<div class="part">',
             [
                 '<div class="part-title">',
@@ -30,6 +31,7 @@ class TestCriteria(unittest.TestCase):
                 "</div>",
             ],
             "MOCK multi_lingual_list([], py)",
+            "</div>",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -55,6 +57,7 @@ class TestCriteria(unittest.TestCase):
         ]
         self.assertListEqual(expect, mock_multi_lingual_list.mock_calls)
         expect = [
+            '<div class="blue-box">',
             '<div class="part">',
             [
                 '<div class="part-title">',
@@ -62,6 +65,7 @@ class TestCriteria(unittest.TestCase):
                 "</div>",
             ],
             "MOCK multi_lingual_list(['Criterium #1'], py)",
+            "</div>",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
@@ -91,6 +95,7 @@ class TestCriteria(unittest.TestCase):
         ]
         self.assertListEqual(expect, mock_multi_lingual_list.mock_calls)
         expect = [
+            '<div class="blue-box">',
             '<div class="part">',
             [
                 '<div class="part-title">',
@@ -98,6 +103,7 @@ class TestCriteria(unittest.TestCase):
                 "</div>",
             ],
             "MOCK multi_lingual_list(['Criterium #1', 'Criterium #2', 'Criterium #3'], py)",
+            "</div>",
             "</div>",
         ]
         self.assertListEqual(expect, actual)
