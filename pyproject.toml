@@ -1,27 +1,27 @@
 [project]
 name = "Thoth-dhwtj"
-version = "1.0.0"
+version = "0.0.2"
 description = "Maintain the Ma'at of Secure Software Development"
 license="Apache-2.0"
 authors = [
-  {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
+    {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
 ]
 readme = "README.md"
 requires-python = ">= 3.13"
 classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Environment :: Console",
-  "Framework :: Pydantic",
-  "Framework :: Typer",
-  "Intended Audience :: Developers",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3.13",
-  "Topic :: Documentation",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Framework :: Pydantic",
+    "Framework :: Typer",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Documentation",
 ]
 dependencies = [
-  "pydantic==2.11.3",
-  "pyyaml==6.0.2",
-  "typer==0.15.2",
+    "pydantic==2.11.3",
+    "pyyaml==6.0.2",
+    "typer==0.15.2",
 ]
 
 [tool.setuptools.packages.find]

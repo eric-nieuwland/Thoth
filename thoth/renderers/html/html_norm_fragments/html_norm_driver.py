@@ -23,6 +23,7 @@ def driver(
     return [
         title,
         table(
+            klass="driver-table",
             *[table_row(table_cell(detail)) for detail in driver.details],
         ),
     ]

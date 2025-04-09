@@ -69,7 +69,7 @@ class TestDriver(unittest.TestCase):
     @patch.object(html_norm_driver, "table_row")
     @patch.object(html_norm_driver, "table")
     def test_one(self, mock_table, mock_table_row, mock_table_cell):
-        mock_table.side_effect = lambda *args: f"MOCK table{args}"
+        mock_table.side_effect = lambda *args, **kwargs: f"MOCK table{args}"
         mock_table_row.side_effect = lambda *args: f"MOCK table_row{args}"
         mock_table_cell.side_effect = lambda *args: f"MOCK table_cell{args}"
         # given
@@ -83,7 +83,7 @@ class TestDriver(unittest.TestCase):
         actual = html_norm_driver.driver(driver, language)
         # then
         expect = [
-            call("""MOCK table_row("MOCK table_cell('Detail #1',)",)"""),
+            call("""MOCK table_row("MOCK table_cell('Detail #1',)",)""", klass="driver-table"),
         ]
         self.assertListEqual(expect, mock_table.mock_calls)
         expect = [
@@ -110,7 +110,7 @@ class TestDriver(unittest.TestCase):
     @patch.object(html_norm_driver, "table_row")
     @patch.object(html_norm_driver, "table")
     def test_some(self, mock_table, mock_table_row, mock_table_cell):
-        mock_table.side_effect = lambda *args: f"MOCK table{args}"
+        mock_table.side_effect = lambda *args, **kwargs: f"MOCK table{args}"
         mock_table_row.side_effect = lambda *args: f"MOCK table_row{args}"
         mock_table_cell.side_effect = lambda *args: f"MOCK table_cell{args}"
         # given
@@ -130,6 +130,7 @@ class TestDriver(unittest.TestCase):
                 """MOCK table_row("MOCK table_cell('Detail #1',)",)""",
                 """MOCK table_row("MOCK table_cell('Detail #2',)",)""",
                 """MOCK table_row("MOCK table_cell('Detail #3',)",)""",
+                klass="driver-table",
             ),
         ]
         self.assertListEqual(expect, mock_table.mock_calls)
