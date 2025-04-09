@@ -1,6 +1,6 @@
 [project]
 name = "Thoth-dhwtj"
-version = "1.0.0"
+version = "0.0.2"
 description = "Maintain the Ma'at of Secure Software Development"
 license="Apache-2.0"
 authors = [
@@ -20,7 +20,6 @@ classifiers = [
 ]
 dependencies = [
     "pydantic==2.11.3",
-    "python-docx==1.1.2",
     "pyyaml==6.0.2",
     "typer==0.15.2",
 ]
