@@ -1,0 +1,31 @@
+{% if profile.drivers -%}
+<div class="part">
+    <div class="part-title">
+        drivers
+    </div>
+    {%- if norm.drivers %}
+    <table width="100%">
+        <tr>
+            {%- for driver in norm.drivers %}
+            <td width={%- if loop.last -%} "*" {%- else -%} "{{ 100 // ( norm.drivers | length )}}%" {%- endif -%}>
+                {%- if profile.drivers.name %}
+                <div class="sub-part-title">
+                    {{ driver.name }}
+                </div>
+                {%- endif %}
+                {%- if profile.drivers.details %}
+                {%- if driver.details %}
+                <ul class="driver-details">
+                    {%- for detail in driver.details %}
+                    <li>{{ detail }}</li>
+                    {%- endfor %}
+                </ul>
+                {%- endif %}
+                {%- endif %}
+            </td>
+            {%- endfor %}
+        </tr>
+    </table>
+    {%- endif %}
+</div>
+{%- endif %}

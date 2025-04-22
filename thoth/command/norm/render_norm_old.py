@@ -12,7 +12,7 @@ from renderers.html import html_render_norm_page
 from command.shared.output_format import OutputFormat
 
 
-def render_norm(
+def render_norm_old(
     path: Path,
     language: str,
     profile: Path | None = None,
