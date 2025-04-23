@@ -25,7 +25,7 @@ def render_norm(
     render a norm definition in a document format
     """
     if not path.is_file():
-        print(f"so such file - {path}", file=sys.stderr)
+        print(f"no such file - {path}", file=sys.stderr)
         sys.exit(1)
 
     if format is None and output is None:
@@ -74,13 +74,13 @@ WARNING: language '{language}' incomplete in - {path}
 
     match format:
         case OutputFormat.HTML:
-
+            # prepare rendering by Jinja2
             env = Environment(
                 loader=PackageLoader("thoth", "templates/html/norm"),
             )
             template = env.get_template("norm.html")
             timestamp = datetime.now(tz=timezone.utc)
-
+            # produce rendered norm
             html = template.render(
                 source=path.name,
                 timestamp=timestamp,

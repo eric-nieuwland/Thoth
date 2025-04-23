@@ -1,12 +1,11 @@
 # standard library imports
-import sys
 from pathlib import Path
 
 # third party imports
 
 # own imports
-from ..shared.new_command import new_command
 from model.profile.profile import NormRenderProfile
+from ..shared.new_command import new_command
 
 
 def new_profile(
