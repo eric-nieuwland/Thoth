@@ -1,13 +1,14 @@
 # standard library imports
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 # third party imports
+from jinja2 import Environment, PackageLoader
 
 # own imports
 from model.norm.norm import Norm
 from model.profile.profile import NormRenderProfile
-from renderers.html import html_render_norm_page
 
 from command.shared.output_format import OutputFormat
 
@@ -73,7 +74,20 @@ WARNING: language '{language}' incomplete in - {path}
 
     match format:
         case OutputFormat.HTML:
-            html = html_render_norm_page.render(path.name, norm, language, prof)
+
+            env = Environment(
+                loader=PackageLoader("thoth", "templates/html/norm"),
+            )
+            template = env.get_template("norm.html")
+            timestamp = datetime.now(tz=timezone.utc)
+
+            html = template.render(
+                source=path.name,
+                timestamp=timestamp,
+                profile=prof,
+                norm=norm,
+                language=language,
+            )
             writer(html)
         case _:
             print(f"cannot render .{format.value}, yet")

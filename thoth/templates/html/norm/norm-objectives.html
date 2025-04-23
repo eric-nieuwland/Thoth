@@ -1,0 +1,16 @@
+{% if profile.objectives -%}
+<div class="blue-box">
+    <div class="part">
+        <div class="part-title">
+            objectives
+        </div>
+        {% if norm.objectives -%}
+        <ul>
+        {%- for objective in norm.objectives %}
+            <li>{{ objective[language] }}</li>
+        {%- endfor %}
+        </ul>
+        {%- endif %}
+    </div>
+</div>
+{%- endif %}

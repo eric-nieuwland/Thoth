@@ -1,0 +1,7 @@
+{% if profile.identifier or profile.title -%}
+<div class="norm-title">
+    {% if profile.identifier -%}{{ norm.identifier }}{%- endif -%}
+    {%- if profile.identifier and profile.title %} - {% endif -%}
+    {%- if profile.title -%}{{ norm.title[language] }}{%- endif %}
+</div>
+{%- endif %}

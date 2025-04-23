@@ -1,0 +1,38 @@
+<html>
+<head>
+{% include './styles.html' %}
+</head>
+<body>
+{% if profile.identifier or profile.title %}
+{%- include './norm-identifier-title.html' -%}
+{% endif %}
+{% if profile.intro %}
+{%- include './norm-intro.html' -%}
+{% endif %}
+{% if profile.scope %}
+{%- include './norm-scope.html' -%}
+{% endif %}
+{% if profile.triggers %}
+{%- include './norm-triggers.html' -%}
+{% endif %}
+{% if profile.criteria %}
+{%- include './norm-criteria.html' -%}
+{% endif %}
+{% if profile.objectives %}
+{%- include './norm-objectives.html' -%}
+{% endif %}
+{% if profile.risks %}
+{%- include './norm-risks.html' -%}
+{% endif %}
+{% if profile.drivers %}
+{%- include './norm-drivers.html' -%}
+{% endif %}
+{% if profile.indicators %}
+{%- include './norm-indicators.html' -%}
+{% endif %}
+{% if profile.references %}
+{%- include './norm-references.html' -%}
+{% endif %}
+{% include './norm-footer.html' %}
+</body>
+</html>
