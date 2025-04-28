@@ -21,7 +21,7 @@
         {%- if profile.indicators.conformities %}
         <div class="sub-sub-part">
             <div class="sub-sub-part-title">
-                Conformity indicators
+                conformity indicators
             </div>
             {%- if indicator.conformities %}
             <table>
@@ -45,7 +45,7 @@
                     </td>
                 </tr>
                 {%- if profile.indicators.conformities.guidance %}
-                {%- if conformity.guidance[language] %}
+                {%- if conformity.guidance %}
                 <tr>
                     <td></td>
                     <td>
@@ -62,7 +62,7 @@
         {%- if profile.indicators.explanation %}
         <div class="sub-sub-part">
             <div class="sub-sub-part-title">
-                Explanation
+                explanation
             </div>
             {{ indicator.explanation[language] }}
         </div>

@@ -5,12 +5,18 @@ from pathlib import Path
 
 # third party imports
 from jinja2 import Environment, PackageLoader
+from docxtpl import DocxTemplate
 
 # own imports
 from model.norm.norm import Norm
 from model.profile.profile import NormRenderProfile
 
 from command.shared.output_format import OutputFormat
+
+
+FORMAT_REQUIRES_OUTPUT = {
+    OutputFormat.DOCX,
+}
 
 
 def render_norm(
@@ -43,6 +49,10 @@ def render_norm(
             print(f"cannot render - {suffix}", file=sys.stderr)
             sys.exit(1)
 
+    if output is None and format in FORMAT_REQUIRES_OUTPUT:
+        print(f"please use '--output' to save files of format - {format.value}", file=sys.stderr)
+        sys.exit(1)
+
     if profile is not None and not profile.exists():
         print(f"so such file - {profile}", file=sys.stderr)
         sys.exit(1)
@@ -51,10 +61,13 @@ def render_norm(
         print(f"file exists - {output}", file=sys.stderr)
         sys.exit(1)
 
-    prof = None if profile is None else NormRenderProfile.from_yaml(profile.open())
-    if prof is not None and not prof:
-        print(f"profile does not select anything - '{profile}'", file=sys.stderr)
-        sys.exit(1)
+    if profile is None:
+        prof = NormRenderProfile.yes_to_all()
+    else:
+        prof = NormRenderProfile.from_yaml(profile.open())
+        if not prof:
+            print(f"profile does not select anything - '{profile}'", file=sys.stderr)
+            sys.exit(1)
 
     norm = Norm.from_yaml(path.open())
     total_count, language_counts = norm.count_multi_lingual()
@@ -70,7 +83,14 @@ WARNING: language '{language}' incomplete in - {path}
             file=sys.stderr,
         )
 
-    writer = print if output is None else output.write_text
+    timestamp = datetime.now(tz=timezone.utc)
+    context = dict(
+        source=path.name,
+        timestamp=timestamp,
+        profile=prof,
+        norm=norm,
+        language=language,
+    )
 
     match format:
         case OutputFormat.HTML:
@@ -79,15 +99,13 @@ WARNING: language '{language}' incomplete in - {path}
                 loader=PackageLoader("thoth", "templates/html/norm"),
             )
             template = env.get_template("norm.html")
-            timestamp = datetime.now(tz=timezone.utc)
             # produce rendered norm
-            html = template.render(
-                source=path.name,
-                timestamp=timestamp,
-                profile=prof,
-                norm=norm,
-                language=language,
-            )
+            html = template.render(**context)
+            writer = print if output is None else output.write_text
             writer(html)
+        case OutputFormat.DOCX:
+            doc = DocxTemplate("thoth/templates/docx/norm/norm.docx")
+            doc.render(context)
+            doc.save(output)  # type: ignore
         case _:
             print(f"cannot render .{format.value}, yet")
