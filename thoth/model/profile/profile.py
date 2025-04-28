@@ -33,7 +33,14 @@ class DriversRenderProfile(BaseModel):
     @classmethod
     def template(cls) -> Self:
         """
-        Drivers definition to serve as a template/example.
+        A template/example.
+        """
+        return cls.yes_to_all()
+
+    @classmethod
+    def yes_to_all(cls) -> Self:
+        """
+        Select every part of a driver
         """
         return cls(
             name=True,
@@ -64,7 +71,14 @@ class ConformitiesRenderProfile(BaseModel):
     @classmethod
     def template(cls) -> Self:
         """
-        Conformities definition to serve as a template/example.
+        A template/example.
+        """
+        return cls.yes_to_all()
+
+    @classmethod
+    def yes_to_all(cls) -> Self:
+        """
+        Select every part of a conformity
         """
         return cls(
             identifier=True,
@@ -100,13 +114,20 @@ class IndicatorsRenderProfile(BaseModel):
     @classmethod
     def template(cls) -> Self:
         """
-        Indicators definition to serve as a template/example.
+        A template/example.
+        """
+        return cls.yes_to_all()
+
+    @classmethod
+    def yes_to_all(cls) -> Self:
+        """
+        Select every part of an indicator
         """
         return cls(
             identifier=True,
             title=True,
             description=True,
-            conformities=ConformitiesRenderProfile.template(),
+            conformities=ConformitiesRenderProfile.yes_to_all(),
             explanation=True,
         )
 
@@ -134,7 +155,14 @@ class ReferencesRenderProfile(BaseModel):
     @classmethod
     def template(cls) -> Self:
         """
-        Indicators definition to serve as a template/example.
+        A template/example.
+        """
+        return cls.yes_to_all()
+
+    @classmethod
+    def yes_to_all(cls) -> Self:
+        """
+        Select every part of a reference
         """
         return cls(
             name=True,
@@ -182,7 +210,14 @@ class NormRenderProfile(BaseModel):
     @classmethod
     def template(cls) -> Self:
         """
-        Document definition to serve as a template/example.
+        A template/example.
+        """
+        return cls.yes_to_all()
+
+    @classmethod
+    def yes_to_all(cls) -> Self:
+        """
+        Selects every part of a norm
         """
         return cls(
             identifier=True,
@@ -193,9 +228,9 @@ class NormRenderProfile(BaseModel):
             criteria=True,
             objectives=True,
             risks=True,
-            drivers=DriversRenderProfile.template(),
-            indicators=IndicatorsRenderProfile.template(),
-            references=ReferencesRenderProfile.template(),
+            drivers=DriversRenderProfile.yes_to_all(),
+            indicators=IndicatorsRenderProfile.yes_to_all(),
+            references=ReferencesRenderProfile.yes_to_all(),
         )
 
     # YAML interface
