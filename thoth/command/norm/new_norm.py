@@ -16,4 +16,4 @@ def new_norm(
     """
     create a starting point for a norm definition
     """
-    new_command(Norm, output, force)
+    new_command(Norm, output, force, language=language)
