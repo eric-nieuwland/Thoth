@@ -11,6 +11,7 @@ def new_command(
     klass,
     output: Path | None = None,
     force: bool = False,
+    **kwargs,
 ):
     """
     create a starting point for a document
@@ -21,4 +22,4 @@ def new_command(
 
     writer = print if output is None else output.write_text
 
-    writer(klass.template().as_yaml())
+    writer(klass.template(**kwargs).as_yaml())
