@@ -7,7 +7,7 @@ from pathlib import Path
 # own imports
 from model.norm.norm import Norm
 
-from ..shared.compare_norm_structures import compare_norm_structures
+from process.norm.compare_norm_structures import compare_norm_structures
 
 
 def _report_issues(
