@@ -214,7 +214,10 @@ references:
 """.strip()
 
 
-class TestNormDimensions(unittest.TestCase):
+class TestNormDimensionsInit(unittest.TestCase):
+    """
+    test NormDimensions creation
+    """
 
     def setUp(self):
         self.maxDiff = None
@@ -231,7 +234,7 @@ class TestNormDimensions(unittest.TestCase):
             criteria=1,
             objectives=1,
             risks=1,
-            drivers=[],
+            drivers={},
             indicators=[1],
             references=0,
         )
@@ -249,7 +252,9 @@ class TestNormDimensions(unittest.TestCase):
             criteria=1,
             objectives=1,
             risks=1,
-            drivers=[0],
+            drivers={
+                "<ignore>" : [],
+            },
             indicators=[1],
             references=1,
         )
@@ -267,11 +272,26 @@ class TestNormDimensions(unittest.TestCase):
             criteria=3,
             objectives=3,
             risks=3,
-            drivers=[3, 3, 3],
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                    "<ignore>",
+                    "<ignore>",
+                ],
+            },
             indicators=[3, 3, 3],
             references=3,
         )
         self.assertEqual(expect, actual)
+
+
+class TestNormDimensionsJoin(unittest.TestCase):
+    """
+    test NormDimensions.__or__() function
+    """
+
+    def setUp(self):
+        self.maxDiff = None
 
     def test_minimal_vs_more_languages(self):
         # given
@@ -286,7 +306,9 @@ class TestNormDimensions(unittest.TestCase):
             criteria=1,
             objectives=1,
             risks=1,
-            drivers=[0],
+            drivers={
+                "<ignore>" : [],
+            },
             indicators=[1],
             references=1,
         )
@@ -305,7 +327,11 @@ class TestNormDimensions(unittest.TestCase):
             criteria=3,
             objectives=3,
             risks=3,
-            drivers=[3, 3, 3],
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             indicators=[3, 3, 3],
             references=3,
         )
@@ -324,7 +350,11 @@ class TestNormDimensions(unittest.TestCase):
             criteria=3,
             objectives=3,
             risks=3,
-            drivers=[3, 3, 3],
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             indicators=[3, 3, 3],
             references=3,
         )
@@ -338,17 +368,17 @@ class TestNormDimensions(unittest.TestCase):
             criteria=0,
             objectives=0,
             risks=0,
-            drivers=[],
+            drivers={},
             indicators=[],
             references=0,
         )
         dim2 = NormDimensions(
-            languages=["foo"],
+            languages=["<ignore>"],
             triggers=0,
             criteria=0,
             objectives=0,
             risks=0,
-            drivers=[],
+            drivers={},
             indicators=[],
             references=0,
         )
@@ -356,12 +386,12 @@ class TestNormDimensions(unittest.TestCase):
         actual = dim1 | dim2
         # then
         expect = NormDimensions(
-            languages=["bar", "foo"],
+            languages=["<ignore>", "bar"],
             triggers=0,
             criteria=0,
             objectives=0,
             risks=0,
-            drivers=[],
+            drivers={},
             indicators=[],
             references=0,
         )
@@ -375,7 +405,7 @@ class TestNormDimensions(unittest.TestCase):
             criteria=3,
             objectives=0,
             risks=2,
-            drivers=[],
+            drivers={},
             indicators=[],
             references=0,
         )
@@ -385,7 +415,7 @@ class TestNormDimensions(unittest.TestCase):
             criteria=0,
             objectives=1,
             risks=0,
-            drivers=[],
+            drivers={},
             indicators=[],
             references=4,
         )
@@ -398,7 +428,7 @@ class TestNormDimensions(unittest.TestCase):
             criteria=3,
             objectives=1,
             risks=2,
-            drivers=[],
+            drivers={},
             indicators=[],
             references=4,
         )
@@ -412,7 +442,14 @@ class TestNormDimensions(unittest.TestCase):
             criteria=0,
             objectives=0,
             risks=0,
-            drivers=[0, 3],
+            drivers={
+                "<ignore 1>" : [
+                    "<ignore 1.1>",
+                ],
+                "<ignore 2>": [
+                    "<ignore 2.1>",
+                ],
+            },
             indicators=[0, 3],
             references=0,
         )
@@ -422,7 +459,14 @@ class TestNormDimensions(unittest.TestCase):
             criteria=0,
             objectives=0,
             risks=0,
-            drivers=[2, 2, 2],
+            drivers={
+                "<ignore 3>": [
+                    "<ignore 3.1>",
+                ],
+                "<ignore 2>": [
+                    "<ignore 2.1>",
+                ],
+            },
             indicators=[2, 2, 2],
             references=0,
         )
@@ -435,9 +479,260 @@ class TestNormDimensions(unittest.TestCase):
             criteria=0,
             objectives=0,
             risks=0,
-            drivers=[2, 3, 2],
+            drivers={
+                "<ignore 1>" : [
+                    "<ignore 1.1>",
+                ],
+                "<ignore 2>": [
+                    "<ignore 2.1>",
+                ],
+                "<ignore 3>": [
+                    "<ignore 3.1>",
+                ],
+            },
             indicators=[2, 3, 2],
             references=0,
+        )
+        self.assertEqual(expect, actual)
+
+
+class TestNormDimensionsSub(unittest.TestCase):
+    """
+    test NormDimensions.__sub__() function
+    """
+
+    def setUp(self):
+        self.maxDiff = None
+
+    def test_zero_zero(self):
+        # given
+        dim1 = NormDimensions(
+            languages=[],
+            triggers=0,
+            criteria=0,
+            objectives=0,
+            risks=0,
+            drivers={},
+            indicators=[],
+            references=0,
+        )
+        dim2 = NormDimensions(
+            languages=[],
+            triggers=0,
+            criteria=0,
+            objectives=0,
+            risks=0,
+            drivers={},
+            indicators=[],
+            references=0,
+        )
+        # when
+        actual = dim1 - dim2
+        # then
+        expect = NormDimensions(
+            languages=[],
+            triggers=0,
+            criteria=0,
+            objectives=0,
+            risks=0,
+            drivers={},
+            indicators=[],
+            references=0,
+        )
+        self.assertEqual(expect, actual)
+
+    def test_one_zero(self):
+        # given
+        dim1 = NormDimensions(
+            languages=["en"],
+            triggers=1,
+            criteria=1,
+            objectives=1,
+            risks=1,
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
+            indicators=[1],
+            references=1,
+        )
+        dim2 = NormDimensions(
+            languages=[],
+            triggers=0,
+            criteria=0,
+            objectives=0,
+            risks=0,
+            drivers={},
+            indicators=[],
+            references=0,
+        )
+        # when
+        actual = dim1 - dim2
+        # then
+        expect = NormDimensions(
+            languages=["en"],
+            triggers=1,
+            criteria=1,
+            objectives=1,
+            risks=1,
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
+            indicators=[1],
+            references=1,
+        )
+        self.assertEqual(expect, actual)
+
+    def test_zero_one(self):
+        # given
+        dim1 = NormDimensions(
+            languages=[],
+            triggers=0,
+            criteria=0,
+            objectives=0,
+            risks=0,
+            drivers={},
+            indicators=[],
+            references=0,
+        )
+        dim2 = NormDimensions(
+            languages=["en"],
+            triggers=1,
+            criteria=1,
+            objectives=1,
+            risks=1,
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
+            indicators=[1],
+            references=1,
+        )
+        # when
+        actual = dim1 - dim2
+        # then
+        expect = NormDimensions(
+            languages=[],
+            triggers=0,
+            criteria=0,
+            objectives=0,
+            risks=0,
+            drivers={},
+            indicators=[],
+            references=0,
+        )
+        self.assertEqual(expect, actual)
+
+    def test_one_one(self):
+        # given
+        dim1 = NormDimensions(
+            languages=["en"],
+            triggers=1,
+            criteria=1,
+            objectives=1,
+            risks=1,
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
+            indicators=[1],
+            references=1,
+        )
+        dim2 = NormDimensions(
+            languages=["en"],
+            triggers=1,
+            criteria=1,
+            objectives=1,
+            risks=1,
+            drivers={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
+            indicators=[1],
+            references=1,
+        )
+        # when
+        actual = dim1 - dim2
+        # then
+        expect = NormDimensions(
+            languages=[],
+            triggers=0,
+            criteria=0,
+            objectives=0,
+            risks=0,
+            drivers={},
+            indicators=[],
+            references=0,
+        )
+        self.assertEqual(expect, actual)
+
+    def test_complex(self):
+        # given
+        dim1 = NormDimensions(
+            languages=["en", "nl"],
+            triggers=3,
+            criteria=3,
+            objectives=3,
+            risks=3,
+            drivers={
+                "<ignore 1>" : [
+                    "<ignore 1.1>",
+                ],
+                "<ignore 2>": [
+                    "<ignore 2.1>",
+                ],
+                "<ignore 3>": [
+                    "<ignore 3.1>",
+                ],
+            },
+            indicators=[1, 2, 3],
+            references=3,
+        )
+        dim2 = NormDimensions(
+            languages=["en"],
+            triggers=1,
+            criteria=1,
+            objectives=1,
+            risks=1,
+            drivers={
+                "<ignore 2>" : [
+                    "<ignore 2.1>",
+                ],
+                "<ignore 3>": [
+                    "<ignore 3.2>",
+                ],
+                "<ignore 4>": [
+                    "<ignore 4.2>",
+                ],
+            },
+            indicators=[1],
+            references=1,
+        )
+        # when
+        actual = dim1 - dim2
+        # then
+        expect = NormDimensions(
+            languages=["nl"],
+            triggers=2,
+            criteria=2,
+            objectives=2,
+            risks=2,
+            drivers={
+                "<ignore 1>" : [
+                    "<ignore 1.1>",
+                ],
+                "<ignore 3>": [
+                    "<ignore 3.1>",
+                ],
+            },
+            indicators=[2, 3],
+            references=2,
         )
         self.assertEqual(expect, actual)
 
