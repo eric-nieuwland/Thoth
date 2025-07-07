@@ -4,8 +4,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 # third party imports
+from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 from jinja2 import Environment, PackageLoader
-from docxtpl import DocxTemplate
 
 # own imports
 from model.norm.norm import Norm

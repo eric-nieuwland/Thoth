@@ -72,7 +72,7 @@ def compare_norm_structures(norm1: Norm, norm2: Norm) -> list:
     """
     check whether two norm structures match
     """
-    return flatten(
+    return flatten(  # type: ignore[return-value]
         [
             _x_identifier(norm1.identifier, norm2.identifier),
             _x_drivers(norm1.drivers, norm2.drivers),
