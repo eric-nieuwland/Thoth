@@ -235,7 +235,11 @@ class TestNormDimensionsInit(unittest.TestCase):
             objectives=1,
             risks=1,
             drivers={},
-            indicators=[1],
+            indicators={
+                "<ignore>": [
+                    "<ignore>",
+                ],
+            },
             references=0,
         )
         self.assertEqual(expect, actual)
@@ -253,9 +257,13 @@ class TestNormDimensionsInit(unittest.TestCase):
             objectives=1,
             risks=1,
             drivers={
-                "<ignore>" : [],
+                "<ignore>": [],
             },
-            indicators=[1],
+            indicators={
+                "<ignore>": [
+                    "<ignore>",
+                ],
+            },
             references=1,
         )
         self.assertEqual(expect, actual)
@@ -279,7 +287,13 @@ class TestNormDimensionsInit(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[3, 3, 3],
+            indicators={
+                "<ignore>": [
+                    "<ignore>",
+                    "<ignore>",
+                    "<ignore>",
+                ],
+            },
             references=3,
         )
         self.assertEqual(expect, actual)
@@ -309,7 +323,11 @@ class TestNormDimensionsJoin(unittest.TestCase):
             drivers={
                 "<ignore>" : [],
             },
-            indicators=[1],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=1,
         )
         self.assertEqual(expect, actual)
@@ -332,7 +350,11 @@ class TestNormDimensionsJoin(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[3, 3, 3],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=3,
         )
         self.assertEqual(expect, actual)
@@ -355,7 +377,11 @@ class TestNormDimensionsJoin(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[3, 3, 3],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=3,
         )
         self.assertEqual(expect, actual)
@@ -369,7 +395,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         dim2 = NormDimensions(
@@ -379,7 +405,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         # when
@@ -392,7 +418,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         self.assertEqual(expect, actual)
@@ -406,7 +432,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
             objectives=0,
             risks=2,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         dim2 = NormDimensions(
@@ -416,7 +442,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
             objectives=1,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=4,
         )
         # when
@@ -429,7 +455,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
             objectives=1,
             risks=2,
             drivers={},
-            indicators=[],
+            indicators={},
             references=4,
         )
         self.assertEqual(expect, actual)
@@ -450,7 +476,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
                     "<ignore 2.1>",
                 ],
             },
-            indicators=[0, 3],
+            indicators={},
             references=0,
         )
         dim2 = NormDimensions(
@@ -467,7 +493,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
                     "<ignore 2.1>",
                 ],
             },
-            indicators=[2, 2, 2],
+            indicators={},
             references=0,
         )
         # when
@@ -490,7 +516,7 @@ class TestNormDimensionsJoin(unittest.TestCase):
                     "<ignore 3.1>",
                 ],
             },
-            indicators=[2, 3, 2],
+            indicators={},
             references=0,
         )
         self.assertEqual(expect, actual)
@@ -513,7 +539,7 @@ class TestNormDimensionsSub(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         dim2 = NormDimensions(
@@ -523,7 +549,7 @@ class TestNormDimensionsSub(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         # when
@@ -536,7 +562,7 @@ class TestNormDimensionsSub(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         self.assertEqual(expect, actual)
@@ -554,7 +580,11 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[1],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=1,
         )
         dim2 = NormDimensions(
@@ -564,7 +594,7 @@ class TestNormDimensionsSub(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         # when
@@ -581,7 +611,11 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[1],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=1,
         )
         self.assertEqual(expect, actual)
@@ -595,7 +629,7 @@ class TestNormDimensionsSub(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         dim2 = NormDimensions(
@@ -609,7 +643,11 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[1],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=1,
         )
         # when
@@ -622,7 +660,7 @@ class TestNormDimensionsSub(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         self.assertEqual(expect, actual)
@@ -640,7 +678,11 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[1],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=1,
         )
         dim2 = NormDimensions(
@@ -654,7 +696,11 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore>",
                 ],
             },
-            indicators=[1],
+            indicators={
+                "<ignore>" : [
+                    "<ignore>",
+                ],
+            },
             references=1,
         )
         # when
@@ -667,7 +713,7 @@ class TestNormDimensionsSub(unittest.TestCase):
             objectives=0,
             risks=0,
             drivers={},
-            indicators=[],
+            indicators={},
             references=0,
         )
         self.assertEqual(expect, actual)
@@ -691,7 +737,17 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore 3.1>",
                 ],
             },
-            indicators=[1, 2, 3],
+            indicators={
+                "<ignore 1>" : [
+                    "<ignore 1.1>",
+                ],
+                "<ignore 2>": [
+                    "<ignore 2.1>",
+                ],
+                "<ignore 3>": [
+                    "<ignore 3.1>",
+                ],
+            },
             references=3,
         )
         dim2 = NormDimensions(
@@ -711,7 +767,17 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore 4.2>",
                 ],
             },
-            indicators=[1],
+            indicators={
+                "<ignore 2>" : [
+                    "<ignore 2.1>",
+                ],
+                "<ignore 3>": [
+                    "<ignore 3.2>",
+                ],
+                "<ignore 4>": [
+                    "<ignore 4.2>",
+                ],
+            },
             references=1,
         )
         # when
@@ -731,7 +797,14 @@ class TestNormDimensionsSub(unittest.TestCase):
                     "<ignore 3.1>",
                 ],
             },
-            indicators=[2, 3],
+            indicators={
+                "<ignore 1>" : [
+                    "<ignore 1.1>",
+                ],
+                "<ignore 3>": [
+                    "<ignore 3.1>",
+                ],
+            },
             references=2,
         )
         self.assertEqual(expect, actual)

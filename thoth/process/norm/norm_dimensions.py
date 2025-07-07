@@ -20,8 +20,8 @@ class NormDimensions:
     criteria: int
     objectives: int
     risks: int
-    drivers: dict[str, list[str] | None]
-    indicators: list[int]
+    drivers: dict[str, list[str]]
+    indicators: dict[str, list[str]]
     references: int
 
     @classmethod
@@ -35,10 +35,10 @@ class NormDimensions:
             driver.name: [detail for detail in driver.details] if driver.details else []
             for driver in (norm.drivers if norm.drivers else [])
         }
-        indicators = [
-            len(indicator.conformities) if indicator else 0
+        indicators = {
+            indicator.identifier: [ conformity.identifier for conformity in indicator.conformities]
             for indicator in norm.indicators
-        ]
+        }
         references = len(norm.references) if norm.references else 0
         return cls(
             languages=languages,
@@ -64,10 +64,10 @@ class NormDimensions:
             key: list(sorted(set(self.drivers.get(key, [])) | set(other.drivers.get(key, []))))
             for key in sorted(set(self.drivers) | set(other.drivers))
         }
-        indicators = [
-            max(nr_conf_1, nr_conf_2)
-            for nr_conf_1, nr_conf_2 in zip_longest(self.indicators, other.indicators, fillvalue=0)
-        ]
+        indicators = {
+            key: list(sorted(set(self.indicators.get(key, [])) | set(other.indicators.get(key, []))))
+            for key in sorted(set(self.indicators) | set(other.indicators))
+        }
         references = max(self.references, other.references)
 
         return self.__class__(
@@ -95,11 +95,11 @@ class NormDimensions:
             for key in sorted(self.drivers)
             if len(values := set(self.drivers.get(key, [])) - set(other.drivers.get(key, []))) > 0
         }
-        indicators = [
-            max(nr_conf_1 - nr_conf_2, 0) if nr_conf_2 else nr_conf_1
-            for nr_conf_1, nr_conf_2 in zip_longest(self.indicators, other.indicators)
-            if nr_conf_1 is not None and nr_conf_1 != nr_conf_2
-        ]
+        indicators = {
+            key: list(sorted(values))
+            for key in sorted(self.indicators)
+            if len(values := set(self.indicators.get(key, [])) - set(other.indicators.get(key, []))) > 0
+        }
         references = max(self.references - other.references, 0)
 
         return self.__class__(
