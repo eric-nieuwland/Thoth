@@ -3,9 +3,8 @@ import sys
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
+from thoth.model.norm.norm import Norm
 
 
 def split_norm(
@@ -30,9 +29,15 @@ def split_norm(
         sys.exit(1)
 
     output_writer = (
-        None if output is None else (print if str(output).strip() == "-" else output.write_text)
+        None
+        if output is None
+        else (print if str(output).strip() == "-" else output.write_text)
     )
-    rest_writer = None if rest is None else (print if str(rest).strip() == "-" else rest.write_text)
+    rest_writer = (
+        None
+        if rest is None
+        else (print if str(rest).strip() == "-" else rest.write_text)
+    )
 
     norm = Norm.from_yaml(path.open())
     total, language_counts = norm.count_multi_lingual()
@@ -50,7 +55,9 @@ def split_norm(
         output_writer(lang_norm.as_yaml())
 
     if output_writer == print and rest_writer == print:
-        print(f"\n\n--- # selected language '{language}' above - remaining languages below\n\n")
+        print(
+            f"\n\n--- # selected language '{language}' above - remaining languages below\n\n"
+        )
 
     if rest_writer:
         retained_languages = [lang for lang in language_counts if lang != language]

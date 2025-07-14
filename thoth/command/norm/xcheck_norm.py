@@ -3,11 +3,9 @@ import sys
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
-
-from process.norm.compare_norm_structures import compare_norm_structures
+from thoth.model.norm.norm import Norm
+from thoth.process.norm.compare_norm_structures import compare_norm_structures
 
 
 def _report_issues(

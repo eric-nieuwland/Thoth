@@ -1,6 +1,6 @@
 import unittest
 
-from utils.flatten import flatten
+from thoth.utils.flatten import flatten
 
 
 class TestFlatten(unittest.TestCase):

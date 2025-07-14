@@ -7,7 +7,7 @@ from typing import Self
 from pydantic import BaseModel
 
 # own imports
-from utils.list_joiner import list_joiner
+from thoth.utils.list_joiner import list_joiner
 
 from ._translation import template_reference_text
 from .multi_lingual_text import MultiLingualText
@@ -42,7 +42,11 @@ class Reference(BaseModel):
         return self.__class__(
             name=self.name,
             url=self.url,
-            notes=[note.copy_for_language(language) for note in self.notes] if self.notes else None,
+            notes=(
+                [note.copy_for_language(language) for note in self.notes]
+                if self.notes
+                else None
+            ),
         )
 
     def __or__(self, other: Reference) -> Reference:

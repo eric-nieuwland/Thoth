@@ -7,12 +7,11 @@ from pathlib import Path
 from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 from jinja2 import Environment, PackageLoader
 
+from thoth.command.shared.output_format import OutputFormat
+
 # own imports
-from model.norm.norm import Norm
-from model.profile.profile import NormRenderProfile
-
-from command.shared.output_format import OutputFormat
-
+from thoth.model.norm.norm import Norm
+from thoth.model.profile.profile import NormRenderProfile
 
 FORMAT_REQUIRES_OUTPUT = {
     OutputFormat.DOCX,
@@ -50,7 +49,10 @@ def render_norm(
             sys.exit(1)
 
     if output is None and format in FORMAT_REQUIRES_OUTPUT:
-        print(f"please use '--output' to save files of format - {format.value}", file=sys.stderr)
+        print(
+            f"please use '--output' to save files of format - {format.value}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if profile is not None and not profile.exists():

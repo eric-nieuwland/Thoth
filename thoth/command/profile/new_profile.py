@@ -2,9 +2,9 @@
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.profile.profile import NormRenderProfile
+from thoth.model.profile.profile import NormRenderProfile
+
 from ..shared.new_command import new_command
 
 

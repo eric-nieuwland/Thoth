@@ -3,12 +3,13 @@ import sys
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
+from thoth.model.norm.norm import Norm
 
 
-def _report_issues(path: Path, issue_kind: str, issues: list[str] | tuple[str, ...]) -> None:
+def _report_issues(
+    path: Path, issue_kind: str, issues: list[str] | tuple[str, ...]
+) -> None:
     if issues:
         print(f"{issue_kind} found in '{path}':")
         for issue in issues:

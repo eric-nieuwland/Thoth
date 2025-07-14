@@ -2,13 +2,12 @@
 from itertools import zip_longest
 
 # third party imports
-
 # own imports
-from model.norm.conformity import Conformity
-from model.norm.driver import Driver
-from model.norm.indicator import Indicator
-from model.norm.norm import Norm
-from utils.flatten import flatten
+from thoth.model.norm.conformity import Conformity
+from thoth.model.norm.driver import Driver
+from thoth.model.norm.indicator import Indicator
+from thoth.model.norm.norm import Norm
+from thoth.utils.flatten import flatten
 
 
 def _x_difference(what: str, v1, v2) -> list:
@@ -30,7 +29,9 @@ def _x_drivers(drivers1: list[Driver] | None, drivers2: list[Driver] | None) -> 
     ]
 
 
-def _x_conformity(conformity1: Conformity | None, conformity2: Conformity | None) -> list:
+def _x_conformity(
+    conformity1: Conformity | None, conformity2: Conformity | None
+) -> list:
     what = "  conformity/identifier"
     if conformity1 is None and conformity2 is None:
         return []
@@ -41,7 +42,9 @@ def _x_conformity(conformity1: Conformity | None, conformity2: Conformity | None
     return _x_difference(what, conformity1.identifier, conformity2.identifier)
 
 
-def _x_conformities(conformities1: list[Conformity], conformities2: list[Conformity]) -> list:
+def _x_conformities(
+    conformities1: list[Conformity], conformities2: list[Conformity]
+) -> list:
     return [
         _x_conformity(d1, d2)
         for d1, d2 in zip_longest(conformities1, conformities2, fillvalue=None)
@@ -64,7 +67,8 @@ def _x_indicator(indicator1: Indicator | None, indicator2: Indicator | None) -> 
 
 def _x_indicators(indicators1: list[Indicator], indicators2: list[Indicator]) -> list:
     return [
-        _x_indicator(d1, d2) for d1, d2 in zip_longest(indicators1, indicators2, fillvalue=None)
+        _x_indicator(d1, d2)
+        for d1, d2 in zip_longest(indicators1, indicators2, fillvalue=None)
     ]
 
 

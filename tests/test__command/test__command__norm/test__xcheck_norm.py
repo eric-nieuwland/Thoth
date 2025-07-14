@@ -2,7 +2,7 @@ import io
 import unittest
 from unittest.mock import MagicMock, call, patch
 
-from command.norm.xcheck_norm import (
+from thoth.command.norm.xcheck_norm import (
     _report_issues,
     xcheck_norm,
 )
@@ -76,8 +76,8 @@ class TestXCheckNorm(unittest.TestCase):
         self.maxDiff = None
 
     @patch("sys.stdout", new_callable=io.StringIO)
-    @patch("command.norm.xcheck_norm.compare_norm_structures")
-    @patch("command.norm.xcheck_norm.Norm")
+    @patch("thoth.command.norm.xcheck_norm.compare_norm_structures")
+    @patch("thoth.command.norm.xcheck_norm.Norm")
     def test_it(
         self,
         mock_norm,

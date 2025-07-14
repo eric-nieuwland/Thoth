@@ -3,7 +3,7 @@
 # third party imports
 
 # own imports
-from command import app
+from thoth.command import app
 
 
 def main():

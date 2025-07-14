@@ -2,9 +2,8 @@
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
+from thoth.model.norm.norm import Norm
 
 
 def languages_in_norm(path: Path):

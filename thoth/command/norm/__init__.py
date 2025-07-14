@@ -14,7 +14,6 @@ from .split_norm import split_norm
 from .update_norm import update_norm
 from .xcheck_norm import xcheck_norm
 
-
 app = typer.Typer()
 
 app.command("check")(check_norm)

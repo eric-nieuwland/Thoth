@@ -3,9 +3,8 @@ import sys
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
+from thoth.model.norm.norm import Norm
 
 
 def update_norm(

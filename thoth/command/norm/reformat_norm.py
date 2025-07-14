@@ -2,9 +2,9 @@
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
+from thoth.model.norm.norm import Norm
+
 from ..shared.reformat_command import reformat_command
 
 

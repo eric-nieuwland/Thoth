@@ -7,7 +7,7 @@ from typing import Self
 from pydantic import BaseModel
 
 # own imports
-from utils.list_joiner import list_joiner
+from thoth.utils.list_joiner import list_joiner
 
 from .conformity import Conformity
 from .multi_lingual_text import MultiLingualText
@@ -29,9 +29,11 @@ class Indicator(BaseModel):
 
     def check_identifiers(self, nrs: list[int]) -> list:
         return [
-            f"indicator #{nrs[-1]} has identifier '{self.identifier}'"
-            if f"{nrs[-1]:0{len(self.identifier)}d}" != self.identifier
-            else [],
+            (
+                f"indicator #{nrs[-1]} has identifier '{self.identifier}'"
+                if f"{nrs[-1]:0{len(self.identifier)}d}" != self.identifier
+                else []
+            ),
             [
                 conformity.check_identifiers(nrs + [nr])
                 for nr, conformity in enumerate(self.conformities, 1)
@@ -64,7 +66,8 @@ class Indicator(BaseModel):
             title=self.title.copy_for_language(*languages),
             description=self.description.copy_for_language(*languages),
             conformities=[
-                conformity.copy_for_language(*languages) for conformity in self.conformities
+                conformity.copy_for_language(*languages)
+                for conformity in self.conformities
             ],
             explanation=self.explanation.copy_for_language(*languages),
         )
