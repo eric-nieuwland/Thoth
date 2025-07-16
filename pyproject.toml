@@ -19,7 +19,7 @@ classifiers = [
     "Topic :: Documentation",
 ]
 dependencies = [
-    "docxtpl==0.20.0",
+    "docxtpl==0.20.1",
     "Jinja2==3.1.6",
     "pydantic==2.11.7",
     "pyyaml==6.0.2",
@@ -33,6 +33,9 @@ include = [
     "docs",
     "thoth.*",
 ]
+
+[tool.setuptools.package-data]
+"thoth.templates" = ["**/*.docx", "**/*.html"]
 
 [project.optional-dependencies]
 test = [
