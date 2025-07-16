@@ -95,17 +95,17 @@ WARNING: language '{language}' incomplete in - {path}
     match format:
         case OutputFormat.HTML:
             # prepare rendering by Jinja2
-            env = Environment(
-                loader=PackageLoader("thoth", "templates/html/norm"),
-            )
-            template = env.get_template("norm.html")
+            loader = PackageLoader("thoth", "templates/html/norm")
+            template = Environment(loader=loader).get_template("norm.html")
             # produce rendered norm
             html = template.render(**context)
             writer = print if output is None else output.write_text
             writer(html)
         case OutputFormat.DOCX:
-            doc = DocxTemplate("thoth/templates/docx/norm/norm.docx")
+            loader = PackageLoader("thoth", "templates/docx/norm")
+            template = Path(loader._template_root) / "norm.docx"
+            doc = DocxTemplate(template)
             doc.render(context)
             doc.save(output)  # type: ignore
         case _:
-            print(f"cannot render .{format.value}, yet")
+            print(f"cannot render .{format.value if format else "???"}, yet")
