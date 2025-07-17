@@ -73,11 +73,17 @@ Use `pip` to install those packages.
 __Thoth__ has a build-in help system.
 This help system will tell you how you can use the __Thoth__ commands.
 
+_NOTE_
+__Thoth__ may be installed as source code or as a package.
+The examples below assume it is installed as a package.
+If you use the source code replace `thoth` by `python thoth/main.py` in the commands.
+
+
 Examples:
 ```commandline
-# python thoth.py ‑‑help
+# thoth ‑‑help
 
- Usage: thoth.py [OPTIONS] COMMAND [ARGS]...
+ Usage: thoth [OPTIONS] COMMAND [ARGS]...
  
 ╭─ Options ───────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ ‑‑install-completion          Install completion for the current shell.                                         │
@@ -90,9 +96,9 @@ Examples:
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 ```commandline
-# python thoth.py norm ‑‑help
+# thoth norm ‑‑help
 
- Usage: thoth.py norm [OPTIONS] COMMAND [ARGS]...
+ Usage: thoth norm [OPTIONS] COMMAND [ARGS]...
 
  Norm commands
 
@@ -112,9 +118,9 @@ Examples:
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 ```commandline
-# python thoth.py norm new <language code> ‑‑output
+# thoth norm new <language code> ‑‑output
 
- Usage: thoth.py norm new [OPTIONS] LANGUAGE
+ Usage: thoth norm new [OPTIONS] LANGUAGE
 
  create a starting point for a norm definition
 
@@ -140,7 +146,7 @@ Use the two-letter language code from [ISO 639][ISO-639]:
 1. Let __Thoth__ create a starting point for your norm
    (if `norms/my-first-norm.yaml` already exists, add `‑‑force`):
    ```commandline
-   # python thoth.py norm new en ‑‑output norms/my-first-norm.yaml
+   # thoth norm new en ‑‑output norms/my-first-norm.yaml
    ```
 
 2. Use any text editor to modify `norms/my-first-norm.yaml`, but make sure to preserve
@@ -149,13 +155,13 @@ Use the two-letter language code from [ISO 639][ISO-639]:
 
 3. Let __Thoth__ check your result
    ```commandline
-   # python thoth.py norm check norms/my-first-norm.yaml
+   # thoth norm check norms/my-first-norm.yaml
    ```
 
 4. Have __Thoth__ prepare a translation of the norm, i.e. preserve structure and
    put in placeholders for the new language (you need `‑‑force` as the language is not present)
    ```commandline
-   # python thoth.py norm split norms/my-first-norm.yaml nl ‑‑force ‑‑output norms/mijn-eerste-norm.yaml
+   # thoth norm split norms/my-first-norm.yaml nl ‑‑force ‑‑output norms/mijn-eerste-norm.yaml
    ```
    
 5. Like step 2, use any text editor to modify `norms/mijn-eerste-norm.yaml`.
@@ -163,7 +169,7 @@ Use the two-letter language code from [ISO 639][ISO-639]:
 
 6. Have __Thoth__ add the translation of the norm
    ```commandline
-   # python thoth.py norm update norms/my-first-norm.yaml nl norms/mijn-eerste-norm.yaml ‑‑output norms/my-bilingual-norm.yaml
+   # thoth norm update norms/my-first-norm.yaml nl norms/mijn-eerste-norm.yaml ‑‑output norms/my-bilingual-norm.yaml
    ```
    You may also use either `norms/my-first-norm.yaml` or `norms/mijn-eerste-norm.yaml` with `‑‑output`,
    but you'll need to add `‑‑force` to overwrite it.
@@ -182,16 +188,22 @@ and changes.
 
 1. Have __Thoth__ render a norm to HTML
    ```commandline
-   # python thoth.py norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.html
+   # thoth norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.html
    ```
    Note: __Thoth__ determines the format from `‑‑output`. If no output is given, use `‑‑format html`.
+
+
+2. Have __Thoth__ render a norm to DOCX
+   ```commandline
+   # thoth norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.docx
+   ```
 
 
 ## Render a norm in two of its languages for comparison
 
 1. Have __Thoth__ render a norm to HTML
    ```commandline
-   # python thoth.py norm render-translated norms/my-bilingual-norm.yaml nl en ‑‑output my-bilingual-norm-nl-en.html
+   # thoth norm render-translated norms/my-bilingual-norm.yaml nl en ‑‑output my-bilingual-norm-nl-en.html
    ```
    Note: __Thoth__ determines the format from `‑‑output`. If no output is given, use `‑‑format html`.
 
@@ -203,7 +215,7 @@ You can specify which items of a norm must be rendered. For this you create a pr
 1. Let __Thoth__ create a starting point for your profile
    (if `profile/my-first-profile.yaml` already exists, add `‑‑force`):
    ```commandline
-   # python thoth.py profile new ‑‑output profile/my-first-profile.yaml
+   # thoth profile new ‑‑output profile/my-first-profile.yaml
    ```
 
 2. Use any text editor to modify `profile/my-first-profile.yaml`, but make sure to preserve
@@ -214,5 +226,5 @@ You can specify which items of a norm must be rendered. For this you create a pr
 
 3. Have __Thoth__ render a norm to HTML using the profile
    ```commandline
-   # python thoth.py norm render norms/my-bilingual-norm.yaml nl --profile profile/my-first-profile.yaml ‑‑output my-bilingual-norm.html
+   # thoth norm render norms/my-bilingual-norm.yaml nl --profile profile/my-first-profile.yaml ‑‑output my-bilingual-norm.html
    ```

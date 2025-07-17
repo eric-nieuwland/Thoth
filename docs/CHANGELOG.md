@@ -48,4 +48,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
   | `split`              | split a specific language off a norm                    |
   | `update`             | update norm from a second norm                          |
   | `xcheck`             | check whether two norm definitions match                |
-
