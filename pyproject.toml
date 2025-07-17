@@ -1,6 +1,10 @@
+[build-system]
+requires = ["setuptools==80.8.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "Thoth-dhwtj"
-version = "0.2.0"
+version = "0.2.2"
 description = "Maintain the Ma'at of Secure Software Development"
 license="Apache-2.0"
 authors = [
@@ -27,26 +31,29 @@ dependencies = [
     "typer-slim==0.16.0",
 ]
 
-[tool.setuptools.packages.find]
-include = [
-    "thoth",
-    "docs",
-    "thoth.*",
-]
-
-[tool.setuptools.package-data]
-"thoth.templates" = ["**/*.docx", "**/*.html"]
-
 [project.optional-dependencies]
-test = [
-    "mypy==1.16.1",
+dev = [
+    "build",
+    "mypy==1.17.0",
     "pytest==8.4.1",
     "pytest-cov==6.2.1",
-    "ruff==0.12.1",
+    "ruff==0.12.3",
 ]
 
 [project.scripts]
-thoth = "thoth.thoth:main"
+thoth = "thoth.main:main"
+
+
+[tool.setuptools]
+packages = [
+    "thoth",
+    "thoth.templates",
+]
+
+[tool.setuptools.package-data]
+"thoth" = ["**/*.py"]
+"thoth.templates" = ["**/*.docx", "**/*.html"]
+
 
 [tool.ruff]
 target-version = "py313"
@@ -67,6 +74,7 @@ select = [
     "RUF", # ruff-specific rules
 ]
 fixable = ["ALL"]
+
 
 [tool.mypy]
 python_version = "3.13"
