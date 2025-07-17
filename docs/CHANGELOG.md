@@ -7,9 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ## [Unreleased]
 
 - [under consideration] support use of user provided templates
+
+## v0.2.3 - 2025/07/17
+
+- fix packaging bug
+
+## v0.2.2 - 2025/07/17
+
 - distributable package
 
-## v0.2.1 - 2025/04/25
+## v0.2.1 - 2025/04/29
 
 - internal clean-up.
 
