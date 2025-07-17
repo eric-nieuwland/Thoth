@@ -1,6 +1,6 @@
 import unittest
 
-from utils.list_joiner import list_joiner
+from thoth.utils.list_joiner import list_joiner
 
 
 class TestListJoiner(unittest.TestCase):

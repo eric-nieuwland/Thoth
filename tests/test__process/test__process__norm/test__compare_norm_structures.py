@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, call, patch
 
-from process.norm.compare_norm_structures import (
+from thoth.process.norm.compare_norm_structures import (
     _x_conformities,
     _x_conformity,
     _x_difference,
@@ -668,10 +668,10 @@ class TestCompareNormStructures(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    @patch("process.norm.compare_norm_structures._x_indicators")
-    @patch("process.norm.compare_norm_structures._x_drivers")
-    @patch("process.norm.compare_norm_structures._x_identifier")
-    @patch("process.norm.compare_norm_structures.Norm")
+    @patch("thoth.process.norm.compare_norm_structures._x_indicators")
+    @patch("thoth.process.norm.compare_norm_structures._x_drivers")
+    @patch("thoth.process.norm.compare_norm_structures._x_identifier")
+    @patch("thoth.process.norm.compare_norm_structures.Norm")
     def test_it(
         self,
         mock_norm,

@@ -1,6 +1,6 @@
 import unittest
 
-from model.norm.norm import Norm
+from thoth.model.norm.norm import Norm
 
 
 class TestTemplate(unittest.TestCase):

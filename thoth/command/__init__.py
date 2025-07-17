@@ -8,7 +8,6 @@ from .about import about
 from .norm import app as norm_app
 from .profile import app as profile_app
 
-
 app = typer.Typer()
 
 app.command("about")(about)

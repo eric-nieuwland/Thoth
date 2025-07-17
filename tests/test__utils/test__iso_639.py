@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from utils import iso_639
+from thoth.utils import iso_639
 
 
 class TestIsISO639LanguageCode(unittest.TestCase):

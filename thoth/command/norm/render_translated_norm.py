@@ -2,13 +2,12 @@
 import sys
 from pathlib import Path
 
+from thoth.command.shared.output_format import OutputFormat
+
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
-from renderers.html import html_render_translation_page
-
-from command.shared.output_format import OutputFormat
+from thoth.model.norm.norm import Norm
+from thoth.renderers.html import html_render_translation_page
 
 
 def render_translated_norm(
@@ -58,7 +57,9 @@ def render_translated_norm(
 
     match format:
         case OutputFormat.HTML:
-            html = html_render_translation_page.render_translation(norm, language_1, language_2)
+            html = html_render_translation_page.render_translation(
+                norm, language_1, language_2
+            )
             writer(html)
         case _:
             print(f"cannot render .{format.value}, yet")

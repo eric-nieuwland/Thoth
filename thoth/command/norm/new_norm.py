@@ -2,9 +2,9 @@
 from pathlib import Path
 
 # third party imports
-
 # own imports
-from model.norm.norm import Norm
+from thoth.model.norm.norm import Norm
+
 from ..shared.new_command import new_command
 
 
