@@ -17,7 +17,7 @@ def render_translated_norm(
     output: Path | None = None,
     format: OutputFormat | None = None,
     force: bool = False,
-):
+) -> None:
     """
     render a norm definition in two languages, side by side
     """
@@ -57,9 +57,7 @@ def render_translated_norm(
 
     match format:
         case OutputFormat.HTML:
-            html = html_render_translation_page.render_translation(
-                norm, language_1, language_2
-            )
+            html = html_render_translation_page.render_translation(norm, language_1, language_2)
             writer(html)
         case _:
             print(f"cannot render .{format.value}, yet")

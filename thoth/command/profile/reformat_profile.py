@@ -8,7 +8,11 @@ from thoth.model.profile.profile import NormRenderProfile
 from ..shared.reformat_command import reformat_command
 
 
-def reformat_profile(path: Path, output: Path | None = None, force: bool = False):
+def reformat_profile(
+    path: Path,
+    output: Path | None = None,
+    force: bool = False,
+) -> None:
     """
     reformat a document profile
     """

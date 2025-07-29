@@ -12,7 +12,7 @@ def new_norm(
     language: str,
     output: Path | None = None,
     force: bool = False,
-):
+) -> None:
     """
     create a starting point for a norm definition
     """

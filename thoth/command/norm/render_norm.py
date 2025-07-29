@@ -5,13 +5,14 @@ from pathlib import Path
 
 # third party imports
 from docxtpl import DocxTemplate  # type: ignore[import-untyped]
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 
 from thoth.command.shared.output_format import OutputFormat
 
 # own imports
 from thoth.model.norm.norm import Norm
 from thoth.model.profile.profile import NormRenderProfile
+from thoth.templates import templates_home
 
 FORMAT_REQUIRES_OUTPUT = {
     OutputFormat.DOCX,
@@ -25,7 +26,8 @@ def render_norm(
     output: Path | None = None,
     format: OutputFormat | None = None,
     force: bool = False,
-):
+    template: Path | None = None,
+) -> None:
     """
     render a norm definition in a document format
     """
@@ -85,6 +87,23 @@ WARNING: language '{language}' incomplete in - {path}
             file=sys.stderr,
         )
 
+    if template is None:
+        template = templates_home()
+    elif not template.exists() or not template.is_dir():
+        print(f"no such directory - {template}", file=sys.stderr)
+        sys.exit(1)
+
+    # walk the template directory structure towards the template needed
+    template_dir = template / format.value
+    template_name = f"norm.{format.value}"
+    if not template_dir.is_dir():
+        print(f"no template(s) for '{format.value}' - {template}", file=sys.stderr)
+        sys.exit(1)
+    template_dir = template_dir / "norm"
+    if not template_dir.is_dir() or not (template_dir / template_name).is_file():
+        print(f"no norm template for '{format.value}' - {template}", file=sys.stderr)
+        sys.exit(1)
+
     timestamp = datetime.now(tz=timezone.utc)
     context = dict(
         source=path.name,
@@ -97,17 +116,15 @@ WARNING: language '{language}' incomplete in - {path}
     match format:
         case OutputFormat.HTML:
             # prepare rendering by Jinja2
-            loader = PackageLoader("thoth", "templates/html/norm")
-            template = Environment(loader=loader).get_template("norm.html")
+            loader = FileSystemLoader(template_dir)
+            html_template = Environment(loader=loader).get_template(template_name)
             # produce rendered norm
-            html = template.render(**context)
+            html = html_template.render(**context)
             writer = print if output is None else output.write_text
             writer(html)
         case OutputFormat.DOCX:
-            loader = PackageLoader("thoth", "templates/docx/norm")
-            template = Path(loader._template_root) / "norm.docx"
-            doc = DocxTemplate(template)
+            doc = DocxTemplate(template_dir / template_name)
             doc.render(context)
-            doc.save(output)  # type: ignore
+            doc.save(output)
         case _:
-            print(f"cannot render .{format.value if format else "???"}, yet")
+            print(f"cannot render .{format.value if format else '???'}, yet")  # type: ignore[unreachable]

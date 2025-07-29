@@ -18,19 +18,20 @@ def _x_identifier(id1: str, id2: str) -> list:
     return _x_difference("identifier", id1, id2)
 
 
-def _x_drivers(drivers1: list[Driver] | None, drivers2: list[Driver] | None) -> list:
+def _x_drivers(
+    drivers1: list[Driver] | None,
+    drivers2: list[Driver] | None,
+) -> list:
     if drivers1 is None:
         drivers1 = []
     if drivers2 is None:
         drivers2 = []
-    return [
-        _x_difference("driver", d1, d2)
-        for d1, d2 in zip_longest(drivers1, drivers2, fillvalue="--")
-    ]
+    return [_x_difference("driver", d1, d2) for d1, d2 in zip_longest(drivers1, drivers2, fillvalue="--")]
 
 
 def _x_conformity(
-    conformity1: Conformity | None, conformity2: Conformity | None
+    conformity1: Conformity | None,
+    conformity2: Conformity | None,
 ) -> list:
     what = "  conformity/identifier"
     if conformity1 is None and conformity2 is None:
@@ -43,15 +44,16 @@ def _x_conformity(
 
 
 def _x_conformities(
-    conformities1: list[Conformity], conformities2: list[Conformity]
+    conformities1: list[Conformity],
+    conformities2: list[Conformity],
 ) -> list:
-    return [
-        _x_conformity(d1, d2)
-        for d1, d2 in zip_longest(conformities1, conformities2, fillvalue=None)
-    ]
+    return [_x_conformity(d1, d2) for d1, d2 in zip_longest(conformities1, conformities2, fillvalue=None)]
 
 
-def _x_indicator(indicator1: Indicator | None, indicator2: Indicator | None) -> list:
+def _x_indicator(
+    indicator1: Indicator | None,
+    indicator2: Indicator | None,
+) -> list:
     what = "indicator/identifier"
     if indicator1 is None and indicator2 is None:
         return []
@@ -66,10 +68,7 @@ def _x_indicator(indicator1: Indicator | None, indicator2: Indicator | None) -> 
 
 
 def _x_indicators(indicators1: list[Indicator], indicators2: list[Indicator]) -> list:
-    return [
-        _x_indicator(d1, d2)
-        for d1, d2 in zip_longest(indicators1, indicators2, fillvalue=None)
-    ]
+    return [_x_indicator(d1, d2) for d1, d2 in zip_longest(indicators1, indicators2, fillvalue=None)]
 
 
 def compare_norm_structures(norm1: Norm, norm2: Norm) -> list:

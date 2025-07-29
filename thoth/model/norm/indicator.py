@@ -34,10 +34,7 @@ class Indicator(BaseModel):
                 if f"{nrs[-1]:0{len(self.identifier)}d}" != self.identifier
                 else []
             ),
-            [
-                conformity.check_identifiers(nrs + [nr])
-                for nr, conformity in enumerate(self.conformities, 1)
-            ],
+            [conformity.check_identifiers([*nrs, nr]) for nr, conformity in enumerate(self.conformities, 1)],
         ]
 
     # multi-lingual
@@ -65,10 +62,7 @@ class Indicator(BaseModel):
             identifier=self.identifier,
             title=self.title.copy_for_language(*languages),
             description=self.description.copy_for_language(*languages),
-            conformities=[
-                conformity.copy_for_language(*languages)
-                for conformity in self.conformities
-            ],
+            conformities=[conformity.copy_for_language(*languages) for conformity in self.conformities],
             explanation=self.explanation.copy_for_language(*languages),
         )
 

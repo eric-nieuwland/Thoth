@@ -12,6 +12,9 @@ proper order in the world and the universe.
 As CIP's SSD aims to create some order in software development it only seems
 right to name the software that makes the norms of SSD readable after this deity.
 
+The __Thoth__ software can be found at [github][Thoth-github].
+You will also find some documentation and an example norm definition there.
 
 [CIP-website]: https://www.cip-overheid.nl
 [Thoth-wikipedia]: https://en.wikipedia.org/wiki/Thoth
+[Thoth-github]: https://github.com/CIP-HUB/Thoth

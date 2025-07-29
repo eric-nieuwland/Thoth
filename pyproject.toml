@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Thoth-dhwtj"
-version = "0.2.3"
+version = "0.3.0"
 description = "Maintain the Ma'at of Secure Software Development"
 license="Apache-2.0"
 authors = [
@@ -55,16 +55,6 @@ packages = [
 "thoth.templates" = ["**/*.docx", "**/*.html"]
 
 
-[tool.ruff]
-target-version = "py313"
-line-length = 100
-indent-width = 4
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-line-ending = "auto"
-
 [tool.ruff.lint]
 select = [
     "F",   # pyflakes
@@ -78,3 +68,30 @@ fixable = ["ALL"]
 
 [tool.mypy]
 python_version = "3.13"
+error_summary = false
+ignore_missing_imports = false
+incremental = false
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_ignores = true
+
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+indent-width = 4
+output-format = "gitlab"
+src = ["thoth"]
+extend-exclude = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "D104",  # https://docs.astral.sh/ruff/rules/#pydocstyle-d - don't require doc strings in __init__.py files
+    "F401",  # https://docs.astral.sh/ruff/rules/#pyflakes-f - don't complain about unused imports in __init__.py files
+]

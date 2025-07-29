@@ -6,7 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
-- [under consideration] support use of user provided templates
+## v0.3.0 - 2025/07/29
+
+- added the `template` command to create customizable copies of the internal templates:
+
+  | subcommand  | description                                          |
+  |-------------|------------------------------------------------------|
+  | `new`       | create customizable copies of the internal templates |
+
+- the `norm render` command now has an optional argument `--template` to select customized templates
+
 
 ## v0.2.3 - 2025/07/17
 

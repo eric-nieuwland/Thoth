@@ -1,0 +1,132 @@
+identifier: '000'
+
+title:
+  en: Thoth norm definitions
+  nl: Thoth normdefinities
+
+intro:
+  en: Starting with the fourth incarnation of the Secure Software Development (SSD)
+    standards framework of the Dutch Center for Information security and Privacy protection
+    (CIP) norm texts are managed and maintained as YAML definitions. This allows for
+    tools to process the definitions, e.g. to render the texts in various formats.
+    The base tool to create, manage, and maintain the YAML definitions is called 'thoth'.
+    This norm text is not a part of SSD itself but serves as demonstration and documentation
+    of the file format of the YAML definitions supported by 'thoth'. Please note definitions
+    are designed to support multi-lingual texts. Each text fragment that can be defined
+    in multiple languages is prefixed by a two-character language code (ISO 639),
+    e.g. 'en' (English) or 'nl' (Dutch).
+  nl: Met de komst van versie 4 van het normenkader voor Secure Software Development
+    (SSD) van het Centrum voor Informatiebeveiliging en Privacybescherming (CIP) worden
+    normteksten beheerd en onderhouden als YAML-definities. Hierdoor kunnen tools
+    gebruikt worden om bijvoorbeeld teksten op te maken in verschillende documentformaten.
+    De basistool voor het maken, beheren en onderhouden van de YAML-definities hete
+    'thoth'. Deze normtekst is geen onderdeel van SSD zelf, maar dient als demonstratie
+    en documentatie van het bestandsformaat van de YAML-definitie die 'thoth' ondersteunt.
+    Merk op dat de definities bedoeld zijn om meertaligheid te ondersteunen. Elk tekstfragment
+    dat in meerdere talen kan worden gedefinieerd, wordt vooraf gegaan door de twee-lettercode
+    van de taal (ISO 639), bijvoorbeeld 'en' (Engels) of 'nl' (Nederlands).
+
+scope:
+  en: The scope defines to which aspect(s) of an application the norm applies.
+  nl: De scope definieert op welk(e) aspect(en) van een applicatie de norm van toepassing
+    is.
+
+triggers:
+- en: A trigger defines when the norm is applicable. Triggers may be repeated as often
+    as needed.
+  nl: Een trigger definieert wanneer de norm van toepassing is. Triggers mogen zo
+    vaak als nodig herhaald worden.
+
+criteria:
+- en: A criterium defines an aspect of compliance with the norm. Criteria may be repeated
+    as often as needed.
+  nl: Een criterium definieert een aspect van voldoen aan de norm. Criteria mogen
+    zo vaak als nodig herhaald worden.
+
+objectives:
+- en: An objective defines a goal to achieve by adherence to the norm. Objectives
+    may be repeated as often as needed.
+  nl: Een objective definieert een te bereiken doel, door aan de norm te voldoen.
+    Objective mogen zo vaak als nodig herhaald worden.
+
+risks:
+- en: A risk defines a negative effect that may result from non-adherence to the norm.
+    Risks may be repeated as often as needed.
+  nl: Een risico (risk) definieert een negatief effect dat kan optreden wanneer niet
+    aan de norm voldaan wordt. Risico's (risks) mogen zo vaak als nodig herhaald worden.
+
+drivers:
+
+- name: Well-known source
+  details:
+  - Examples of names are 'NIST', 'ISO27002:2022', and 'BIO'
+  - A driver defines a(n informational) source for the norm
+  - A driver's detail refer to specific parts within the source
+  - Details may be repeated as often as needed.
+  - Drivers may be repeated as often as needed.
+  - As drivers only contain codes, they do not support multiple languages
+
+- name: Bekende bron
+  details:
+  - Voorbeelden van namen zijn 'NIST', 'ISO27002:2022' en 'BIO'
+  - Een driver definieert een (informatie) bron voor de norm
+  - Een detail van een driver verwijst naar specifieke onderdelen van de bron
+  - Details mogen zo vaak als nodig herhaald worden.
+  - Drivers mogen zo vaak als nodig herhaald worden.
+  - Omdat drivers alleen codes bevatten, zijn ze niet meertalig
+
+indicators:
+# ============================================================================
+- identifier: '01'
+  title:
+    en: An indicator has a title and a description
+    nl: Een indicator heeft een titel en een beschrijving
+  description:
+    en: An indicator defines how to comply with a norm. Indicators may be repeated
+      as often as needed and should have consecutively numbered identifiers. Identifiers
+      should have a fixed number of digits; this requires quotes around the identifier.
+    nl: Een indicator definieert hoe aan een norm voldaan moet worden. Indicators
+      mogen zo vaak als nodig herhaald worden en moeten opvolgend genummerde identifier
+      hebben. Identifiers moeten een vast aantal cijfers bevatten; dit vereist quotes
+      rond de identifier.
+
+  conformities:
+  # ------------------------------------------
+  - identifier: '01'
+    description:
+      en: A conformity defines a detail of the indicator. Conformities may be repeated
+        as often as needed and should have consecutively numbered identifiers. Identifiers
+        should have a fixed number of digits; this requires quotes around the identifier.
+      nl: Een conformiteit (conformity) definieert een detail van een indicator. Conformiteiten
+        (conformities) mogen zo vaak als nodig herhaald worden en moeten opvolgend
+        genummerde identifier hebben. Identifiers moeten een vast aantal cijfers bevatten;
+        dit vereist quotes rond de identifier.
+    guidance:
+      en: Each conformity may provide guidance for e.g. developers or auditors.
+      nl: Elke conformiteit mag voorzien in een richtsnoer (guidance) voor bijvoorbeeld
+        ontwikkelaars of auditors.
+  # ------------------------------------------
+
+  explanation:
+    en: An indicator must provide an explanation as to how it contributes to the objective(s).
+    nl: Een indicator moet uitleg (explanation) geven van de bijdrage die het levert
+      aan een of meer objectives.
+# ============================================================================
+
+references:
+
+- name: Title or other reference
+  url: https://optional.url
+  notes:
+  - en: A note may provide some additional information. Notes may be repeated as often
+      as needed.
+    nl: Een opmerking (note) kan aanvullende informatie geven. Opmerkingen (notes)
+      mogen zo vaak als nodig herhaald worden.
+  - en: References may be repeated as often as needed.
+    nl: References mogen zo vaak als nodig herhaald worden.
+
+- name: ISO 639 (Language codes)
+  url: https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
+  notes:
+  - en: Source of the two-character language codes used by 'thoth'.
+    nl: Bron van de twee-lettercodes die 'thoth' gebruikt.

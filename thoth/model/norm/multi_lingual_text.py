@@ -27,15 +27,13 @@ class MultiLingualText(RootModel):
             self.root[key] = " ".join(line.strip() for line in value.splitlines())
         return self
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"""<T|{
             "; ".join(f"'{language}': '{text}'" for language, text in sorted(self.root.items()))
         }|T>""".strip()
 
-    def __repr__(self):
-        texts = "".join(
-            f"\n  |{language}| '{text}'" for language, text in sorted(self.root.items())
-        )
+    def __repr__(self) -> str:
+        texts = "".join(f"\n  |{language}| '{text}'" for language, text in sorted(self.root.items()))
         return f"""<{self.__class__.__name__}:{"".join(texts)}{"\n" if texts else ""}>""".strip()
 
     def __getitem__(self, language: str) -> str:
@@ -46,7 +44,7 @@ class MultiLingualText(RootModel):
             }""",
         ).strip()
 
-    def __setitem__(self, language: str, text: str):
+    def __setitem__(self, language: str, text: str) -> None:
         known_iso_639_language_code_or_error(language)
         if language in self.root:
             raise KeyError(f"Text for '{language}' already set to '{self.root[language]}'")
@@ -63,9 +61,7 @@ class MultiLingualText(RootModel):
         """
         A version of this text, restricted in languages
         """
-        return self.__class__(
-            {language: self.root.get(language, template_text(language)) for language in languages}
-        )
+        return self.__class__({language: self.root.get(language, template_text(language)) for language in languages})
 
     def __or__(self, other: MultiLingualText) -> MultiLingualText:
         return self.join(self, other)

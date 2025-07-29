@@ -42,11 +42,7 @@ class Reference(BaseModel):
         return self.__class__(
             name=self.name,
             url=self.url,
-            notes=(
-                [note.copy_for_language(language) for note in self.notes]
-                if self.notes
-                else None
-            ),
+            notes=[note.copy_for_language(language) for note in self.notes] if self.notes else None,
         )
 
     def __or__(self, other: Reference) -> Reference:

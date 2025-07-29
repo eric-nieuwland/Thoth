@@ -4,13 +4,17 @@
 import typer
 
 # own imports
+from . import (
+    norm,
+    profile,
+    template,
+)
 from .about import about
-from .norm import app as norm_app
-from .profile import app as profile_app
 
 app = typer.Typer()
 
 app.command("about")(about)
 
-app.add_typer(norm_app, name="norm", help="Norm commands")
-app.add_typer(profile_app, name="profile", help="Profile commands")
+app.add_typer(norm.app, name="norm", help="Norm commands")
+app.add_typer(profile.app, name="profile", help="Profile commands")
+app.add_typer(template.app, name="template", help="Template commands")

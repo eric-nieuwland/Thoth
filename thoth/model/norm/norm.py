@@ -41,12 +41,7 @@ class Norm(BaseModel):
     # checks
 
     def check_identifiers(self) -> list | tuple:
-        return flatten(
-            [
-                indicator.check_identifiers([nr])
-                for nr, indicator in enumerate(self.indicators, 1)
-            ]
-        )
+        return flatten([indicator.check_identifiers([nr]) for nr, indicator in enumerate(self.indicators, 1)])
 
     # multi-lingual
 
@@ -79,27 +74,14 @@ class Norm(BaseModel):
             title=self.title.copy_for_language(*languages),
             intro=self.intro.copy_for_language(*languages),
             scope=self.scope.copy_for_language(*languages),
-            triggers=[
-                trigger.copy_for_language(*languages) for trigger in self.triggers
-            ],
-            criteria=[
-                criterium.copy_for_language(*languages) for criterium in self.criteria
-            ],
-            objectives=[
-                objective.copy_for_language(*languages) for objective in self.objectives
-            ],
+            triggers=[trigger.copy_for_language(*languages) for trigger in self.triggers],
+            criteria=[criterium.copy_for_language(*languages) for criterium in self.criteria],
+            objectives=[objective.copy_for_language(*languages) for objective in self.objectives],
             risks=[risk.copy_for_language(*languages) for risk in self.risks],
             drivers=self.drivers,
-            indicators=[
-                indicator.copy_for_language(*languages) for indicator in self.indicators
-            ],
+            indicators=[indicator.copy_for_language(*languages) for indicator in self.indicators],
             references=(
-                [
-                    reference.copy_for_language(*languages)
-                    for reference in self.references
-                ]
-                if self.references
-                else None
+                [reference.copy_for_language(*languages) for reference in self.references] if self.references else None
             ),
         )
 
@@ -140,11 +122,7 @@ class Norm(BaseModel):
             risks=list_joiner(norm1.risks, norm2.risks),  # type: ignore
             drivers=norm1.drivers,
             indicators=list_joiner(norm1.indicators, norm2.indicators),  # type: ignore
-            references=(
-                list_joiner(norm1.references, norm2.references)
-                if norm1.references
-                else None
-            ),
+            references=list_joiner(norm1.references, norm2.references) if norm1.references else None,
         )
 
     # template / example

@@ -7,7 +7,12 @@ from pathlib import Path
 # own imports
 
 
-def reformat_command(klass, path: Path, output: Path | None = None, force: bool = False):
+def reformat_command(
+    klass,
+    path: Path,
+    output: Path | None = None,
+    force: bool = False,
+) -> None:
     """
     reformat a document
     """
