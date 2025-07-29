@@ -11,7 +11,7 @@ def new_template(
     output: Path,
     format: OutputFormat | None = None,
     force: bool = False,
-):
+) -> None:
     """
     create customizable copies of the internal templates
     """

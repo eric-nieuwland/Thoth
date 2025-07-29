@@ -21,7 +21,7 @@ def _report_issues(
             print(f"  {' ' * extra}- {stripped}")
 
 
-def xcheck_norm(path1: Path, path2: Path):
+def xcheck_norm(path1: Path, path2: Path) -> None:
     """
     check whether two norm definitions match
     """

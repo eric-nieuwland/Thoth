@@ -5,7 +5,7 @@
 # own imports
 
 
-def about():
+def about() -> None:
     print("""
 Thoth (𓅝 ḏḥwtj)
 

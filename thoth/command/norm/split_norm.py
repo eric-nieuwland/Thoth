@@ -13,7 +13,7 @@ def split_norm(
     output: Path | None = None,
     rest: Path | None = None,
     force: bool = False,
-):
+) -> None:
     """
     split a specific language off a norm
     """
@@ -28,16 +28,8 @@ def split_norm(
         print(f"file exists - {rest}", file=sys.stderr)
         sys.exit(1)
 
-    output_writer = (
-        None
-        if output is None
-        else (print if str(output).strip() == "-" else output.write_text)
-    )
-    rest_writer = (
-        None
-        if rest is None
-        else (print if str(rest).strip() == "-" else rest.write_text)
-    )
+    output_writer = None if output is None else (print if str(output).strip() == "-" else output.write_text)
+    rest_writer = None if rest is None else (print if str(rest).strip() == "-" else rest.write_text)
 
     norm = Norm.from_yaml(path.open())
     total, language_counts = norm.count_multi_lingual()
@@ -55,16 +47,12 @@ def split_norm(
         output_writer(lang_norm.as_yaml())
 
     if output_writer == print and rest_writer == print:
-        print(
-            f"\n\n--- # selected language '{language}' above - remaining languages below\n\n"
-        )
+        print(f"\n\n--- # selected language '{language}' above - remaining languages below\n\n")
 
     if rest_writer:
         retained_languages = [lang for lang in language_counts if lang != language]
         if len(retained_languages) > 0:  # non-empty rest
             rest_norm = (
-                norm
-                if len(retained_languages) == len(language_counts)
-                else norm.copy_for_language(*retained_languages)
+                norm if len(retained_languages) == len(language_counts) else norm.copy_for_language(*retained_languages)
             )
             rest_writer(rest_norm.as_yaml())

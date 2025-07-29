@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 # standard library imports
 import sys
 from pathlib import Path
+from typing import Sequence
 
 # third party imports
 # own imports
@@ -8,7 +11,9 @@ from thoth.model.norm.norm import Norm
 
 
 def _report_issues(
-    path: Path, issue_kind: str, issues: list[str] | tuple[str, ...]
+    path: Path,
+    issue_kind: str,
+    issues: Sequence[str],
 ) -> None:
     if issues:
         print(f"{issue_kind} found in '{path}':")
@@ -16,7 +21,7 @@ def _report_issues(
             print(f"  - {issue}")
 
 
-def check_norm(path: Path):
+def check_norm(path: Path) -> None:
     """
     check a norm for various issues
     """
@@ -30,9 +35,7 @@ def check_norm(path: Path):
     _report_issues(path, "inconsistent identifiers", inconsistent_identifiers)
 
     total, language_counts = norm.count_multi_lingual()
-    incomplete_translations = list(
-        sorted(lang for lang, count in language_counts.items() if count != total)
-    )
+    incomplete_translations = list(sorted(lang for lang, count in language_counts.items() if count != total))
     _report_issues(path, "incomplete translations", incomplete_translations)
 
     if not inconsistent_identifiers and not incomplete_translations:

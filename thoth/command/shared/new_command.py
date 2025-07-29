@@ -12,7 +12,7 @@ def new_command(
     output: Path | None = None,
     force: bool = False,
     **kwargs,
-):
+) -> None:
     """
     create a starting point for a document
     """

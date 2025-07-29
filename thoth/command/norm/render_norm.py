@@ -14,7 +14,6 @@ from thoth.model.norm.norm import Norm
 from thoth.model.profile.profile import NormRenderProfile
 from thoth.templates import templates_home
 
-
 FORMAT_REQUIRES_OUTPUT = {
     OutputFormat.DOCX,
 }
@@ -28,7 +27,7 @@ def render_norm(
     format: OutputFormat | None = None,
     force: bool = False,
     template: Path | None = None,
-):
+) -> None:
     """
     render a norm definition in a document format
     """
@@ -118,14 +117,14 @@ WARNING: language '{language}' incomplete in - {path}
         case OutputFormat.HTML:
             # prepare rendering by Jinja2
             loader = FileSystemLoader(template_dir)
-            template = Environment(loader=loader).get_template(template_name)
+            html_template = Environment(loader=loader).get_template(template_name)
             # produce rendered norm
-            html = template.render(**context)
+            html = html_template.render(**context)
             writer = print if output is None else output.write_text
             writer(html)
         case OutputFormat.DOCX:
             doc = DocxTemplate(template_dir / template_name)
             doc.render(context)
-            doc.save(output)  # type: ignore
+            doc.save(output)
         case _:
-            print(f"cannot render .{format.value if format else "???"}, yet")
+            print(f"cannot render .{format.value if format else '???'}, yet")

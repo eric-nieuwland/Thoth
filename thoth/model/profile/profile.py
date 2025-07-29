@@ -20,7 +20,7 @@ class DriversRenderProfile(BaseModel):
     name: bool
     details: bool
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return any(
             (
                 self.name,
@@ -57,7 +57,7 @@ class ConformitiesRenderProfile(BaseModel):
     description: bool
     guidance: bool
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return any(
             (
                 self.identifier,
@@ -98,7 +98,7 @@ class IndicatorsRenderProfile(BaseModel):
     conformities: ConformitiesRenderProfile
     explanation: bool
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return any(
             (
                 self.identifier,
@@ -141,7 +141,7 @@ class ReferencesRenderProfile(BaseModel):
     url: bool
     notes: bool
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return any(
             (
                 self.name,
@@ -188,7 +188,7 @@ class NormRenderProfile(BaseModel):
     indicators: IndicatorsRenderProfile
     references: ReferencesRenderProfile
 
-    def __bool__(self):
+    def __bool__(self) -> bool:
         return any(
             (
                 self.identifier,

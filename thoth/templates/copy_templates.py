@@ -5,12 +5,11 @@ copy templates from internal to external location
 from __future__ import annotations
 
 # standard library imports
+import sys
 from filecmp import dircmp
 from pathlib import Path
 from shutil import copytree
 from typing import Generator
-
-import sys
 
 # third party imports
 # own imports

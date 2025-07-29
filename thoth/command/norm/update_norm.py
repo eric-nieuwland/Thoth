@@ -12,7 +12,7 @@ def update_norm(
     path2: Path,
     output: Path | None = None,
     force: bool = False,
-):
+) -> None:
     """
     update norm from a second norm
     """

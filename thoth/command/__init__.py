@@ -4,10 +4,12 @@
 import typer
 
 # own imports
+from . import (
+    norm,
+    profile,
+    template,
+)
 from .about import about
-from . import norm
-from . import profile
-from . import template
 
 app = typer.Typer()
 
