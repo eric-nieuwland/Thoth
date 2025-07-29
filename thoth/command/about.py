@@ -18,4 +18,7 @@ the universe.
 
 As CIP's SSD aims to create some order in software development it only seems right to name the
 software that makes the norms of SSD readable after this deity.
+
+The Thoth software can be found at https://github.com/CIP-HUB/Thoth.
+You will also find some documentation and an example norm definition there.
     """)
