@@ -121,8 +121,7 @@ WARNING: language '{language}' incomplete in - {path}
             writer = print if output is None else output.write_text
             writer(html)
         case OutputFormat.DOCX:
-            template = template_dir / "norm.docx"
-            doc = DocxTemplate(template)
+            doc = DocxTemplate(template_dir / "norm.docx")
             doc.render(context)
             doc.save(output)  # type: ignore
         case _:
