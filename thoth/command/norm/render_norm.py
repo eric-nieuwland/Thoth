@@ -12,7 +12,7 @@ from thoth.command.shared.output_format import OutputFormat
 # own imports
 from thoth.model.norm.norm import Norm
 from thoth.model.profile.profile import NormRenderProfile
-from thoth import templates
+from thoth.templates import templates_home
 
 
 FORMAT_REQUIRES_OUTPUT = {
@@ -26,6 +26,7 @@ def render_norm(
     profile: Path | None = None,
     output: Path | None = None,
     format: OutputFormat | None = None,
+    templates: Path | None = None,
     force: bool = False,
 ):
     """
@@ -87,6 +88,20 @@ WARNING: language '{language}' incomplete in - {path}
             file=sys.stderr,
         )
 
+    if templates is None:
+        templates = templates_home()
+    elif not templates.exists() or not templates.is_dir():
+        print(f"no such directory - {templates}", file=sys.stderr)
+        sys.exit(1)
+
+    # walk the template directory structure towards the template needed
+    template_dir = templates
+    for step in (format.value, "norm"):
+        template_dir = template_dir / step
+        if not template_dir.is_dir():
+            print(f"no such directory - {template_dir}", file=sys.stderr)
+            sys.exit(1)
+
     timestamp = datetime.now(tz=timezone.utc)
     context = dict(
         source=path.name,
@@ -99,14 +114,14 @@ WARNING: language '{language}' incomplete in - {path}
     match format:
         case OutputFormat.HTML:
             # prepare rendering by Jinja2
-            loader = FileSystemLoader(templates.home() / "html" / "norm")
+            loader = FileSystemLoader(template_dir)
             template = Environment(loader=loader).get_template("norm.html")
             # produce rendered norm
             html = template.render(**context)
             writer = print if output is None else output.write_text
             writer(html)
         case OutputFormat.DOCX:
-            template = templates.home() / "docx" / "norm" / "norm.docx"
+            template = template_dir / "norm.docx"
             doc = DocxTemplate(template)
             doc.render(context)
             doc.save(output)  # type: ignore
