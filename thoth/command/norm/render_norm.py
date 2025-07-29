@@ -5,13 +5,15 @@ from pathlib import Path
 
 # third party imports
 from docxtpl import DocxTemplate  # type: ignore[import-untyped]
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 
 from thoth.command.shared.output_format import OutputFormat
 
 # own imports
 from thoth.model.norm.norm import Norm
 from thoth.model.profile.profile import NormRenderProfile
+from thoth import templates
+
 
 FORMAT_REQUIRES_OUTPUT = {
     OutputFormat.DOCX,
@@ -97,15 +99,14 @@ WARNING: language '{language}' incomplete in - {path}
     match format:
         case OutputFormat.HTML:
             # prepare rendering by Jinja2
-            loader = PackageLoader("thoth", "templates/html/norm")
+            loader = FileSystemLoader(templates.home() / "html" / "norm")
             template = Environment(loader=loader).get_template("norm.html")
             # produce rendered norm
             html = template.render(**context)
             writer = print if output is None else output.write_text
             writer(html)
         case OutputFormat.DOCX:
-            loader = PackageLoader("thoth", "templates/docx/norm")
-            template = Path(loader._template_root) / "norm.docx"
+            template = templates.home() / "docx" / "norm" / "norm.docx"
             doc = DocxTemplate(template)
             doc.render(context)
             doc.save(output)  # type: ignore
