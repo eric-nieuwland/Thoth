@@ -5,7 +5,7 @@ The information here assumes you are already familiar with the Python language.
 ## Set-up
 
 Assure you have the dependencies and developer's tools handy
-```commandline
+```
 # python -m pip install -e ".[dev]"
 ```
 
@@ -15,7 +15,7 @@ Do your magic.
 
 ## Create a release
 
-```commandline
+```
 # python -m build
 ```
 
@@ -29,11 +29,11 @@ It is safe to discard this directory and its content.
 ## How to install and use a release
 
 Install the wheel created above
-```commandline
+```
 # python -m pip install <wheel-file.whl>
 ```
 
 Start using it
-```commandline
+```
 # thoth --help
 ```

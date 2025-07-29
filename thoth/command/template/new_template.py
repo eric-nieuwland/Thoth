@@ -13,7 +13,7 @@ def new_template(
     force: bool = False,
 ):
     """
-    create a starting point for a template definition
+    create customizable copies of the internal templates
     """
 
     formats = [f.value for f in ((format,) if format else OutputFormat.all())]

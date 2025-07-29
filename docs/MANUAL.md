@@ -61,9 +61,10 @@ is `Thoth-dhwtj`, which stresses its relation to Ma'at.
 __Thoth__ is an Python application, build for Python 3.13 and up.
 You may wish to run Thoth in a virtual environment, see [the Python documentation][Python-venv].
 
-It requires some third party packages defined in `pyproject.toml`.
-Use `pip` to install those packages.
-
+Install the wheel created as described in [DEVELOPERS](./DEVELOPERS.md#how-to-install-and-use-a-release).
+```
+# python -m pip install <wheel-file.whl>
+```
 
 [Python-venv]: https://docs.python.org/3/library/venv.html
 
@@ -80,7 +81,7 @@ If you use the source code replace `thoth` by `python thoth/main.py` in the comm
 
 
 Examples:
-```commandline
+```
 # thoth ‑‑help
 
  Usage: thoth [OPTIONS] COMMAND [ARGS]...
@@ -92,10 +93,12 @@ Examples:
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ about                                                                                                           │
-│ norm    Norm commands                                                                                           │
+│ norm      Norm commands                                                                                         │
+| profile   Profile commands                                                                                      │
+| template  Template commands                                                                                     │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
-```commandline
+```
 # thoth norm ‑‑help
 
  Usage: thoth norm [OPTIONS] COMMAND [ARGS]...
@@ -117,7 +120,7 @@ Examples:
 │ xcheck              check whether two norm definitions match                                                    │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
-```commandline
+```
 # thoth norm new <language code> ‑‑output
 
  Usage: thoth norm new [OPTIONS] LANGUAGE
@@ -145,7 +148,7 @@ Use the two-letter language code from [ISO 639][ISO-639]:
 
 1. Let __Thoth__ create a starting point for your norm
    (if `norms/my-first-norm.yaml` already exists, add `‑‑force`):
-   ```commandline
+   ```
    # thoth norm new en ‑‑output norms/my-first-norm.yaml
    ```
 
@@ -154,13 +157,13 @@ Use the two-letter language code from [ISO 639][ISO-639]:
 
 
 3. Let __Thoth__ check your result
-   ```commandline
+   ```
    # thoth norm check norms/my-first-norm.yaml
    ```
 
 4. Have __Thoth__ prepare a translation of the norm, i.e. preserve structure and
    put in placeholders for the new language (you need `‑‑force` as the language is not present)
-   ```commandline
+   ```
    # thoth norm split norms/my-first-norm.yaml nl ‑‑force ‑‑output norms/mijn-eerste-norm.yaml
    ```
    
@@ -168,7 +171,7 @@ Use the two-letter language code from [ISO 639][ISO-639]:
 
 
 6. Have __Thoth__ add the translation of the norm
-   ```commandline
+   ```
    # thoth norm update norms/my-first-norm.yaml nl norms/mijn-eerste-norm.yaml ‑‑output norms/my-bilingual-norm.yaml
    ```
    You may also use either `norms/my-first-norm.yaml` or `norms/mijn-eerste-norm.yaml` with `‑‑output`,
@@ -187,14 +190,14 @@ and changes.
 ## Render a norm in one of its languages
 
 1. Have __Thoth__ render a norm to HTML
-   ```commandline
+   ```
    # thoth norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.html
    ```
    Note: __Thoth__ determines the format from `‑‑output`. If no output is given, use `‑‑format html`.
 
 
 2. Have __Thoth__ render a norm to DOCX
-   ```commandline
+   ```
    # thoth norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.docx
    ```
 
@@ -202,7 +205,7 @@ and changes.
 ## Render a norm in two of its languages for comparison
 
 1. Have __Thoth__ render a norm to HTML
-   ```commandline
+   ```
    # thoth norm render-translated norms/my-bilingual-norm.yaml nl en ‑‑output my-bilingual-norm-nl-en.html
    ```
    Note: __Thoth__ determines the format from `‑‑output`. If no output is given, use `‑‑format html`.
@@ -214,7 +217,7 @@ You can specify which items of a norm must be rendered. For this you create a pr
 
 1. Let __Thoth__ create a starting point for your profile
    (if `profile/my-first-profile.yaml` already exists, add `‑‑force`):
-   ```commandline
+   ```
    # thoth profile new ‑‑output profile/my-first-profile.yaml
    ```
 
@@ -225,6 +228,41 @@ You can specify which items of a norm must be rendered. For this you create a pr
 
 
 3. Have __Thoth__ render a norm to HTML using the profile
-   ```commandline
+   ```
    # thoth norm render norms/my-bilingual-norm.yaml nl --profile profile/my-first-profile.yaml ‑‑output my-bilingual-norm.html
    ```
+
+## Render a norm with customized templates
+
+1. Get a copy of the internal templates in a directory `my-templates`
+   (if template files already exist in `my-templates` add `‑‑force` to overwrite them):
+   ```
+   # thoth template new my-templates
+   ```
+   This will give a directory structure like:
+   ```
+   my-templates/
+      docx/
+        norm/
+            norm.docx
+            ...
+        ...
+      html/
+        norm/
+            norm.html
+            ...
+        ...
+      <format>/
+        <document>/
+            <document>.<format>
+            ...
+   ```
+
+2. Render with the obtained template:
+   ```
+   # thoth norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.docx --template my-templates
+   ```
+
+3. Modify the templates as you like.
+   Test your rendering results often, as (parts of) a template easily break.
+
