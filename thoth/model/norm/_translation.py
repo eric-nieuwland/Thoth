@@ -29,7 +29,11 @@ __TEMPLATE_REFERENCE_TEXT__ = {
 }
 
 
-def _select_template_text(code: str, templates: dict, default_code: str):
+def _select_template_text[T](
+    code: str,
+    templates: dict[str, T],
+    default_code: str,
+) -> T:
     return templates[code if code in templates else default_code]
 
 

@@ -11,7 +11,7 @@ def flatten(lst: list | tuple) -> list | tuple:
     return the result as a list or tuple, depending on the type of the argument
     """
     if not isinstance(lst, list | tuple):
-        return lst
+        return lst  # type: ignore[unreachable]
     maker = tuple if isinstance(lst, tuple) else list
     return maker(
         item

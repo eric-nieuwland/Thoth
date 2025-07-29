@@ -127,4 +127,4 @@ WARNING: language '{language}' incomplete in - {path}
             doc.render(context)
             doc.save(output)
         case _:
-            print(f"cannot render .{format.value if format else '???'}, yet")
+            print(f"cannot render .{format.value if format else '???'}, yet")  # type: ignore[unreachable]

@@ -253,7 +253,7 @@ class NormRenderProfile(BaseModel):
         """
         the YAML definition of this norm
         """
-        return yaml.safe_dump(
+        return yaml.safe_dump(  # type: ignore[no-any-return]
             self.model_dump(by_alias=True),
             default_flow_style=False,
             sort_keys=False,
