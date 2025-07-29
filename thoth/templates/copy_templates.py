@@ -19,10 +19,12 @@ import sys
 def _shared_files_helper(dcmp: dircmp) -> Generator[Path, None, None]:
     yield from map(lambda f: Path(dcmp.right) / f, dcmp.common_files)
     for sub_dcmp in dcmp.subdirs.values():
-        yield from map(lambda f: Path(sub_dcmp.right) / f, _shared_files_helper(sub_dcmp))
+        yield from _shared_files_helper(sub_dcmp)
 
 
-def shared_files(left: Path, right: Path):
+def shared_files(left: Path, right: Path) -> Generator[Path, None, None]:
+    if not left.is_dir() or not right.is_dir():
+        return
     yield from map(
         lambda f: f.relative_to(right) if f.is_relative_to(right) else f,
         _shared_files_helper(dircmp(left, right)),
@@ -35,7 +37,10 @@ def copy_templates(src: Path, dst: Path, formats: list[str], force: bool = False
     be careful not to overwrite existing files by accident
     """
 
-    if not force:
+    if dst.is_file():
+        print(f"file exists: {dst}")
+        sys.exit(1)
+    elif dst.is_dir() and not force:
         endangered = [Path(fmt) / file for fmt in formats for file in shared_files(src / fmt, dst / fmt)]
         if len(endangered) > 0:
             print("would overwrite:", file=sys.stderr)
@@ -43,4 +48,5 @@ def copy_templates(src: Path, dst: Path, formats: list[str], force: bool = False
                 print(f" - {file}", file=sys.stderr)
             sys.exit(1)
 
-    copytree(src, dst)
+    for fmt in formats:
+        copytree(src / fmt, dst / fmt, dirs_exist_ok=True)

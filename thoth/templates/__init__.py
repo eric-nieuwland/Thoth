@@ -6,6 +6,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from .copy_templates import copy_templates
+
 
 def templates_home():
     """
