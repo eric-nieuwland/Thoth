@@ -26,8 +26,8 @@ def render_norm(
     profile: Path | None = None,
     output: Path | None = None,
     format: OutputFormat | None = None,
-    templates: Path | None = None,
     force: bool = False,
+    template: Path | None = None,
 ):
     """
     render a norm definition in a document format
@@ -88,19 +88,22 @@ WARNING: language '{language}' incomplete in - {path}
             file=sys.stderr,
         )
 
-    if templates is None:
-        templates = templates_home()
-    elif not templates.exists() or not templates.is_dir():
-        print(f"no such directory - {templates}", file=sys.stderr)
+    if template is None:
+        template = templates_home()
+    elif not template.exists() or not template.is_dir():
+        print(f"no such directory - {template}", file=sys.stderr)
         sys.exit(1)
 
     # walk the template directory structure towards the template needed
-    template_dir = templates
-    for step in (format.value, "norm"):
-        template_dir = template_dir / step
-        if not template_dir.is_dir():
-            print(f"no such directory - {template_dir}", file=sys.stderr)
-            sys.exit(1)
+    template_dir = template / format.value
+    template_name = f"norm.{format.value}"
+    if not template_dir.is_dir():
+        print(f"no template(s) for '{format.value}' - {template}", file=sys.stderr)
+        sys.exit(1)
+    template_dir = template_dir / "norm"
+    if not template_dir.is_dir() or not (template_dir / template_name).is_file():
+        print(f"no norm template for '{format.value}' - {template}", file=sys.stderr)
+        sys.exit(1)
 
     timestamp = datetime.now(tz=timezone.utc)
     context = dict(
@@ -115,13 +118,13 @@ WARNING: language '{language}' incomplete in - {path}
         case OutputFormat.HTML:
             # prepare rendering by Jinja2
             loader = FileSystemLoader(template_dir)
-            template = Environment(loader=loader).get_template("norm.html")
+            template = Environment(loader=loader).get_template(template_name)
             # produce rendered norm
             html = template.render(**context)
             writer = print if output is None else output.write_text
             writer(html)
         case OutputFormat.DOCX:
-            doc = DocxTemplate(template_dir / "norm.docx")
+            doc = DocxTemplate(template_dir / template_name)
             doc.render(context)
             doc.save(output)  # type: ignore
         case _:
