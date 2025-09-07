@@ -1,38 +1,314 @@
 <html>
-<head>
-{% include './styles.html' %}
-</head>
-<body>
+    <head>
+        <!-- standard elements -->
+        <style>
+            table {
+                border-collapse: collapse;
+                border-spacing: 0px 6px;
+                margin: 24px 0px;
+            }
+            th, td {
+                vertical-align: top;
+                padding: 4px;
+            }
+            ul {
+                list-style-type: "- ";
+            }
+        </style>
+        <!-- custom classes -->
+        <style>
+            .driver-table {
+                margin: 6px;
+            }
+            .blue-box {
+                background-color: #DDE8F6;
+                margin: 0px -1px;
+                padding: 1px;
+            }
+            .norm-title {
+                margin: 1em 0px;
+                padding: 4px 6px;
+                font-weight: bold;
+                font-size: larger;
+                color: white;
+                background-color: #325899;
+            }
+            .norm-intro {
+                font-style: italic;
+            }
+            .part {
+                margin: 0px 6px;
+            }
+            .sub-part {
+                margin: 1em 6px;
+            }
+            .sub-sub-part {
+                margin: 1em 0px;
+            }
+            .part-title,
+            .sub-part-title,
+            .sub-sub-part-title {
+                margin: 1em 0px;
+                font-weight: bold;
+            }
+            td > .part-title,
+            td > .sub-part-title,
+            td > .sub-sub-part-title {
+                margin: 0px;
+            }
+            .part-title {
+                font-size: larger;
+            }
+            .sub-part-title {
+                font-size: medium;
+            }
+            .sub-sub-part-title {
+                font-size: medium;
+                color: #2E5E7E;
+            }
+            .indicator-title {
+                padding: 4px 6px;
+                margin: 6px 0px;
+                color: white;
+                background-color: #325899;
+            }
+            .reference {
+            }
+            ul.driver-details {
+                padding-left: 16px;
+            }
+        </style>
+        <style>
+            .footer {
+                font-size: 50%;
+                margin-top: 16px;
+            }
+        </style>
+        <title>{{ norm.identifier }} - {{ norm.title[language] }}</title>
+    </head>
+    <body>
 {% if profile.identifier or profile.title %}
-{%- include './norm-identifier-title.html' -%}
+        <div class="norm-title">
+            {% if profile.identifier -%}{{ norm.identifier }}{%- endif -%}
+            {%- if profile.identifier and profile.title %} - {% endif -%}
+            {%- if profile.title -%}{{ norm.title[language] }}{%- endif %}
+        </div>
 {% endif %}
 {% if profile.intro %}
-{%- include './norm-intro.html' -%}
+        <div class="norm-intro">
+            {{ norm.intro[language] }}
+        </div>
 {% endif %}
 {% if profile.scope %}
-{%- include './norm-scope.html' -%}
+        <div class="part">
+            <div class="part-title">
+                scope
+            </div>
+            {{ norm.scope[language] }}
+        </div>
 {% endif %}
 {% if profile.triggers %}
-{%- include './norm-triggers.html' -%}
+        <div class="part">
+            <div class="part-title">
+                triggers
+            </div>
+            {%- if norm.triggers %}
+            <ul>
+            {%- for trigger in norm.triggers %}
+                <li>{{ trigger[language] }}</li>
+            {%- endfor %}
+            </ul>
+            {%- endif %}
+        </div>
 {% endif %}
 {% if profile.criteria %}
-{%- include './norm-criteria.html' -%}
+        <div class="blue-box">
+            <div class="part">
+                <div class="part-title">
+                    criteria
+                </div>
+                {% if norm.criteria -%}
+                <ul>
+                {%- for criterium in norm.criteria %}
+                    <li>{{ criterium[language] }}</li>
+                {%- endfor %}
+                </ul>
+                {%- endif %}
+            </div>
+        </div>
 {% endif %}
 {% if profile.objectives %}
-{%- include './norm-objectives.html' -%}
+        <div class="blue-box">
+            <div class="part">
+                <div class="part-title">
+                    objectives
+                </div>
+                {% if norm.objectives -%}
+                <ul>
+                {%- for objective in norm.objectives %}
+                    <li>{{ objective[language] }}</li>
+                {%- endfor %}
+                </ul>
+                {%- endif %}
+            </div>
+        </div>
 {% endif %}
 {% if profile.risks %}
-{%- include './norm-risks.html' -%}
+        <div class="blue-box">
+            <div class="part">
+                <div class="part-title">
+                    risks
+                </div>
+                {% if norm.risks -%}
+                <ul>
+                {%- for risk in norm.risks %}
+                    <li>{{ risk[language] }}</li>
+                {%- endfor %}
+                </ul>
+                {%- endif %}
+            </div>
+        </div>
 {% endif %}
 {% if profile.drivers %}
-{%- include './norm-drivers.html' -%}
+        <div class="part">
+            <div class="part-title">
+                drivers
+            </div>
+            {%- if norm.drivers %}
+            <table width="100%">
+                <tr>
+                    {%- for driver in norm.drivers %}
+                    <td width={%- if loop.last -%} "*" {%- else -%} "{{ 100 // ( norm.drivers | length )}}%" {%- endif -%}>
+                        {%- if profile.drivers.name %}
+                        <div class="sub-part-title">
+                            {{ driver.name }}
+                        </div>
+                        {%- endif %}
+                        {%- if profile.drivers.details %}
+                        {%- if driver.details %}
+                        <ul class="driver-details">
+                            {%- for detail in driver.details %}
+                            <li>{{ detail }}</li>
+                            {%- endfor %}
+                        </ul>
+                        {%- endif %}
+                        {%- endif %}
+                    </td>
+                    {%- endfor %}
+                </tr>
+            </table>
+            {%- endif %}
+        </div>
 {% endif %}
 {% if profile.indicators %}
-{%- include './norm-indicators.html' -%}
+        <div class="part">
+            <div class="part-title">
+                indicators
+            </div>
+            {%- if norm.indicators %}
+            {%- for indicator in norm.indicators %}
+            <div class="sub-part">
+                {%- if profile.indicators.identifier or profile.indicators.title %}
+                <div class="indicator-title">
+                    {% if profile.indicators.identifier -%}
+                    {{ indicator.identifier }}
+                    {%- endif %} {% if profile.indicators.title -%}
+                    {{ indicator.title[language] }}
+                    {%- endif %}
+                </div>
+                {%- endif %}
+                {%- if profile.indicators.description %}
+                {{ indicator.description[language] }}
+                {%- endif %}
+                {%- if profile.indicators.conformities %}
+                <div class="sub-sub-part">
+                    <div class="sub-sub-part-title">
+                        conformity indicators
+                    </div>
+                    {%- if indicator.conformities %}
+                    <table>
+                        {%- for conformity in indicator.conformities %}
+                        <tr>
+                            <td>
+                                {%- if profile.indicators.identifier -%}
+                                {{ indicator.identifier }}
+                                {%- endif -%}
+                                {%- if profile.indicators.identifier and profile.indicators.conformities.identifier -%}
+                                /
+                                {%- endif -%}
+                                {%- if profile.indicators.conformities.identifier -%}
+                                {{ conformity.identifier }}
+                                {%- endif -%}
+                            </td>
+                            <td>
+                                {%- if profile.indicators.conformities.description %}
+                                {{ conformity.description[language] }}
+                                {%- endif %}
+                            </td>
+                        </tr>
+                        {%- if profile.indicators.conformities.guidance %}
+                        {%- if conformity.guidance %}
+                        <tr>
+                            <td></td>
+                            <td>
+                                <em>{{ conformity.guidance[language] }}</em>
+                            </td>
+                        </tr>
+                        {%- endif %}
+                        {%- endif %}
+                        {%- endfor %}
+                    </table>
+                    {%- endif %}
+                </div>
+                {%- endif %}
+                {%- if profile.indicators.explanation %}
+                <div class="sub-sub-part">
+                    <div class="sub-sub-part-title">
+                        explanation
+                    </div>
+                    {{ indicator.explanation[language] }}
+                </div>
+                {%- endif %}
+            </div>
+            {%- endfor %}
+            {%- endif %}
+        </div>
 {% endif %}
 {% if profile.references %}
-{%- include './norm-references.html' -%}
+        <div class="part">
+            <div class="part-title">
+                references
+            </div>
+            {%- if norm.references %}
+            {%- for reference in norm.references %}
+            <div class="sub-part">
+                <div class="reference">
+                    {% if profile.references.name -%}
+                    {{ reference.name }}
+                    {%- endif -%}
+                    {%- if profile.references.name and profile.references.url and reference.url %} - {% endif -%}
+                    {%- if profile.references.url -%}
+                    {%- if reference.url -%}
+                    <a href="{{ reference.url }}">{{ reference.url }}</a>
+                    {%- endif -%}
+                    {%- endif %}
+                </div>
+                {%- if profile.references.notes %}
+                {%- if reference.notes %}
+                <ul>
+                    {%- for note in reference.notes %}
+                    <li>{{ note[language] }}</li>
+                    {%- endfor %}
+                </ul>
+                {%- endif %}
+                {%- endif %}
+            </div>
+            {%- endfor %}
+            {%- endif %}
+        </div>
 {% endif %}
-{% include './norm-footer.html' %}
-</body>
+        <div class="footer">
+            rendered by Thoth on {{ timestamp.astimezone().strftime("%Y/%m/%d at %H:%M") }} in '{{ language }}' from {{ source }}
+        </div>
+    </body>
 </html>
