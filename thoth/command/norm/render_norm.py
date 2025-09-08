@@ -124,14 +124,11 @@ WARNING: language '{language}' incomplete in - {path}
     renderer(format, template_dir, template_name, context, output)
 
 
-CONTEXT = dict[str, str | datetime | NormRenderProfile | Norm]
-
-
 def error_renderer(
     format: OutputFormat,
     template_dir: Path,
     template_name: str,
-    context: CONTEXT,
+    context: dict[str, object],
     output: Path | None,
 ) -> None:
     _ignore = template_dir, template_name, context, output
@@ -143,7 +140,7 @@ def jinja_renderer(
     format: OutputFormat,
     template_dir: Path,
     template_name: str,
-    context: CONTEXT,
+    context: dict[str, object],
     output: Path | None,
 ) -> None:
     _ignore = format
@@ -160,7 +157,7 @@ def docx_renderer(
     format: OutputFormat,
     template_dir: Path,
     template_name: str,
-    context: CONTEXT,
+    context: dict[str, object],
     output: Path | None,
 ) -> None:
     _ignore = format
