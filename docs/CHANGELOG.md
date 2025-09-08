@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
+## v0.4.1 - 2025/09/08
+
+- updated documentation
+
+## v0.4.0 - 2025/09/08
+
+- added rendering to the `md` (Markdown) format
+- provided a `norm.md` template
+
 ## v0.3.0 - 2025/07/29
 
 - added the `template` command to create customizable copies of the internal templates:

@@ -94,8 +94,8 @@ Examples:
 ╭─ Commands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ about                                                                                                           │
 │ norm      Norm commands                                                                                         │
-| profile   Profile commands                                                                                      │
-| template  Template commands                                                                                     │
+│ profile   Profile commands                                                                                      │
+│ template  Template commands                                                                                     │
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 ```
@@ -199,6 +199,12 @@ and changes.
 2. Have __Thoth__ render a norm to DOCX
    ```
    # thoth norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.docx
+   ```
+
+
+3. Have __Thoth__ render a norm to MD (Markdown)
+   ```
+   # thoth norm render norms/my-bilingual-norm.yaml nl ‑‑output my-bilingual-norm.md
    ```
 
 
