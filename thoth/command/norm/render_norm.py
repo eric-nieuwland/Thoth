@@ -113,18 +113,54 @@ WARNING: language '{language}' incomplete in - {path}
         language=language,
     )
 
+    renderer = error_renderer
     match format:
         case OutputFormat.HTML:
-            # prepare rendering by Jinja2
-            loader = FileSystemLoader(template_dir)
-            html_template = Environment(loader=loader).get_template(template_name)
-            # produce rendered norm
-            html = html_template.render(**context)
-            writer = print if output is None else output.write_text
-            writer(html)
+            renderer = jinja_renderer
         case OutputFormat.DOCX:
-            doc = DocxTemplate(template_dir / template_name)
-            doc.render(context)
-            doc.save(output)
-        case _:
-            print(f"cannot render .{format.value if format else '???'}, yet")  # type: ignore[unreachable]
+            renderer = docx_renderer
+        case OutputFormat.MD:
+            renderer = jinja_renderer
+    renderer(format, template_dir, template_name, context, output)
+
+
+def error_renderer(
+    format: OutputFormat,
+    template_dir: Path,
+    template_name: str,
+    context: dict[str, object],
+    output: Path | None,
+) -> None:
+    _ignore = template_dir, template_name, context, output
+    print(f"cannot render .{format.value if format else '???'}, yet")
+    sys.exit(1)
+
+
+def jinja_renderer(
+    format: OutputFormat,
+    template_dir: Path,
+    template_name: str,
+    context: dict[str, object],
+    output: Path | None,
+) -> None:
+    _ignore = format
+    # prepare rendering by Jinja2
+    loader = FileSystemLoader(template_dir)
+    md_template = Environment(loader=loader).get_template(template_name)
+    # produce rendered norm
+    rendered = md_template.render(**context)
+    writer = print if output is None else output.write_text
+    writer(rendered)
+
+
+def docx_renderer(
+    format: OutputFormat,
+    template_dir: Path,
+    template_name: str,
+    context: dict[str, object],
+    output: Path | None,
+) -> None:
+    _ignore = format
+    doc = DocxTemplate(template_dir / template_name)
+    doc.render(context)
+    doc.save(output)

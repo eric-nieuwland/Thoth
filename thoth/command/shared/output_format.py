@@ -14,6 +14,7 @@ from enum import Enum
 class OutputFormat(Enum):
     HTML = "html"
     DOCX = "docx"
+    MD = "md"
 
     @classmethod
     def all(cls) -> tuple[OutputFormat, ...]:
