@@ -7,7 +7,7 @@ from typing import Self
 from pydantic import BaseModel
 
 # own imports
-from .multi_lingual_text import MultiLingualText
+from ..multi_lingual_text import MultiLingualText
 from .utils import count_multi_lingual_helper
 
 

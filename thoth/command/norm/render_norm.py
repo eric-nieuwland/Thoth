@@ -11,7 +11,7 @@ from thoth.command.shared.output_format import OutputFormat
 
 # own imports
 from thoth.model.norm.norm import Norm
-from thoth.model.profile.profile import NormRenderProfile
+from thoth.model.norm_profile.profile import NormRenderProfile
 from thoth.templates import templates_home
 
 FORMAT_REQUIRES_OUTPUT = {

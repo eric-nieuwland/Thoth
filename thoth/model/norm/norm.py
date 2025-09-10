@@ -13,12 +13,12 @@ from yaml.scanner import ScannerError  # type: ignore
 from thoth.utils.flatten import flatten
 from thoth.utils.list_joiner import list_joiner
 
+from ..multi_lingual_text import MultiLingualText
 from .driver import Driver
 from .indicator import Indicator
-from .multi_lingual_text import MultiLingualText
 from .reference import Reference
 from .utils import count_multi_lingual_helper
-from .yaml_norm_layout_enhancer import yaml_norm_layout_enhancer
+from .yaml_layout_enhancer import yaml_layout_enhancer
 
 
 class Norm(BaseModel):
@@ -182,7 +182,7 @@ class Norm(BaseModel):
         """
         the YAML definition of this norm
         """
-        return yaml_norm_layout_enhancer(
+        return yaml_layout_enhancer(
             yaml.safe_dump(
                 self.model_dump(by_alias=True),
                 default_flow_style=False,

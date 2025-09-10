@@ -16,7 +16,7 @@ class State(Enum):
     IN_REFERENCES = "in references"
 
 
-def yaml_norm_layout_enhancer(text: str) -> str:
+def yaml_layout_enhancer(text: str) -> str:
     """
     produce a nicer version of a norm in YAML form
     """

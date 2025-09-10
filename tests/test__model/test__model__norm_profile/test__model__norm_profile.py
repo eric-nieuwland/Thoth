@@ -1,6 +1,6 @@
 import unittest
 
-from thoth.model.profile.profile import NormRenderProfile
+from thoth.model.norm_profile.profile import NormRenderProfile
 
 
 class TestTemplate(unittest.TestCase):
