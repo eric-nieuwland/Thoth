@@ -3,10 +3,10 @@
 # third party imports
 
 # own imports
+from thoth.model.multi_lingual_text import MultiLingualText
 from thoth.model.norm.conformity import Conformity
 from thoth.model.norm.driver import Driver
 from thoth.model.norm.indicator import Indicator
-from thoth.model.norm.multi_lingual_text import MultiLingualText
 from thoth.model.norm.norm import Norm
 from thoth.model.norm.reference import Reference
 

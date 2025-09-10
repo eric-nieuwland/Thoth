@@ -3,7 +3,7 @@ from pathlib import Path
 
 # third party imports
 # own imports
-from thoth.model.profile.profile import NormRenderProfile
+from thoth.model.norm_profile.profile import NormRenderProfile
 
 from ..shared.reformat_command import reformat_command
 

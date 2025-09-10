@@ -3,14 +3,7 @@
 # third party imports
 
 # own imports
-
-
-__DEFAULT_LANGUAGE__ = "en"
-
-__TEMPLATE_TEXT__ = {
-    "en": "|[ please fill with text ]|",
-    "nl": "|[ vul hier tekst in ]|",
-}
+from .._translation import select_template_text
 
 __TEMPLATE_DRIVER_TEXT__ = {
     "en": (
@@ -29,21 +22,9 @@ __TEMPLATE_REFERENCE_TEXT__ = {
 }
 
 
-def _select_template_text[T](
-    code: str,
-    templates: dict[str, T],
-    default_code: str,
-) -> T:
-    return templates[code if code in templates else default_code]
-
-
-def template_text(code: str) -> str:
-    return _select_template_text(code, __TEMPLATE_TEXT__, __DEFAULT_LANGUAGE__)
-
-
 def template_driver_text(code: str) -> tuple[str, str]:
-    return _select_template_text(code, __TEMPLATE_DRIVER_TEXT__, __DEFAULT_LANGUAGE__)
+    return select_template_text(code, __TEMPLATE_DRIVER_TEXT__)
 
 
 def template_reference_text(code: str) -> str:
-    return _select_template_text(code, __TEMPLATE_REFERENCE_TEXT__, __DEFAULT_LANGUAGE__)
+    return select_template_text(code, __TEMPLATE_REFERENCE_TEXT__)

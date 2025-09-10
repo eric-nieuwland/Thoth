@@ -224,7 +224,7 @@ You can specify which items of a norm must be rendered. For this you create a pr
 1. Let __Thoth__ create a starting point for your profile
    (if `profile/my-first-profile.yaml` already exists, add `‑‑force`):
    ```
-   # thoth profile new ‑‑output profile/my-first-profile.yaml
+   # thoth norm-profile new ‑‑output profile/my-first-profile.yaml
    ```
 
 2. Use any text editor to modify `profile/my-first-profile.yaml`, but make sure to preserve

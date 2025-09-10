@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
+## v0.4.2 - 2025/09/08
+
+- prepare for other document types
+
 ## v0.4.1 - 2025/09/08
 
 - updated documentation

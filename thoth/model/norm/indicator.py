@@ -9,8 +9,8 @@ from pydantic import BaseModel
 # own imports
 from thoth.utils.list_joiner import list_joiner
 
+from ..multi_lingual_text import MultiLingualText
 from .conformity import Conformity
-from .multi_lingual_text import MultiLingualText
 from .utils import count_multi_lingual_helper
 
 

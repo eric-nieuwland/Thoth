@@ -6,7 +6,7 @@ import typer
 # own imports
 from . import (
     norm,
-    profile,
+    norm_profile,
     template,
 )
 from .about import about
@@ -16,5 +16,5 @@ app = typer.Typer()
 app.command("about")(about)
 
 app.add_typer(norm.app, name="norm", help="Norm commands")
-app.add_typer(profile.app, name="profile", help="Profile commands")
+app.add_typer(norm_profile.app, name="norm-profile", help="Norm profile commands")
 app.add_typer(template.app, name="template", help="Template commands")
