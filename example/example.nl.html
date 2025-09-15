@@ -1,236 +1,257 @@
 <html>
-<head>
-<!-- standard elements -->
-<style>
-    table {
-        border-collapse: collapse;
-        border-spacing: 0px 6px;
-        margin: 24px 0px;
-    }
-    th, td {
-        vertical-align: top;
-        padding: 4px;
-    }
-    ul {
-        list-style-type: "- ";
-    }
-</style>
-<!-- custom classes -->
-<style>
-    .driver-table {
-        margin: 6px;
-    }
-    .blue-box {
-        background-color: #DDE8F6;
-        margin: 0px -1px;
-        padding: 1px;
-    }
-    .norm-title {
-        margin: 1em 0px;
-        padding: 4px 6px;
-        font-weight: bold;
-        font-size: larger;
-        color: white;
-        background-color: #325899;
-    }
-    .norm-intro {
-        font-style: italic;
-    }
-    .part {
-        margin: 0px 6px;
-    }
-    .sub-part {
-        margin: 1em 6px;
-    }
-    .sub-sub-part {
-        margin: 1em 0px;
-    }
-    .part-title,
-    .sub-part-title,
-    .sub-sub-part-title {
-        margin: 1em 0px;
-        font-weight: bold;
-    }
-    td > .part-title,
-    td > .sub-part-title,
-    td > .sub-sub-part-title {
-        margin: 0px;
-    }
-    .part-title {
-        font-size: larger;
-    }
-    .sub-part-title {
-        font-size: medium;
-    }
-    .sub-sub-part-title {
-        font-size: medium;
-        color: #2E5E7E;
-    }
-    .indicator-title {
-        padding: 4px 6px;
-        margin: 6px 0px;
-        color: white;
-        background-color: #325899;
-    }
-    .reference {
-    }
-    ul.driver-details {
-        padding-left: 16px;
-    }
-</style>
-<style>
-    .footer {
-        font-size: 50%;
-        margin-top: 16px;
-    }
-</style>
-</head>
-<body>
-<div class="norm-title">
-    000 - Thoth normdefinities
-</div>
-<div class="norm-intro">
-    Met de komst van versie 4 van het normenkader voor Secure Software Development (SSD) van het Centrum voor Informatiebeveiliging en Privacybescherming (CIP) worden normteksten beheerd en onderhouden als YAML-definities. Hierdoor kunnen tools gebruikt worden om bijvoorbeeld teksten op te maken in verschillende documentformaten. De basistool voor het maken, beheren en onderhouden van de YAML-definities hete 'thoth'. Deze normtekst is geen onderdeel van SSD zelf, maar dient als demonstratie en documentatie van het bestandsformaat van de YAML-definitie die 'thoth' ondersteunt. Merk op dat de definities bedoeld zijn om meertaligheid te ondersteunen. Elk tekstfragment dat in meerdere talen kan worden gedefinieerd, wordt vooraf gegaan door de twee-lettercode van de taal (ISO 639), bijvoorbeeld 'en' (Engels) of 'nl' (Nederlands).
-</div>
-<div class="part">
-    <div class="part-title">
-        scope
-    </div>
-    De scope definieert op welk(e) aspect(en) van een applicatie de norm van toepassing is.
-</div>
-<div class="part">
-    <div class="part-title">
-        triggers
-    </div>
-    <ul>
-        <li>Een trigger definieert wanneer de norm van toepassing is. Triggers mogen zo vaak als nodig herhaald worden.</li>
-    </ul>
-</div>
-<div class="blue-box">
-    <div class="part">
-        <div class="part-title">
-            criteria
+    <head>
+        <!-- standard elements -->
+        <style>
+            table {
+                border-collapse: collapse;
+                border-spacing: 0px 6px;
+                margin: 24px 0px;
+            }
+            th, td {
+                vertical-align: top;
+                padding: 4px;
+            }
+            ul {
+                list-style-type: "- ";
+            }
+        </style>
+        <!-- custom classes -->
+        <style>
+            .driver-table {
+                margin: 6px;
+            }
+            .blue-box {
+                background-color: #DDE8F6;
+                margin: 0px -1px;
+                padding: 1px;
+            }
+            .norm-title {
+                margin: 1em 0px;
+                padding: 4px 6px;
+                font-weight: bold;
+                font-size: larger;
+                color: white;
+                background-color: #325899;
+            }
+            .norm-intro {
+                font-style: italic;
+            }
+            .part {
+                margin: 0px 6px;
+            }
+            .sub-part {
+                margin: 1em 6px;
+            }
+            .sub-sub-part {
+                margin: 1em 0px;
+            }
+            .part-title,
+            .sub-part-title,
+            .sub-sub-part-title {
+                margin: 1em 0px;
+                font-weight: bold;
+            }
+            td > .part-title,
+            td > .sub-part-title,
+            td > .sub-sub-part-title {
+                margin: 0px;
+            }
+            .part-title {
+                font-size: larger;
+            }
+            .sub-part-title {
+                font-size: medium;
+            }
+            .sub-sub-part-title {
+                font-size: medium;
+                color: #2E5E7E;
+            }
+            .indicator-title {
+                padding: 4px 6px;
+                margin: 6px 0px;
+                color: white;
+                background-color: #325899;
+            }
+            .reference {
+            }
+            ul.driver-details {
+                padding-left: 16px;
+            }
+        </style>
+        <style>
+            .footer {
+                font-size: 50%;
+                margin-top: 16px;
+            }
+        </style>
+        <title>000 - Thoth normdefinities</title>
+    </head>
+    <body>
+
+        <div class="norm-title">
+            000 - Thoth normdefinities
         </div>
-        <ul>
-            <li>Een criterium definieert een aspect van voldoen aan de norm. Criteria mogen zo vaak als nodig herhaald worden.</li>
-        </ul>
-    </div>
-</div>
-<div class="blue-box">
-    <div class="part">
-        <div class="part-title">
-            objectives
+
+
+        <div class="norm-intro">
+            Met de komst van versie 4 van het normenkader voor Secure Software Development (SSD) van het Centrum voor Informatiebeveiliging en Privacybescherming (CIP) worden normteksten beheerd en onderhouden als YAML-definities. Hierdoor kunnen tools gebruikt worden om bijvoorbeeld teksten op te maken in verschillende documentformaten. De basistool voor het maken, beheren en onderhouden van de YAML-definities hete 'thoth'. Deze normtekst is geen onderdeel van SSD zelf, maar dient als demonstratie en documentatie van het bestandsformaat van de YAML-definitie die 'thoth' ondersteunt. Merk op dat de definities bedoeld zijn om meertaligheid te ondersteunen. Elk tekstfragment dat in meerdere talen kan worden gedefinieerd, wordt vooraf gegaan door de twee-lettercode van de taal (ISO 639), bijvoorbeeld 'en' (Engels) of 'nl' (Nederlands).
         </div>
-        <ul>
-            <li>Een objective definieert een te bereiken doel, door aan de norm te voldoen. Objective mogen zo vaak als nodig herhaald worden.</li>
-        </ul>
-    </div>
-</div>
-<div class="blue-box">
-    <div class="part">
-        <div class="part-title">
-            risks
-        </div>
-        <ul>
-            <li>Een risico (risk) definieert een negatief effect dat kan optreden wanneer niet aan de norm voldaan wordt. Risico's (risks) mogen zo vaak als nodig herhaald worden.</li>
-        </ul>
-    </div>
-</div>
-<div class="part">
-    <div class="part-title">
-        drivers
-    </div>
-    <table width="100%">
-        <tr>
-            <td width="50%">
-                <div class="sub-part-title">
-                    Well-known source
-                </div>
-                <ul class="driver-details">
-                    <li>Examples of names are 'NIST', 'ISO27002:2022', and 'BIO'</li>
-                    <li>A driver defines a(n informational) source for the norm</li>
-                    <li>A driver's detail refer to specific parts within the source</li>
-                    <li>Details may be repeated as often as needed.</li>
-                    <li>Drivers may be repeated as often as needed.</li>
-                    <li>As drivers only contain codes, they do not support multiple languages</li>
-                </ul>
-            </td>
-            <td width="*">
-                <div class="sub-part-title">
-                    Bekende bron
-                </div>
-                <ul class="driver-details">
-                    <li>Voorbeelden van namen zijn 'NIST', 'ISO27002:2022' en 'BIO'</li>
-                    <li>Een driver definieert een (informatie) bron voor de norm</li>
-                    <li>Een detail van een driver verwijst naar specifieke onderdelen van de bron</li>
-                    <li>Details mogen zo vaak als nodig herhaald worden.</li>
-                    <li>Drivers mogen zo vaak als nodig herhaald worden.</li>
-                    <li>Omdat drivers alleen codes bevatten, zijn ze niet meertalig</li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-</div>
-<div class="part">
-    <div class="part-title">
-        indicators
-    </div>
-    <div class="sub-part">
-        <div class="indicator-title">
-            01 Een indicator heeft een titel en een beschrijving
-        </div>
-        Een indicator definieert hoe aan een norm voldaan moet worden. Indicators mogen zo vaak als nodig herhaald worden en moeten opvolgend genummerde identifier hebben. Identifiers moeten een vast aantal cijfers bevatten; dit vereist quotes rond de identifier.
-        <div class="sub-sub-part">
-            <div class="sub-sub-part-title">
-                conformity indicators
+
+
+        <div class="part">
+            <div class="part-title">
+                scope
             </div>
-            <table>
+            De scope definieert op welk(e) aspect(en) van een applicatie de norm van toepassing is.
+        </div>
+
+
+        <div class="part">
+            <div class="part-title">
+                triggers
+            </div>
+            <ul>
+                <li>Een trigger definieert wanneer de norm van toepassing is. Triggers mogen zo vaak als nodig herhaald worden.</li>
+            </ul>
+        </div>
+
+
+        <div class="blue-box">
+            <div class="part">
+                <div class="part-title">
+                    criteria
+                </div>
+                <ul>
+                    <li>Een criterium definieert een aspect van voldoen aan de norm. Criteria mogen zo vaak als nodig herhaald worden.</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="blue-box">
+            <div class="part">
+                <div class="part-title">
+                    objectives
+                </div>
+                <ul>
+                    <li>Een objective definieert een te bereiken doel, door aan de norm te voldoen. Objective mogen zo vaak als nodig herhaald worden.</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="blue-box">
+            <div class="part">
+                <div class="part-title">
+                    risks
+                </div>
+                <ul>
+                    <li>Een risico (risk) definieert een negatief effect dat kan optreden wanneer niet aan de norm voldaan wordt. Risico's (risks) mogen zo vaak als nodig herhaald worden.</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="part">
+            <div class="part-title">
+                drivers
+            </div>
+            <table width="100%">
                 <tr>
-                    <td>01/01</td>
-                    <td>
-                        Een conformiteit (conformity) definieert een detail van een indicator. Conformiteiten (conformities) mogen zo vaak als nodig herhaald worden en moeten opvolgend genummerde identifier hebben. Identifiers moeten een vast aantal cijfers bevatten; dit vereist quotes rond de identifier.
+                    <td width="50%">
+                        <div class="sub-part-title">
+                            Well-known source
+                        </div>
+                        <ul class="driver-details">
+                            <li>Examples of names are 'NIST', 'ISO27002:2022', and 'BIO'</li>
+                            <li>A driver defines a(n informational) source for the norm</li>
+                            <li>A driver's detail refer to specific parts within the source</li>
+                            <li>Details may be repeated as often as needed.</li>
+                            <li>Drivers may be repeated as often as needed.</li>
+                            <li>As drivers only contain codes, they do not support multiple languages</li>
+                        </ul>
                     </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <em>Elke conformiteit mag voorzien in een richtsnoer (guidance) voor bijvoorbeeld ontwikkelaars of auditors.</em>
+                    <td width="*">
+                        <div class="sub-part-title">
+                            Bekende bron
+                        </div>
+                        <ul class="driver-details">
+                            <li>Voorbeelden van namen zijn 'NIST', 'ISO27002:2022' en 'BIO'</li>
+                            <li>Een driver definieert een (informatie) bron voor de norm</li>
+                            <li>Een detail van een driver verwijst naar specifieke onderdelen van de bron</li>
+                            <li>Details mogen zo vaak als nodig herhaald worden.</li>
+                            <li>Drivers mogen zo vaak als nodig herhaald worden.</li>
+                            <li>Omdat drivers alleen codes bevatten, zijn ze niet meertalig</li>
+                        </ul>
                     </td>
                 </tr>
             </table>
         </div>
-        <div class="sub-sub-part">
-            <div class="sub-sub-part-title">
-                explanation
+
+
+        <div class="part">
+            <div class="part-title">
+                indicators
             </div>
-            Een indicator moet uitleg (explanation) geven van de bijdrage die het levert aan een of meer objectives.
+            <div class="sub-part">
+                <div class="indicator-title">
+                    01 Een indicator heeft een titel en een beschrijving
+                </div>
+                Een indicator definieert hoe aan een norm voldaan moet worden. Indicators mogen zo vaak als nodig herhaald worden en moeten opvolgend genummerde identifier hebben. Identifiers moeten een vast aantal cijfers bevatten; dit vereist quotes rond de identifier.
+                <div class="sub-sub-part">
+                    <div class="sub-sub-part-title">
+                        conformity indicators
+                    </div>
+                    <table>
+                        <tr>
+                            <td>01/01</td>
+                            <td>
+                                Een conformiteit (conformity) definieert een detail van een indicator. Conformiteiten (conformities) mogen zo vaak als nodig herhaald worden en moeten opvolgend genummerde identifier hebben. Identifiers moeten een vast aantal cijfers bevatten; dit vereist quotes rond de identifier.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <em>Elke conformiteit mag voorzien in een richtsnoer (guidance) voor bijvoorbeeld ontwikkelaars of auditors.</em>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="sub-sub-part">
+                    <div class="sub-sub-part-title">
+                        explanation
+                    </div>
+                    Een indicator moet uitleg (explanation) geven van de bijdrage die het levert aan een of meer objectives.
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="part">
-    <div class="part-title">
-        references
-    </div>
-    <div class="sub-part">
-        <div class="reference">
-            Title or other reference - <a href="https://optional.url">https://optional.url</a>
+
+
+        <div class="part">
+            <div class="part-title">
+                references
+            </div>
+            <div class="sub-part">
+                <div class="reference">
+                    Title or other reference - <a href="https://optional.url">https://optional.url</a>
+                </div>
+                <ul>
+                    <li>Een opmerking (note) kan aanvullende informatie geven. Opmerkingen (notes) mogen zo vaak als nodig herhaald worden.</li>
+                    <li>References mogen zo vaak als nodig herhaald worden.</li>
+                </ul>
+            </div>
+            <div class="sub-part">
+                <div class="reference">
+                    ISO 639 (Language codes) - <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes</a>
+                </div>
+                <ul>
+                    <li>Bron van de twee-lettercodes die 'thoth' gebruikt.</li>
+                </ul>
+            </div>
         </div>
-        <ul>
-            <li>Een opmerking (note) kan aanvullende informatie geven. Opmerkingen (notes) mogen zo vaak als nodig herhaald worden.</li>
-            <li>References mogen zo vaak als nodig herhaald worden.</li>
-        </ul>
-    </div>
-    <div class="sub-part">
-        <div class="reference">
-            ISO 639 (Language codes) - <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes</a>
+
+        <div class="footer">
+            rendered by Thoth on 2025/09/15 at 13:11 in 'nl' from example.yaml
         </div>
-        <ul>
-            <li>Bron van de twee-lettercodes die 'thoth' gebruikt.</li>
-        </ul>
-    </div>
-</div>
-<div class="footer">
-    rendered by Thoth on 2025/07/29 at 16:42 in 'nl' from example.yaml
-</div>
-</body>
+    </body>
 </html>
