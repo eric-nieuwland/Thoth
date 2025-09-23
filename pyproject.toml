@@ -52,7 +52,10 @@ packages = [
 
 [tool.setuptools.package-data]
 "thoth" = ["**/*.py"]
-"thoth.templates" = ["**/*.docx", "**/*.html"]
+"thoth.templates" = ["**/*"]
+
+[tool.setuptools.exclude-package-data]
+"thoth.templates" = ["__pycache__/*"]
 
 
 [tool.ruff.lint]
