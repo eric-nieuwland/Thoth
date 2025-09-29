@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
+- document definition as a configuration
+
+## v0.4.4 - 2025/09/23
+
+- fix mult-line support: use an empty line to separate paragraphs
+
 ## v0.4.3 - 2025/09/23
 
 - fix build to include Markdown templates
