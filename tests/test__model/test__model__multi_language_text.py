@@ -121,6 +121,29 @@ class TestMultiLingualText(unittest.TestCase):
         expect = "WARNING: text not available in 'nl'; text available in 'en'"
         self.assertEqual(expect, actual)
 
+    def test_multiline_preservation(self):
+        # given
+        text = {
+            "en": """
+This text is split over two lines
+and becomes one once loaded.
+            """.strip(),
+            "nl": """
+Dit is alinea #1.
+
+Dit is alinea #2.
+            """.strip(),
+        }
+        mlt = MultiLingualText(text)
+        # when
+        actual = mlt.root
+        # then
+        expect = {
+            "en": """This text is split over two lines and becomes one once loaded.""",
+            "nl": """Dit is alinea #1.\n\nDit is alinea #2.""",
+        }
+        self.assertDictEqual(expect, actual)
+
 
 if __name__ == "__main__":
     unittest.main()
