@@ -24,8 +24,8 @@ class MultiLingualText(RootModel):
         for key in self.root:
             known_iso_639_language_code_or_error(key)
         for key, value in self.root.items():
-            collect_lines = []
-            key_lines = []
+            collect_lines: list[str] = []
+            key_lines: list[str] = []
             for line in value.splitlines():
                 if line.strip() == "":
                     key_lines.append(" ".join(collect_lines))
