@@ -10,7 +10,7 @@ from pydantic import BaseModel, RootModel, create_model, model_validator
 
 # own
 from .mixins import ExampleMixIn, YamlMixIn, ProfileMixIn, RenderTemplateMixIn
-from .multilingual import MultiLingualText
+from .multi_lingual_text import MultiLingualText
 
 
 TYPES = {

@@ -12,7 +12,7 @@ from typing import Any, get_args, get_origin
 from pydantic import BaseModel, RootModel
 
 # own
-from ..multilingual import MultiLingualText
+from ..multi_lingual_text import MultiLingualText
 
 
 class RenderTemplateMixIn:
