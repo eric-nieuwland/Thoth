@@ -8,8 +8,8 @@
 __DEFAULT_LANGUAGE__ = "en"
 
 __TEMPLATE_TEXT__ = {
-    "en": "|[ please fill with text ]|",
-    "nl": "|[ vul hier tekst in ]|",
+    "en": "please fill with text",
+    "nl": "vul hier tekst in",
 }
 
 
