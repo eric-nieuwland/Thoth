@@ -32,9 +32,9 @@ class YamlMixIn(JsonMixIn):
     """
 
     @classmethod
-    def from_yaml_definition(
+    def from_yaml_stream(
         cls,
-        yaml_definition,
+        yaml_stream,
         exit_on_error: bool = True,
     ) -> Self:
         """
@@ -42,7 +42,7 @@ class YamlMixIn(JsonMixIn):
         """
         try:
             return cls.from_json_definition(
-                yaml.safe_load(yaml_definition),
+                yaml.safe_load(yaml_stream),
                 exit_on_error=exit_on_error,
             )
         except ScannerError as err:
@@ -61,7 +61,7 @@ class YamlMixIn(JsonMixIn):
             result[key] = cls._remove_nones(value) if isinstance(value, dict) else value
         return result
 
-    def as_yaml_definition(self) -> str:
+    def as_yaml_text(self) -> str:
         """
         the YAML definition of this instance
         """
@@ -80,5 +80,5 @@ class YamlMixIn(JsonMixIn):
         """
         create instance from a YAML definition file
         """
-        with open(yaml_file) as f:
-            return cls.from_yaml_definition(f, exit_on_error=exit_on_error)
+        with open(yaml_file) as yaml_stream:
+            return cls.from_yaml_stream(yaml_stream, exit_on_error=exit_on_error)

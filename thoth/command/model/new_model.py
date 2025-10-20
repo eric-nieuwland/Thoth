@@ -6,7 +6,6 @@ from __future__ import annotations
 
 # standard library imports
 from pathlib import Path
-import sys
 
 # third party imports
 
@@ -23,7 +22,7 @@ def new_model(
     create a starting point for a document model
     """
     write_output(
-        DocumentMetaModel.example().as_yaml_definition(),
+        DocumentMetaModel.example().as_yaml_text(),
         destination=output,
         force=force,
     )
