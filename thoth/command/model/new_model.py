@@ -8,7 +8,7 @@ from thoth.model.meta_model import DocumentMetaModel
 from thoth.command.shared.write_output import write_output
 
 
-def new_definition(
+def new_model(
     output: Path | None = None,
     force: bool = False,
 ) -> None:

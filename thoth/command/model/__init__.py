@@ -4,8 +4,8 @@
 import typer
 
 # own imports
-from .new_definition import new_definition
+from .new_model import new_model
 
 app = typer.Typer()
 
-app.command("new")(new_definition)
+app.command("new")(new_model)
