@@ -19,6 +19,8 @@ def check_model(
 ) -> None:
     """
     check syntax of a document model
+
+    Prints a message to help you correct any issue found and "OK" if no issues were found.
     """
     copy = DocumentMetaModel.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
