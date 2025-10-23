@@ -140,3 +140,53 @@ class RenderTemplateMixIn:
         if issubclass(cls, BaseModel):
             return "\n".join(cls._render_template_from_base_model(document_var, profile_var))
         raise TypeError(f"cannot create a template for {cls.__name__}")
+
+    def count_multi_lingual_root_model(self, obj) -> tuple[int, dict[str, int]]:
+        """
+        count the number of multilingual elements and the languages therein
+        """
+        return 0, {}
+
+    def count_multi_lingual_base_model(self, obj) -> tuple[int, dict[str, int]]:
+        """
+        count the number of multilingual elements and the languages therein
+        """
+        result = 0, {}
+        for field_name, field_def in obj.model_fields.items():
+            kind, base = self.field_type_base(field_def)
+            if kind == list:
+                result = add_counts(result, self.count_multi_lingual_list(getattr(obj, field_name)))
+            else:
+                print(f"don't know how to count {kind}")
+        return result
+
+    def count_multi_lingual_list(self, lst) -> tuple[int, dict[str, int]]:
+        """
+        count the number of multilingual elements and the languages therein
+        """
+        result = 0, {}
+        for element in lst:
+            if hasattr(element, "count_multi_lingual"):
+                result = add_counts(result, element.count_multi_lingual())
+            elif isinstance(element, RootModel):
+                result = add_counts(result, self.count_multi_lingual_root_model(element))
+            elif isinstance(element, BaseModel):
+                result = add_counts(result, self.count_multi_lingual_base_model(element))
+        return result
+
+    def count_multi_lingual(self) -> tuple[int, dict[str, int]]:
+        """
+        count the number of multilingual elements and the languages therein
+        """
+        if isinstance(self, RootModel):
+            return self.count_multi_lingual_root_model(self)
+        if isinstance(self, BaseModel):
+            return self.count_multi_lingual_base_model(self)
+        raise TypeError(f"cannot count multilingual elements in {self.__class__.__name__}")
+
+
+def add_counts(
+    a: tuple[int, dict[str, int]],
+    b: tuple[int, dict[str, int]],
+) -> tuple[int, dict[str, int]]:
+    return a[0] + b[0], {key: a[1].get(key, 0) + b[1].get(key, 0) for key in set(a[1]) | set(b[1])}
