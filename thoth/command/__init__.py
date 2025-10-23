@@ -8,9 +8,9 @@ from . import (
     model,
     profile,
     # old
-    norm,
-    norm_profile,
-    template,
+    old_norm,
+    old_norm_profile,
+    old_template,
 )
 from .about import about
 
@@ -21,6 +21,6 @@ app.command("about")(about)
 app.add_typer(model.app, name="model", help="Document model commands")
 app.add_typer(profile.app, name="profile", help="Document profile commands")
 # old
-app.add_typer(norm.app, name="norm", help="Norm commands")
-app.add_typer(norm_profile.app, name="norm-profile", help="Norm profile commands")
-app.add_typer(template.app, name="template", help="Template commands")
+app.add_typer(old_norm.app, name="old-norm", help="Norm commands")
+app.add_typer(old_norm_profile.app, name="norm-profile", help="Norm profile commands")
+app.add_typer(old_template.app, name="old-template", help="Template commands")

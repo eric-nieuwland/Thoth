@@ -2,7 +2,7 @@ import io
 import unittest
 from unittest.mock import MagicMock, call, patch
 
-from thoth.command.norm.xcheck_norm import (
+from thoth.command.old_norm.xcheck_norm import (
     _report_issues,
     xcheck_norm,
 )
