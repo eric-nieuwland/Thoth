@@ -9,7 +9,7 @@ from pydantic import RootModel, model_validator
 # own imports
 from thoth.utils.iso_639 import known_iso_639_language_code_or_error
 
-from ._translation import template_text
+from ._translation import template_text, template_texts
 
 
 class MultiLingualText(RootModel):
@@ -91,3 +91,7 @@ class MultiLingualText(RootModel):
                 language: template_text(language),
             }
         )
+
+    @classmethod
+    def _example_yaml_dict(cls, *_args, **_kwargs) -> dict[str, str]:
+        return template_texts()

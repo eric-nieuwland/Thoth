@@ -28,6 +28,14 @@ EXPECTED = {
 }
 
 
+def _make_error_key(parts):
+    """
+    make error key
+    int parts are list indexes, Python starts at 0 (zero), humans count from 1 (one)
+    """
+    return ".".join(f"{part + 1}" if isinstance(part, int) else str(part) for part in parts)
+
+
 def print_pydantic_validation_errors(error: ValidationError):
     """
     a more user-friendly version of pydantic validation errors
@@ -37,7 +45,7 @@ def print_pydantic_validation_errors(error: ValidationError):
         return
 
     key_errors = {
-        ".".join(str(part) for part in err["loc"][:-1]): err
+        _make_error_key(err["loc"][:-1]): err
         for err in error.errors()
         if err["loc"][-1] == "[key]"
     }
@@ -45,7 +53,7 @@ def print_pydantic_validation_errors(error: ValidationError):
         key: err
         for err in error.errors()
         if err["loc"][-1] != "[key]"
-        and (key := ".".join(str(part) for part in err["loc"])) not in key_errors
+           and (key := _make_error_key(err["loc"])) not in key_errors
     }
 
     s = "" if len(key_errors) + len(value_errors) < 2 else "S"

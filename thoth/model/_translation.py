@@ -22,3 +22,7 @@ def select_template_text[T](
 
 def template_text(code: str) -> str:
     return select_template_text(code, __TEMPLATE_TEXT__)
+
+
+def template_texts() -> dict[str, str]:
+    return __TEMPLATE_TEXT__.copy()

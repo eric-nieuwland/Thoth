@@ -5,6 +5,7 @@ import typer
 
 # own imports
 from . import (
+    document,
     model,
     profile,
     template,
@@ -19,9 +20,10 @@ app = typer.Typer()
 
 app.command("about")(about)
 
+app.add_typer(document.app, name="document", help="Document commands")
 app.add_typer(model.app, name="model", help="Document model commands")
 app.add_typer(profile.app, name="profile", help="Document profile commands")
-app.add_typer(template.app, name="template", help="Document rendering template commands")
+app.add_typer(template.app, name="template", help="Document template commands")
 # old
 app.add_typer(old_norm.app, name="old-norm", help="Norm commands")
 app.add_typer(old_norm_profile.app, name="old-norm-profile", help="Norm profile commands")
