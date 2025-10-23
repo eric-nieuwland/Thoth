@@ -14,6 +14,7 @@ import typer
 from thoth.model.meta_model import DocumentMetaModel
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 
+
 def check_profile(
     model: Path = typer.Option(exists=True, readable=True),
     path: Path = typer.Argument(exists=True, readable=True),
