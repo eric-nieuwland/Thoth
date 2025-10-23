@@ -30,7 +30,6 @@ YAML_EXAMPLES = {
 }
 
 
-
 class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
     default: str | None = None
     description: str | None = None
@@ -69,10 +68,10 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         is_required = self.required is not None
 
         if has_type and not is_repeated and not is_required and not has_default:
-            raise ValueError('Need default value for not required field.')
+            raise ValueError("""Need default value for not required field.""")
 
         if has_type and not is_repeated and is_required and has_default:
-            raise ValueError('Default value for required field is meaningless.')
+            raise ValueError("""Default value for required field is meaningless.""")
 
         return self
 
@@ -83,15 +82,15 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         has_type = self.type is not None
 
         if not (has_struct or has_type):
-            raise ValueError('Need either "struct" or "type".')
+            raise ValueError("""Need either "struct" or "type".""")
 
         if has_struct and has_type:
-            raise ValueError('Need either "struct" or "type", not both.')
+            raise ValueError("""Need either "struct" or "type", not both.""")
 
         return self
 
     @classmethod
-    def _example_yaml_dict(cls, stack = []) -> dict:
+    def _example_yaml_dict(cls, stack=[], *_args, **_kwargs) -> dict:
         result = {
             "description": cls._example_yaml_value_for(str, None, stack + ["description"]),
             "repeated": cls._example_yaml_value_for(bool, None, stack + ["repeated"]),
@@ -148,8 +147,7 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         """
         class_name = model_name.title()
         model_def = {
-            key: val.as_model_definition(model_name=f"{class_name}_{key.title()}")
-            for key, val in self.root.items()
+            key: val.as_model_definition(model_name=f"{class_name}_{key.title()}") for key, val in self.root.items()
         }
         return create_model(class_name, **model_def, __base__=(RenderTemplateMixIn, ExampleMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type]
 
@@ -159,8 +157,7 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         """
         class_name = model_name.title()
         model_def = {
-            key: val.as_profile_definition(model_name=f"{class_name}_{key.title()}")
-            for key, val in self.root.items()
+            key: val.as_profile_definition(model_name=f"{class_name}_{key.title()}") for key, val in self.root.items()
         }
         return create_model(class_name, **model_def, __base__=(ProfileMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type]
 
