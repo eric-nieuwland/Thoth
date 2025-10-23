@@ -19,6 +19,7 @@ class RenderTemplateMixIn:
     """
     mix-in for Pydantic classes to add the ability to create a template to be rendered with Jinja2
     """
+
     _INDENT_PREFIX = " " * 4
 
     @classmethod
@@ -92,9 +93,7 @@ class RenderTemplateMixIn:
             head.append(f"{{% for {loop_var} in {document_var} %}}")
             tail.insert(0, f"{{% endfor %}}")
             body.extend(
-                cls._render_template_from_value(
-                    loop_var, profile_var, base[0], None, include_profile_check=False
-                )
+                cls._render_template_from_value(loop_var, profile_var, base[0], None, include_profile_check=False)
             )
         elif kind is MultiLingualText:
             body.append(f"{{{{ {document_var}[language] }}}}")

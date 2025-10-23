@@ -28,11 +28,11 @@ EXAMPLES = {
         1984,
     ),
     float: (
-        -3,32192809,
-        1,41421356,
-        2,71828183,
-        3,14159265,
-        23,14069263,
+        -3.32192809,
+        1.41421356,
+        2.71828183,
+        3.14159265,
+        23.14069263,
     ),
     str: (
         "Lorem ipsum dolor sit amet",
@@ -84,9 +84,7 @@ class ExampleMixIn:
         if kind is dict and base is not None:
             key_type, val_type = base
             if key_type is str and hasattr(val_type, "_example_yaml_dict"):
-                return {
-                    key: val_type._example_yaml_dict(stack) for key in ("foo", "bar")
-                }
+                return {key: val_type._example_yaml_dict(stack) for key in ("foo", "bar")}
         raise ValueError("cannot make an example dict for %s", cls.__name__)
 
     @classmethod

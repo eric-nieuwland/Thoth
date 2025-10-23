@@ -44,16 +44,13 @@ def print_pydantic_validation_errors(error: ValidationError, source: str | Path 
     if num_errors < 1:
         return
 
-    key_errors = {
-        _make_error_key(err["loc"][:-1]): err
-        for err in error.errors()
-        if err["loc"][-1] == "[key]"
-    }
+    loc = "loc"
+    key_in_loc = "[key]"
+    key_errors = {_make_error_key(err[loc][:-1]): err for err in error.errors() if err[loc][-1] == key_in_loc}
     value_errors = {
         key: err
         for err in error.errors()
-        if err["loc"][-1] != "[key]"
-           and (key := _make_error_key(err["loc"])) not in key_errors
+        if err[loc][-1] != key_in_loc and (key := _make_error_key(err[loc])) not in key_errors
     }
 
     s = "" if len(key_errors) + len(value_errors) < 2 else "S"
