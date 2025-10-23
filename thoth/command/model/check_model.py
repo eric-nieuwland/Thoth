@@ -8,6 +8,7 @@ from __future__ import annotations
 from pathlib import Path
 
 # third party imports
+import typer
 
 # own imports
 from thoth.model.meta_model import DocumentMetaModel
@@ -15,7 +16,7 @@ from thoth.command.shared.print_changes import print_changes
 
 
 def check_model(
-    path: Path,
+    path: Path = typer.Option(exists=True, readable=True),
 ) -> None:
     """
     check syntax of a document model

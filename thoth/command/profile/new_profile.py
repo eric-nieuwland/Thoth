@@ -27,6 +27,6 @@ def new_profile(
     create a starting point for a profile
     """
     document_model = DocumentMetaModel.from_yaml(model, exit_on_error=True)
-    profile_model = document_model.create_profile_model(model.stem)  # derive profile model
+    profile_model = document_model.create_profile_class(model.stem)  # derive profile model
     profile = profile_model.yes_to_all()  # create profile with all elements enabled
     write_output(profile.as_yaml_text(), destination=output, force=force)

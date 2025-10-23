@@ -31,7 +31,7 @@ def check_profile(
     Prints a message to help you correct any issue found and "OK" if no issues were found.
     """
     document_model = DocumentMetaModel.from_yaml(model, exit_on_error=True)
-    profile_model = document_model.create_profile_model(model.stem)  # derive profile model
+    profile_model = document_model.create_profile_class(model.stem)  # derive profile model
     copy = profile_model.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
     with (open(path) as f):

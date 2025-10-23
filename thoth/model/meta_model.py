@@ -110,7 +110,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         attribute_type: Any
 
         if self.struct:
-            attribute_type = self.struct.create_document_model(model_name=model_name)
+            attribute_type = self.struct.create_document_class(model_name=model_name)
         else:
             attribute_type = TYPES.get(self.type)  # type: ignore[arg-type]
         if self.repeated:
@@ -132,7 +132,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         attribute_type: Any
 
         if self.struct:
-            attribute_type = self.struct.create_profile_model(model_name=model_name)
+            attribute_type = self.struct.create_profile_class(model_name=model_name)
         else:
             attribute_type = bool
 
@@ -142,9 +142,9 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
 class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
     root: dict[str, DocumentMetaModelAttribute]
 
-    def create_document_model(self, model_name: str) -> Any:
+    def create_document_class(self, model_name: str) -> Any:
         """
-        create a pydantic-based document model from this document metamodel
+        create a pydantic-based document class from this document metamodel
         """
         class_name = model_name.title()
         model_def = {
@@ -153,9 +153,9 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         }
         return create_model(class_name, **model_def, __base__=(RenderTemplateMixIn, ExampleMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type]
 
-    def create_profile_model(self, model_name: str) -> Any:
+    def create_profile_class(self, model_name: str) -> Any:
         """
-        create a pydantic-based profile model from this document metamodel
+        create a pydantic-based profile class from this document metamodel
         """
         class_name = model_name.title()
         model_def = {
@@ -165,7 +165,7 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         return create_model(class_name, **model_def, __base__=(ProfileMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type]
 
     @classmethod
-    def document_model_from_file(
+    def document_class_from_file(
         cls,
         model_file: Path,
         exit_on_error: bool = True,
@@ -176,7 +176,7 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         return cls.from_yaml(
             model_file,
             exit_on_error=exit_on_error,
-        ).create_document_model(model_file.stem)
+        ).create_document_class(model_file.stem)
 
 
 # resolve forward references

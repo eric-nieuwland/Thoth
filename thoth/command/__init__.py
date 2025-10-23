@@ -7,6 +7,7 @@ import typer
 from . import (
     model,
     profile,
+    template,
     # old
     old_norm,
     old_norm_profile,
@@ -20,6 +21,7 @@ app.command("about")(about)
 
 app.add_typer(model.app, name="model", help="Document model commands")
 app.add_typer(profile.app, name="profile", help="Document profile commands")
+app.add_typer(template.app, name="template", help="Document rendering template commands")
 # old
 app.add_typer(old_norm.app, name="old-norm", help="Norm commands")
 app.add_typer(old_norm_profile.app, name="old-norm-profile", help="Norm profile commands")
