@@ -1,0 +1,32 @@
+"""
+new_profile - create a new profile
+"""
+
+from __future__ import annotations
+
+# standard library imports
+from pathlib import Path
+
+# third party imports
+import typer
+
+# own imports
+from thoth.model.meta_model import DocumentMetaModel
+from thoth.command.shared.write_output import write_output
+
+
+def new_profile(
+    model: Path = typer.Option(
+        exists=True,
+        readable=True,
+    ),
+    output: Path | None = None,
+    force: bool = False,
+) -> None:
+    """
+    create a starting point for a profile
+    """
+    document_model = DocumentMetaModel.from_yaml(model, exit_on_error=True)
+    profile_model = document_model.create_profile_model(model.stem)  # derive profile model
+    profile = profile_model.yes_to_all()  # create profile with all elements enabled
+    write_output(profile.as_yaml_text(), destination=output, force=force)
