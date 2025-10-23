@@ -16,10 +16,7 @@ from thoth.command.shared.write_output import write_output
 
 
 def new_profile(
-    model: Path = typer.Option(
-        exists=True,
-        readable=True,
-    ),
+    model: Path = typer.Option(exists=True, readable=True),
     output: Path | None = None,
     force: bool = False,
 ) -> None:
@@ -27,6 +24,6 @@ def new_profile(
     create a starting point for a profile
     """
     document_model = DocumentMetaModel.from_yaml(model, exit_on_error=True)
-    profile_model = document_model.create_profile_class(model.stem)  # derive profile model
+    profile_model = document_model.create_profile_class(model.stem)  # derive profile class
     profile = profile_model.yes_to_all()  # create profile with all elements enabled
     write_output(profile.as_yaml_text(), destination=output, force=force)

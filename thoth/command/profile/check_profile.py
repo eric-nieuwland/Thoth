@@ -16,17 +16,11 @@ from thoth.command.shared.print_changes import print_changes
 
 
 def check_profile(
-    model: Path = typer.Option(
-        exists=True,
-        readable=True,
-    ),
-    path: Path = typer.Argument(
-        exists=True,
-        readable=True,
-    ),
+    model: Path = typer.Option(exists=True, readable=True),
+    path: Path = typer.Argument(exists=True, readable=True),
 ) -> None:
     """
-    check syntax of a document model
+    check syntax of a profile
 
     Prints a message to help you correct any issue found and "OK" if no issues were found.
     """
