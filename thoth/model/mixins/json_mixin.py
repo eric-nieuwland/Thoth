@@ -36,7 +36,7 @@ def _make_error_key(parts):
     return ".".join(f"{part + 1}" if isinstance(part, int) else str(part) for part in parts)
 
 
-def print_pydantic_validation_errors(error: ValidationError):
+def print_pydantic_validation_errors(error: ValidationError, source: str | Path | None = None) -> None:
     """
     a more user-friendly version of pydantic validation errors
     """
@@ -57,7 +57,7 @@ def print_pydantic_validation_errors(error: ValidationError):
     }
 
     s = "" if len(key_errors) + len(value_errors) < 2 else "S"
-    print(f"""=== ERROR{s} ===""")
+    print(f"""=== ERROR{s}{f" in {source}" if source else ""} ===""")
 
     for key, _ in key_errors.items():
         print(f"""key {key}:""")
@@ -87,6 +87,7 @@ class JsonMixIn:
     def from_json_definition(
         cls,
         json_definition,
+        source: str | Path | None = None,
         exit_on_error: bool = True,
     ) -> Self:
         """
@@ -96,7 +97,7 @@ class JsonMixIn:
             return cls.model_validate(json_definition)  # type: ignore[attr-defined]
         except ValidationError as err:
             if exit_on_error:
-                print_pydantic_validation_errors(err)
+                print_pydantic_validation_errors(err, source)
                 sys.exit(1)
             else:
                 raise err from None

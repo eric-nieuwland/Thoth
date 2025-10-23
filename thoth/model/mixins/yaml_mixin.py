@@ -17,11 +17,11 @@ import yaml
 from .json_mixin import JsonMixIn
 
 
-def print_yaml_errors(error: ScannerError):
+def print_yaml_errors(error: ScannerError, source: str | Path):
     """
     a more user-friendly version of YAML scanner errors
     """
-    print("=== ERROR ===")
+    print(f"=== ERROR in {source} ===")
     print(error)
 
 
@@ -35,6 +35,7 @@ class YamlMixIn(JsonMixIn):
     def from_yaml_stream(
         cls,
         yaml_stream,
+        source: str | Path,
         exit_on_error: bool = True,
     ) -> Self:
         """
@@ -43,11 +44,12 @@ class YamlMixIn(JsonMixIn):
         try:
             return cls.from_json_definition(
                 yaml.safe_load(yaml_stream),
+                source,
                 exit_on_error=exit_on_error,
             )
         except ScannerError as err:
             if exit_on_error:
-                print_yaml_errors(err)
+                print_yaml_errors(err, source)
                 sys.exit(1)
             else:
                 raise err from None
@@ -81,4 +83,4 @@ class YamlMixIn(JsonMixIn):
         create instance from a YAML definition file
         """
         with open(yaml_file) as yaml_stream:
-            return cls.from_yaml_stream(yaml_stream, exit_on_error=exit_on_error)
+            return cls.from_yaml_stream(yaml_stream, yaml_file, exit_on_error=exit_on_error)

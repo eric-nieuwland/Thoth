@@ -16,7 +16,7 @@ from thoth.command.shared.print_changes import print_changes
 
 
 def check_model(
-    path: Path = typer.Option(exists=True, readable=True),
+    path: Path = typer.Argument(exists=True, readable=True),
 ) -> None:
     """
     check syntax of a document model
