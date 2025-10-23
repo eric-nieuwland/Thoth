@@ -59,14 +59,14 @@ def print_pydantic_validation_errors(error: ValidationError):
     s = "" if len(key_errors) + len(value_errors) < 2 else "S"
     print(f"""=== ERROR{s} ===""")
 
-    for key, _ in sorted(key_errors.items()):
+    for key, _ in key_errors.items():
         print(f"""key {key}:""")
         print("""  invalid name""")
 
     if key_errors and value_errors:
         print()
 
-    for key, err in sorted(value_errors.items()):
+    for key, err in value_errors.items():
         expected = EXPECTED.get(err["type"], f"""{err["type"]} - {err["msg"]}""")
         actual = f"""{err["input"]}"""
         print(f"""value {key}:""")
