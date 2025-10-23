@@ -22,5 +22,5 @@ app.add_typer(model.app, name="model", help="Document model commands")
 app.add_typer(profile.app, name="profile", help="Document profile commands")
 # old
 app.add_typer(old_norm.app, name="old-norm", help="Norm commands")
-app.add_typer(old_norm_profile.app, name="norm-profile", help="Norm profile commands")
+app.add_typer(old_norm_profile.app, name="old-norm-profile", help="Norm profile commands")
 app.add_typer(old_template.app, name="old-template", help="Template commands")
