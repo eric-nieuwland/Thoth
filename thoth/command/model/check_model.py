@@ -12,7 +12,7 @@ import typer
 
 # own imports
 from thoth.model.meta_model import DocumentMetaModel
-from thoth.command.shared.print_changes import print_changes
+from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 
 
 def check_model(
@@ -25,7 +25,4 @@ def check_model(
     """
     copy = DocumentMetaModel.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
-    with open(path) as f:
-        original = f.read()
-    if not print_changes(original, copy):
-        print("OK")
+    print_file_contents_comparison(path, copy)

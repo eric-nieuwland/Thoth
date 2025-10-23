@@ -12,8 +12,7 @@ import typer
 
 # own imports
 from thoth.model.meta_model import DocumentMetaModel
-from thoth.command.shared.print_changes import print_changes
-
+from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 
 def check_profile(
     model: Path = typer.Option(exists=True, readable=True),
@@ -28,7 +27,4 @@ def check_profile(
     profile_model = document_model.create_profile_class(model.stem)  # derive profile model
     copy = profile_model.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
-    with open(path) as f:
-        original = f.read()
-    if not print_changes(original, copy):
-        print("OK")
+    print_file_contents_comparison(path, copy)
