@@ -13,19 +13,19 @@ import re
 # own imports
 
 
-def suggest_changes_to_original(original: str | list[str], suggested: str | list[str]) -> bool:
+def print_changes(original: str | list[str], changed: str | list[str]) -> bool:
     """
-    compare an original and suggested version of a text
-    If they differ, present the suggested changes in a user-friendly way.
-    Return True if changes were suggested, False if they were not.
+    compare an original and changed version of a text
+    If they differ, present the changes in a user-friendly way.
+    Return True if changes were found, False if they were not.
     """
     if isinstance(original, str):
         original = original.splitlines()
-    if isinstance(suggested, str):
-        suggested = suggested.splitlines()
+    if isinstance(changed, str):
+        changed = changed.splitlines()
     changes = False
     line_nr = 0  # keep IDE and QA tools happy
-    for line in unified_diff(original, suggested, lineterm=""):
+    for line in unified_diff(original, changed, lineterm=""):
         changes = True
         if line in ("--- ", "+++ "):
             continue
@@ -36,6 +36,10 @@ def suggest_changes_to_original(original: str | list[str], suggested: str | list
             continue
         first = line[0]
         line = line[1:]
-        print(f"{first} {line_nr:3d} {line}")
-        line_nr += 1
+        if first == "+":  #
+            lnr = " " * 3
+        else:
+            lnr = f"{line_nr:3d}"
+            line_nr += 1
+        print(f"{first} {lnr} {line}")
     return changes

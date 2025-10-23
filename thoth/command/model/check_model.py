@@ -11,7 +11,7 @@ from pathlib import Path
 
 # own imports
 from thoth.model.meta_model import DocumentMetaModel
-from thoth.command.shared.suggest_changes_to_original import suggest_changes_to_original
+from thoth.command.shared.print_changes import print_changes
 
 
 def check_model(
@@ -26,5 +26,5 @@ def check_model(
     # here only if path was successfully loaded
     with (open(path) as f):
         original = f.read()
-    if not suggest_changes_to_original(original, copy):
+    if not print_changes(original, copy):
         print("OK")
