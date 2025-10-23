@@ -24,7 +24,7 @@ def check_document(
 
     Prints a message to help you correct any issue found and "OK" if no issues were found.
     """
-    document_class = DocumentMetaModel.document_class_from_file(model)  # derive document model
+    document_class = DocumentMetaModel.document_class_from_file(model)  # derive document class
     copy = document_class.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
     with (open(path) as f):

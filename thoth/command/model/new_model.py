@@ -10,8 +10,8 @@ from pathlib import Path
 # third party imports
 
 # own imports
-from thoth.model.meta_model import DocumentMetaModel
 from thoth.command.shared.write_output import write_output
+from thoth.model.meta_model import DocumentMetaModel
 
 
 def new_model(
