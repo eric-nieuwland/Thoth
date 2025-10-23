@@ -27,7 +27,7 @@ def check_document(
     document_class = DocumentMetaModel.document_class_from_file(model)  # derive document class
     copy = document_class.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
-    with (open(path) as f):
+    with open(path) as f:
         original = f.read()
     if not print_changes(original, copy):
         print("OK")

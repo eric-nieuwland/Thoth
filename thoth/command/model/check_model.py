@@ -25,7 +25,7 @@ def check_model(
     """
     copy = DocumentMetaModel.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
-    with (open(path) as f):
+    with open(path) as f:
         original = f.read()
     if not print_changes(original, copy):
         print("OK")

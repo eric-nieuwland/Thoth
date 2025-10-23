@@ -28,7 +28,7 @@ def check_profile(
     profile_model = document_model.create_profile_class(model.stem)  # derive profile model
     copy = profile_model.from_yaml(path).as_yaml_text()
     # here only if path was successfully loaded
-    with (open(path) as f):
+    with open(path) as f:
         original = f.read()
     if not print_changes(original, copy):
         print("OK")
