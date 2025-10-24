@@ -8,8 +8,6 @@ from __future__ import annotations
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-from babel import languages
 from typing_extensions import Annotated
 
 # third party imports
@@ -18,6 +16,13 @@ import typer
 from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 
 # own imports
+from thoth.command.shared.arguments_and_options_info import (
+    MODEL_OPTION,
+    DOCUMENT_PATH_ARGUMENT,
+    LANGUAGE_ARGUMENT,
+    PROFILE_OPTION,
+    TEMPLATE_OPTION,
+)
 from thoth.command.shared.output_format import OutputFormat
 from thoth.command.shared.write_output import write_output
 from thoth.model.meta_model import DocumentMetaModel
@@ -72,20 +77,6 @@ def handle_language(document, path, language) -> None:
             """.strip(),
             file=sys.stderr,
         )
-
-
-MODEL_OPTION = typer.Option(help="document model", exists=True, readable=True)
-DOCUMENT_PATH_ARGUMENT = typer.Argument(metavar="DOCUMENT", help="document path", exists=True, readable=True)
-LANGUAGE_ARGUMENT = typer.Argument(help="language to render", exists=True, readable=True, callback=check_language_code)
-PROFILE_OPTION = Annotated[
-    Path | None,
-    typer.Option(
-        help="document profile (default: render everything)",
-        exists=True,
-        readable=True,
-    ),
-]
-TEMPLATE_OPTION = typer.Option(help="template to render with", exists=True, readable=True, resolve_path=True)
 
 
 def render_document(

@@ -11,13 +11,16 @@ from pathlib import Path
 import typer
 
 # own imports
+from thoth.command.shared.arguments_and_options_info import (
+    MODEL_OPTION,
+)
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 from thoth.model.meta_model import DocumentMetaModel
 
 
 def check_profile(
-    model: Path = typer.Option(exists=True, readable=True),
-    path: Path = typer.Argument(exists=True, readable=True),
+    model: Path = MODEL_OPTION,
+    path: Path = typer.Argument(metavar="PROFILE", help="profile path", exists=True, readable=True),
 ) -> None:
     """
     check syntax of a profile

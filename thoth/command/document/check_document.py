@@ -8,16 +8,19 @@ from __future__ import annotations
 from pathlib import Path
 
 # third party imports
-import typer
 
 # own imports
+from thoth.command.shared.arguments_and_options_info import (
+    MODEL_OPTION,
+    DOCUMENT_PATH_ARGUMENT,
+)
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 from thoth.model.meta_model import DocumentMetaModel
 
 
 def check_document(
-    model: Path = typer.Option(exists=True, readable=True),
-    path: Path = typer.Argument(exists=True, readable=True),
+    model: Path = MODEL_OPTION,
+    path: Path = DOCUMENT_PATH_ARGUMENT,
 ) -> None:
     """
     check syntax of a document
