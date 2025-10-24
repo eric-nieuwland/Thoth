@@ -5,21 +5,20 @@ render_document - render a document
 from __future__ import annotations
 
 # standard library imports
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing_extensions import Annotated
-import sys
 
 # third party imports
-from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 import jinja2
 import typer
+from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 
 # own imports
 from thoth.command.shared.output_format import OutputFormat
 from thoth.command.shared.write_output import write_output
 from thoth.model.meta_model import DocumentMetaModel
-
 
 MODEL_OPTION = typer.Option(help="document model", exists=True, readable=True)
 DOCUMENT_PATH_ARGUMENT = typer.Argument(metavar="DOCUMENT", help="document path", exists=True, readable=True)

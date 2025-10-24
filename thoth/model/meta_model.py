@@ -9,9 +9,8 @@ from typing import Any
 from pydantic import BaseModel, RootModel, create_model, model_validator
 
 # own
-from .mixins import ExampleMixIn, YamlMixIn, ProfileMixIn, RenderTemplateMixIn
+from .mixins import ExampleMixIn, ProfileMixIn, RenderTemplateMixIn, YamlMixIn
 from .multi_lingual_text import MultiLingualText
-
 
 TYPES = {
     "bool": bool,

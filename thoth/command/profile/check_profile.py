@@ -11,8 +11,8 @@ from pathlib import Path
 import typer
 
 # own imports
-from thoth.model.meta_model import DocumentMetaModel
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
+from thoth.model.meta_model import DocumentMetaModel
 
 
 def check_profile(

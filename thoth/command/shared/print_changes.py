@@ -5,8 +5,8 @@ suggest_changes_to_original - compare an original and suggested version of a tex
 from __future__ import annotations
 
 # standard library imports
-from difflib import unified_diff
 import re
+from difflib import unified_diff
 
 # third party imports
 
