@@ -8,6 +8,8 @@ from __future__ import annotations
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+from babel import languages
 from typing_extensions import Annotated
 
 # third party imports
@@ -19,20 +21,7 @@ from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 from thoth.command.shared.output_format import OutputFormat
 from thoth.command.shared.write_output import write_output
 from thoth.model.meta_model import DocumentMetaModel
-
-MODEL_OPTION = typer.Option(help="document model", exists=True, readable=True)
-DOCUMENT_PATH_ARGUMENT = typer.Argument(metavar="DOCUMENT", help="document path", exists=True, readable=True)
-LANGUAGE_ARGUMENT = typer.Argument(help="language to render", exists=True, readable=True)
-PROFILE_OPTION = Annotated[
-    Path | None,
-    typer.Option(
-        help="document profile (default: render everything)",
-        exists=True,
-        readable=True,
-    ),
-]
-TEMPLATE_OPTION = typer.Option(help="template to render with", exists=True, readable=True, resolve_path=True)
-
+from thoth.utils.iso_639 import is_iso_639_language_code
 
 FORMAT_REQUIRES_OUTPUT = {
     OutputFormat.DOCX,
@@ -64,6 +53,12 @@ def determine_format(
     return determined_format
 
 
+def check_language_code(value: str):
+    if not is_iso_639_language_code(value):
+        raise typer.BadParameter(f"unknown language code '{value}'")
+    return value
+
+
 def handle_language(document, path, language) -> None:
     total_count, language_counts = document.count_multi_lingual()
     if language not in language_counts:
@@ -77,6 +72,20 @@ def handle_language(document, path, language) -> None:
             """.strip(),
             file=sys.stderr,
         )
+
+
+MODEL_OPTION = typer.Option(help="document model", exists=True, readable=True)
+DOCUMENT_PATH_ARGUMENT = typer.Argument(metavar="DOCUMENT", help="document path", exists=True, readable=True)
+LANGUAGE_ARGUMENT = typer.Argument(help="language to render", exists=True, readable=True, callback=check_language_code)
+PROFILE_OPTION = Annotated[
+    Path | None,
+    typer.Option(
+        help="document profile (default: render everything)",
+        exists=True,
+        readable=True,
+    ),
+]
+TEMPLATE_OPTION = typer.Option(help="template to render with", exists=True, readable=True, resolve_path=True)
 
 
 def render_document(
