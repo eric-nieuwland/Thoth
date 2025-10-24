@@ -37,7 +37,8 @@ dev = [
     "mypy==1.18.2",
     "pytest==8.4.2",
     "pytest-cov==7.0.0",
-    "ruff==0.14.1",
+    "ruff==0.14.2",
+    "types-PyYAML==6.0.12.20250915",
 ]
 
 [project.scripts]
@@ -47,7 +48,6 @@ thoth = "thoth.main:main"
 [tool.setuptools]
 packages = [
     "thoth",
-    "thoth.templates",
 ]
 
 [tool.setuptools.package-data]
