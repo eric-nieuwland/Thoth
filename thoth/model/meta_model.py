@@ -140,7 +140,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
 class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
     root: dict[str, DocumentMetaModelAttribute]
 
-    def create_document_class(self, model_name: str) -> Any:
+    def create_document_class(self, model_name: str) -> BaseModel:
         """
         create a pydantic-based document class from this document metamodel
         """
@@ -148,9 +148,9 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         model_def = {
             key: val.as_model_definition(model_name=f"{class_name}_{key.title()}") for key, val in self.root.items()
         }
-        return create_model(class_name, **model_def, __base__=(RenderTemplateMixIn, ExampleMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type]
+        return create_model(class_name, **model_def, __base__=(RenderTemplateMixIn, ExampleMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type, type-var, return-value]
 
-    def create_profile_class(self, model_name: str) -> Any:
+    def create_profile_class(self, model_name: str) -> BaseModel:
         """
         create a pydantic-based profile class from this document metamodel
         """
@@ -158,7 +158,7 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         model_def = {
             key: val.as_profile_definition(model_name=f"{class_name}_{key.title()}") for key, val in self.root.items()
         }
-        return create_model(class_name, **model_def, __base__=(ProfileMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type]
+        return create_model(class_name, **model_def, __base__=(ProfileMixIn, YamlMixIn, BaseModel))  # type: ignore[arg-type, type-var, return-value]
 
     @classmethod
     def document_class_from_file(

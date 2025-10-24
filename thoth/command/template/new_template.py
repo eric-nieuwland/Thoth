@@ -26,6 +26,6 @@ def new_template(
     create a starting point for a template
     """
     document = DocumentMetaModel.document_class_from_file(model)
-    document.set_indent(indent)
-    template = document.render_template()
+    document.set_indent(indent)  # type: ignore[attr-defined]
+    template = document.render_template()  # type: ignore[attr-defined]
     write_output(template, destination=output, force=force)

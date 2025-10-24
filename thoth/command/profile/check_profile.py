@@ -26,6 +26,6 @@ def check_profile(
     """
     document_model = DocumentMetaModel.from_yaml(model, exit_on_error=True)
     profile_model = document_model.create_profile_class(model.stem)  # derive profile model
-    copy = profile_model.from_yaml(path).as_yaml_text()
+    copy = profile_model.from_yaml(path).as_yaml_text()  # type: ignore[attr-defined]
     # here only if path was successfully loaded
     print_file_contents_comparison(path, copy)

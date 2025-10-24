@@ -21,17 +21,17 @@ class ProfileMixIn:
     def _as_profile_dict(cls, value: str) -> dict:
         return {
             field_name: value if field_def.annotation == bool else field_def.annotation._as_profile_dict(value)
-            for field_name, field_def in cls.model_fields.items()
+            for field_name, field_def in cls.model_fields.items()  # type: ignore [attr-defined]
         }
 
     @classmethod
     def yes_to_all(cls) -> Self:
         arg = cls._as_profile_dict("true")
-        instance = cls.model_validate(arg)
-        return instance
+        instance = cls.model_validate(arg)  # type: ignore [attr-defined]
+        return instance  # type: ignore [no-any-return]
 
     def __bool__(self) -> bool:
         """
         create instance from a YAML definition file
         """
-        return any(getattr(self, field) for field in self.model_fields)
+        return any(getattr(self, field) for field in self.model_fields)  # type: ignore [attr-defined]

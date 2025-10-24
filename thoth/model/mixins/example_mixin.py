@@ -79,7 +79,7 @@ class ExampleMixIn:
 
     @classmethod
     def _as_example_yaml_dict_root_model(cls, stack=[], detect_loop=True) -> dict:
-        root = cls.model_fields["root"]
+        root = cls.model_fields["root"]  # type: ignore[attr-defined]
         kind, base, _ = cls.field_type_base_and_default(root)
         if kind is dict and base is not None:
             key_type, val_type = base
@@ -90,7 +90,7 @@ class ExampleMixIn:
     @classmethod
     def _as_example_yaml_dict_base_model(cls, stack=[], detect_loop=True) -> dict:
         result = {}
-        for field_name, field_def in cls.model_fields.items():
+        for field_name, field_def in cls.model_fields.items():  # type: ignore[attr-defined]
             if detect_loop and (field_name in stack):
                 continue
             kind, base, _ = cls.field_type_base_and_default(field_def)
@@ -108,5 +108,5 @@ class ExampleMixIn:
     @classmethod
     def example(cls, detect_loop=True) -> Self:
         arg = cls._example_yaml_dict(detect_loop=detect_loop)
-        instance = cls.model_validate(arg)
-        return instance
+        instance = cls.model_validate(arg)  # type: ignore[attr-defined]
+        return instance  # type: ignore[no-any-return]

@@ -100,8 +100,8 @@ def render_document(
     document_model = DocumentMetaModel.from_yaml(model)
     document_class = document_model.create_document_class(model.stem)  # derive document class
     profile_class = document_model.create_profile_class(model.stem)  # derive profile class
-    document = document_class.from_yaml(path)
-    document_profile = profile_class.from_yaml(profile) if profile else profile_class.yes_to_all()
+    document = document_class.from_yaml(path)  # type: ignore[attr-defined]
+    document_profile = profile_class.from_yaml(profile) if profile else profile_class.yes_to_all()  # type: ignore[attr-defined]
 
     handle_language(document, path, language)
 

@@ -35,7 +35,7 @@ class RenderTemplateMixIn:
             raise TypeError(f"cannot set indent to {indent.__class__.__name__}")
 
     @classmethod
-    def indent(cls, text: str | list[str]) -> str | list[str]:
+    def indent[T: (str, list[str])](cls, text: T) -> T:
         """
         indent a text or a number of texts
         """
@@ -108,9 +108,9 @@ class RenderTemplateMixIn:
         return head + body + tail
 
     @classmethod
-    def _render_template_from_root_model(cls, document_var: str, profile_var: str) -> list[str]:
-        root = cls.model_fields["root"]
-        kind, base = cls.field_type_base(root)
+    def _render_template_from_root_model(cls, document_var: str, _profile_var: str) -> list[str]:
+        root = cls.model_fields["root"]  # type: ignore[attr-defined]
+        _kind, _base = cls.field_type_base(root)
         result: list[str] = []
         result.extend(f"{{# no code for rendering template for {document_var}, yet #}}")
         return result
@@ -118,7 +118,7 @@ class RenderTemplateMixIn:
     @classmethod
     def _render_template_from_base_model(cls, document_var: str, profile_var: str) -> list[str]:
         result: list[str] = []
-        for field_name, field_def in cls.model_fields.items():
+        for field_name, field_def in cls.model_fields.items():  # type: ignore[attr-defined]
             kind, base = cls.field_type_base(field_def)
             result.extend(
                 cls._render_template_from_value(
@@ -150,7 +150,7 @@ class RenderTemplateMixIn:
         """
         count the number of multilingual elements and the languages therein
         """
-        result = 0, {}
+        result: tuple[int, dict[str, int]] = 0, {}
         for field_name, field_def in obj.model_fields.items():
             kind, base = self.field_type_base(field_def)
             if kind == list:
@@ -163,7 +163,7 @@ class RenderTemplateMixIn:
         """
         count the number of multilingual elements and the languages therein
         """
-        result = 0, {}
+        result: tuple[int, dict[str, int]] = 0, {}
         for element in lst:
             if hasattr(element, "count_multi_lingual"):
                 result = add_counts(result, element.count_multi_lingual())

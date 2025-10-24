@@ -44,13 +44,12 @@ def print_pydantic_validation_errors(error: ValidationError, source: str | Path 
     if num_errors < 1:
         return
 
-    loc = "loc"
     key_in_loc = "[key]"
-    key_errors = {_make_error_key(err[loc][:-1]): err for err in error.errors() if err[loc][-1] == key_in_loc}
+    key_errors = {_make_error_key(err["loc"][:-1]): err for err in error.errors() if err["loc"][-1] == key_in_loc}
     value_errors = {
         key: err
         for err in error.errors()
-        if err[loc][-1] != key_in_loc and (key := _make_error_key(err[loc])) not in key_errors
+        if err["loc"][-1] != key_in_loc and (key := _make_error_key(err["loc"])) not in key_errors
     }
 
     s = "" if len(key_errors) + len(value_errors) < 2 else "S"
@@ -91,7 +90,7 @@ class JsonMixIn:
         create instance from a JSON definition
         """
         try:
-            return cls.model_validate(json_definition)  # type: ignore[attr-defined]
+            return cls.model_validate(json_definition)  # type: ignore[attr-defined, no-any-return]
         except ValidationError as err:
             if exit_on_error:
                 print_pydantic_validation_errors(err, source)
@@ -99,11 +98,11 @@ class JsonMixIn:
             else:
                 raise err from None
 
-    def as_json_definition(self) -> str:
+    def as_json_definition(self) -> dict:
         """
         the JSON definition of this instance
         """
-        return self.model_dump(by_alias=True)
+        return self.model_dump(by_alias=True)  # type: ignore[attr-defined, no-any-return]
 
     @classmethod
     def from_json(
