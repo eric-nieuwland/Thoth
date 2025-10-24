@@ -5,7 +5,7 @@ from pydantic import ValidationError
 from model.multi_lingual_text import MultiLingualText
 
 
-class TestMultiLingualText(unittest.TestCase):
+class TestMultiLingualTextCreate(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
@@ -55,6 +55,11 @@ class TestMultiLingualText(unittest.TestCase):
         with self.assertRaises(ValidationError):
             MultiLingualText(text)
 
+class TestMultiLingualTextAdd(unittest.TestCase):
+
+    def setUp(self):
+        self.maxDiff = None
+
     def test_add_to_empty(self):
         # given
         text = {}
@@ -92,14 +97,10 @@ class TestMultiLingualText(unittest.TestCase):
         expect = "<T|'en': 'foo bar baz'; 'nl': 'aap noot mies'|T>"
         self.assertEqual(expect, str(actual))
 
-    def test_overwrite(self):
-        # given
-        text = {"en": "foo bar baz"}
-        actual = MultiLingualText(text)
-        # when
-        # then
-        with self.assertRaises(KeyError):
-            actual["en"] = "aap noot mies"
+class TestMultiLingualTextGet(unittest.TestCase):
+
+    def setUp(self):
+        self.maxDiff = None
 
     def test_get_existing_key(self):
         # given
@@ -120,6 +121,20 @@ class TestMultiLingualText(unittest.TestCase):
         # then
         expect = "WARNING: text not available in 'nl'; text available in 'en'"
         self.assertEqual(expect, actual)
+
+class TestMultiLingualTextMisc(unittest.TestCase):
+
+    def setUp(self):
+        self.maxDiff = None
+
+    def test_overwrite(self):
+        # given
+        text = {"en": "foo bar baz"}
+        actual = MultiLingualText(text)
+        # when
+        # then
+        with self.assertRaises(KeyError):
+            actual["en"] = "aap noot mies"
 
     def test_multiline_preservation(self):
         # given
