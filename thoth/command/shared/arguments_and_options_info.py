@@ -14,7 +14,6 @@ import typer
 
 MODEL_OPTION = typer.Option(help="document model", exists=True, readable=True)
 DOCUMENT_PATH_ARGUMENT = typer.Argument(metavar="DOCUMENT", help="document path", exists=True, readable=True)
-LANGUAGE_ARGUMENT = typer.Argument(help="language to render", exists=True, readable=True, callback=check_language_code)
 PROFILE_OPTION = Annotated[
     Path | None,
     typer.Option(

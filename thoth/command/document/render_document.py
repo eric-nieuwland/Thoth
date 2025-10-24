@@ -19,7 +19,6 @@ from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 from thoth.command.shared.arguments_and_options_info import (
     MODEL_OPTION,
     DOCUMENT_PATH_ARGUMENT,
-    LANGUAGE_ARGUMENT,
     PROFILE_OPTION,
     TEMPLATE_OPTION,
 )
@@ -77,6 +76,9 @@ def handle_language(document, path, language) -> None:
             """.strip(),
             file=sys.stderr,
         )
+
+
+LANGUAGE_ARGUMENT = typer.Argument(help="language to render", exists=True, readable=True, callback=check_language_code)
 
 
 def render_document(
