@@ -79,7 +79,7 @@ class RenderTemplateMixIn:
             # multiple bases - use first
             if type(None) in base:  # optional value - suppress if absent
                 head.append(f"{{% if {document_var} %}}")
-                tail.insert(0, f"{{% endif %}}")
+                tail.insert(0, "{% endif %}")
                 selected_kind = [b for b in base if b is not type(None)][0]
             else:
                 selected_kind = base[0]
@@ -91,7 +91,7 @@ class RenderTemplateMixIn:
         elif kind is list and base is not None:
             loop_var = cls.singular(document_var.split(".")[-1])
             head.append(f"{{% for {loop_var} in {document_var} %}}")
-            tail.insert(0, f"{{% endfor %}}")
+            tail.insert(0, "{% endfor %}")
             body.extend(
                 cls._render_template_from_value(loop_var, profile_var, base[0], None, include_profile_check=False)
             )
@@ -104,7 +104,7 @@ class RenderTemplateMixIn:
         if include_profile_check:
             body = cls.indent(head + body + tail)
             head = [f"{{% if {profile_var} %}}"]
-            tail = [f"{{% endif %}}"]
+            tail = ["{% endif %}"]
         return head + body + tail
 
     @classmethod

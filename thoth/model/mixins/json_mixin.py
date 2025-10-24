@@ -5,9 +5,9 @@ json_mixin - mix-in for Pydantic classes to add the ability to instantiate a mod
 from __future__ import annotations
 
 # standard library
+import sys
 from pathlib import Path
 from typing import Self
-import sys
 
 # third party
 from pydantic import ValidationError

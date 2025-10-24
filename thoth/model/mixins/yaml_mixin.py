@@ -5,13 +5,13 @@ yaml_mixin - mix-in for Pydantic classes to add the ability to instantiate a mod
 from __future__ import annotations
 
 # standard library
+import sys
 from pathlib import Path
 from typing import Self
-import sys
 
 # third party
-from yaml.scanner import ScannerError
 import yaml
+from yaml.scanner import ScannerError
 
 # own
 from .json_mixin import JsonMixIn
