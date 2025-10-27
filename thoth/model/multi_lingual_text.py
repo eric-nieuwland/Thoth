@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 # standard library imports
+from functools import reduce
 from typing import Self
 
 # third party imports
@@ -12,6 +13,14 @@ from thoth.utils.iso_639 import known_iso_639_language_code_or_error
 from ._translation import template_text, template_texts
 
 
+def add_paragraph(text: list[str], paragraph: list[str]) -> list[str]:
+    return text + [" ".join(paragraph)] if len(paragraph) > 0 else text
+
+
+def add_line(text: list[str], paragraph: list[str], line: str) -> tuple[list[str], list[str]]:
+    return (add_paragraph(text, paragraph), []) if line == "" else (text, paragraph + [line])
+
+
 class MultiLingualText(RootModel):
     """
     A text string in several languages
@@ -20,20 +29,25 @@ class MultiLingualText(RootModel):
     root: dict[str, str]
 
     @model_validator(mode="after")
-    def check_values(self) -> Self:
+    def check_language_codes(self) -> Self:
         for key in self.root:
             known_iso_639_language_code_or_error(key)
-        for key, value in self.root.items():
-            collect_lines: list[str] = []
-            key_lines: list[str] = []
-            for line in value.splitlines():
-                if line.strip() == "":
-                    key_lines.append(" ".join(collect_lines))
-                    collect_lines = []
-                else:
-                    collect_lines.append(line)
-            key_lines.append(" ".join(collect_lines))
-            self.root[key] = "\n\n".join(key_lines)
+        return self
+
+    @model_validator(mode="after")
+    def build_paragraphs(self) -> Self:
+        self.root = {
+            key: "\n\n".join(
+                add_paragraph(
+                    *reduce(
+                        lambda acc, line: add_line(*acc, line.strip()),
+                        value.splitlines(),
+                        ([], []),
+                    )
+                )
+            )
+            for key, value in self.root.items()
+        }
         return self
 
     def __str__(self) -> str:
@@ -51,7 +65,7 @@ class MultiLingualText(RootModel):
             f"""WARNING: text not available in '{language}'; text available in {
                 ", ".join(f"'{lang}'" for lang in sorted(self.root.keys()))
             }""",
-        ).strip()
+        )
 
     def __setitem__(self, language: str, text: str) -> None:
         known_iso_639_language_code_or_error(language)
