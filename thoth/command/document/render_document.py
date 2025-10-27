@@ -78,7 +78,7 @@ def render_document(
     path: DOCUMENT_PATH_ARGUMENT,
     template: RENDER_TEMPLATE_PATH_OPTION,
     language: str = LANGUAGE_ARGUMENT,
-    profile: RENDER_PROFILE_PATH_OPTION(optional=True) = None,
+    profile: RENDER_PROFILE_PATH_OPTION = None,
     output: OUTPUT_PATH_OPTION(optional=True) = None,
     force: bool = False,
     format: OutputFormat | None = None,

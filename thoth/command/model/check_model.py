@@ -11,6 +11,9 @@ from pathlib import Path
 import typer
 
 # own imports
+from thoth.command.shared.arguments_and_options_info import (
+    DOCUMENT_MODEL_PATH_OPTION,
+)
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 from thoth.model.meta_model import DocumentMetaModel
 

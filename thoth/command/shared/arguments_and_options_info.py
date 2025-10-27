@@ -14,42 +14,45 @@ import typer
 # own imports
 
 
-def _make_path_annotation(option_or_argument, *, optional=False):
+def _make_path_annotation(option_or_argument, *, help, optional, exists=True, readable=True, resolve_path=False):
     return Annotated[
         Path | None if optional else Path,
-        option_or_argument,
+        option_or_argument(
+            metavar="PATH",
+            help=help,
+            exists=exists,
+            readable=readable,
+            resolve_path=resolve_path,
+        ),
     ]
 
-
-DOCUMENT_MODEL_PATH_OPTION = Annotated[
-    Path,
-    typer.Option(metavar="PATH", help="document model", exists=True, readable=True),
-]
-DOCUMENT_PATH_ARGUMENT = Annotated[
-    Path,
-    typer.Argument(metavar="PATH", help="document", exists=True, readable=True),
-]
+DOCUMENT_MODEL_PATH_OPTION = _make_path_annotation(typer.Option, help="document model", optional=True)
+DOCUMENT_PATH_ARGUMENT = _make_path_annotation(typer.Argument, help="document", optional=False)
 
 def _make_output_path_option(*, optional=False):
-    return Annotated[
-        Path | None if optional else Path,
-        typer.Option(metavar="PATH", help="output", exists=False, readable=False),
-    ]
-OUTPUT_PATH_OPTION = _make_output_path_option
-
-def _make_render_profile_path_option(*, optional=False):
     return _make_path_annotation(
-        typer.Option(
-            metavar="PATH",
-            help="document profile (default: render everything)",
-            exists=True,
-            readable=True,
-        ),
+        typer.Option,
+        help="output",
+        exists=False,
+        readable=False,
         optional=optional,
     )
-RENDER_PROFILE_PATH_OPTION = _make_render_profile_path_option
+OUTPUT_PATH_OPTION = _make_output_path_option
 
-RENDER_TEMPLATE_PATH_OPTION = Annotated[
-    Path,
-    typer.Option(metavar="PATH", help="template to render with", exists=True, readable=True, resolve_path=True),
-]
+RENDER_PROFILE_PATH_ARGUMENT = _make_path_annotation(
+    typer.Argument,
+    help="document profile",
+    optional=False,
+)
+RENDER_PROFILE_PATH_OPTION = _make_path_annotation(
+    typer.Option,
+    help="document profile (default: render everything)",
+    optional=True,
+)
+
+RENDER_TEMPLATE_PATH_OPTION = _make_path_annotation(
+    typer.Option,
+    help="template to render with",
+    resolve_path=True,
+    optional=True,
+)

@@ -13,7 +13,7 @@ import typer
 # own imports
 from thoth.command.shared.arguments_and_options_info import (
     DOCUMENT_MODEL_PATH_OPTION,
-    RENDER_PROFILE_PATH_OPTION,
+    RENDER_PROFILE_PATH_ARGUMENT,
 )
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 from thoth.model.meta_model import DocumentMetaModel
@@ -21,7 +21,7 @@ from thoth.model.meta_model import DocumentMetaModel
 
 def check_profile(
     model: DOCUMENT_MODEL_PATH_OPTION,
-    path: RENDER_PROFILE_PATH_OPTION(),
+    path: RENDER_PROFILE_PATH_ARGUMENT,
 ) -> None:
     """
     check syntax of a profile
