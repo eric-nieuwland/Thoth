@@ -60,11 +60,11 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
 
     @model_validator(mode="after")
     def _require_type_has_default_or_required(self):
-        """Ensure 'struct' has no default value."""
+        """Ensure 'type' has either default or is required."""
         has_type = self.type is not None
         has_default = self.default is not None
         is_repeated = self.repeated
-        is_required = self.required is not None
+        is_required = self.required
 
         if has_type and not is_repeated and not is_required and not has_default:
             raise ValueError("""Need default value for not required field.""")
