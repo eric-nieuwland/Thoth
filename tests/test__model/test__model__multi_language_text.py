@@ -97,6 +97,29 @@ class TestMultiLingualTextNormaliseLines(unittest.TestCase):
         expect = "foo\n\nbar\n\nbaz"
         self.assertEqual(expect, actual)
 
+    def test_multiline_preservation(self):
+        # given
+        text = {
+            "en": """
+This text is split over two lines
+and becomes one once loaded.
+            """.strip(),
+            "nl": """
+Dit is alinea #1.
+
+Dit is alinea #2.
+            """.strip(),
+        }
+        mlt = MultiLingualText(text)
+        # when
+        actual = mlt.root
+        # then
+        expect = {
+            "en": """This text is split over two lines and becomes one once loaded.""",
+            "nl": """Dit is alinea #1.\n\nDit is alinea #2.""",
+        }
+        self.assertDictEqual(expect, actual)
+
 
 class TestMultiLingualTextAdd(unittest.TestCase):
 
@@ -186,29 +209,6 @@ class TestMultiLingualTextMisc(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    def test_multiline_preservation(self):
-        # given
-        text = {
-            "en": """
-This text is split over two lines
-and becomes one once loaded.
-            """.strip(),
-            "nl": """
-Dit is alinea #1.
-
-Dit is alinea #2.
-            """.strip(),
-        }
-        mlt = MultiLingualText(text)
-        # when
-        actual = mlt.root
-        # then
-        expect = {
-            "en": """This text is split over two lines and becomes one once loaded.""",
-            "nl": """Dit is alinea #1.\n\nDit is alinea #2.""",
-        }
-        self.assertDictEqual(expect, actual)
-
     def test_count_multi_lingual(self):
         # given
         text = {
@@ -247,15 +247,13 @@ Dit is alinea #2.
         }
         mlt = MultiLingualText(text)
         # when
-        actual = mlt.copy_for_language("nl", "de")
+        actual = mlt.copy_for_language("nl", "de").root
         # then
-        expect = MultiLingualText(
-            root={
-                "de": "please fill with text",
-                "nl": "Dit is alinea #1.\n\nDit is alinea #2.",
-            }
-        )
-        self.assertEqual(expect, actual)
+        expect = {
+            "de": "please fill with text",
+            "nl": "Dit is alinea #1.\n\nDit is alinea #2.",
+        }
+        self.assertDictEqual(expect, actual)
 
 
 class TestMultiLingualTextJoin(unittest.TestCase):
