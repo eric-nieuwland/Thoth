@@ -19,7 +19,7 @@ from thoth.model.meta_model import DocumentMetaModel
 
 def new_profile(
     model: DOCUMENT_MODEL_PATH_OPTION,
-    output: OUTPUT_PATH_OPTION(optional=True) = None,
+    output: OUTPUT_PATH_OPTION = None,
     force: bool = False,
 ) -> None:
     """
