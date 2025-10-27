@@ -5,7 +5,6 @@ check_document - check syntax of a document
 from __future__ import annotations
 
 # standard library imports
-from pathlib import Path
 
 # third party imports
 

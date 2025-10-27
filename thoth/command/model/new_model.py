@@ -17,7 +17,7 @@ from thoth.model.meta_model import DocumentMetaModel
 
 
 def new_model(
-    output: OUTPUT_PATH_OPTION(optional=True) = None,
+    output: OUTPUT_PATH_OPTION = None,
     force: bool = False,
 ) -> None:
     """

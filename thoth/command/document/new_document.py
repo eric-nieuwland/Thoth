@@ -5,7 +5,6 @@ new_document - create a new document
 from __future__ import annotations
 
 # standard library imports
-from pathlib import Path
 
 # third party imports
 
@@ -20,7 +19,7 @@ from thoth.model.meta_model import DocumentMetaModel
 
 def new_document(
     model: DOCUMENT_MODEL_PATH_OPTION,
-    output: OUTPUT_PATH_OPTION(optional=True) = None,
+    output: OUTPUT_PATH_OPTION = None,
     force: bool = False,
 ) -> None:
     """

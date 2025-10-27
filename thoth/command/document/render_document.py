@@ -8,7 +8,6 @@ from __future__ import annotations
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing_extensions import Annotated
 
 # third party imports
 import jinja2

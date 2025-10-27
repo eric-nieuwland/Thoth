@@ -12,14 +12,14 @@ import typer
 
 # own imports
 from thoth.command.shared.arguments_and_options_info import (
-    DOCUMENT_MODEL_PATH_OPTION,
+    DOCUMENT_PATH_ARGUMENT,
 )
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
 from thoth.model.meta_model import DocumentMetaModel
 
 
 def check_model(
-    path: Path = typer.Argument(metavar="PATH", help="model", exists=True, readable=True),
+    path: DOCUMENT_PATH_ARGUMENT,
 ) -> None:
     """
     check syntax of a document model

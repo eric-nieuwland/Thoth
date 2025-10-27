@@ -1,5 +1,5 @@
 """
-argument_info - command line arguments and options
+argument_and_options_info - shared command line arguments and options typing and documentation
 """
 
 from __future__ import annotations
@@ -14,7 +14,15 @@ import typer
 # own imports
 
 
-def _make_path_annotation(option_or_argument, *, help, optional, exists=True, readable=True, resolve_path=False):
+def _make_path_annotation(
+    option_or_argument,
+    *,
+    help,
+    optional,
+    exists=True,
+    readable=True,
+    resolve_path=False,
+):
     return Annotated[
         Path | None if optional else Path,
         option_or_argument(
@@ -26,19 +34,22 @@ def _make_path_annotation(option_or_argument, *, help, optional, exists=True, re
         ),
     ]
 
-DOCUMENT_MODEL_PATH_OPTION = _make_path_annotation(typer.Option, help="document model", optional=True)
-DOCUMENT_PATH_ARGUMENT = _make_path_annotation(typer.Argument, help="document", optional=False)
 
-def _make_output_path_option(*, optional=False):
-    return _make_path_annotation(
-        typer.Option,
-        help="output",
-        exists=False,
-        readable=False,
-        optional=optional,
-    )
-OUTPUT_PATH_OPTION = _make_output_path_option
-
+DOCUMENT_MODEL_PATH_OPTION = _make_path_annotation(
+    typer.Option,
+    help="document model",
+    optional=True,
+)
+DOCUMENT_PATH_ARGUMENT = _make_path_annotation(
+    typer.Argument,
+    help="document",
+    optional=False,
+)
+OUTPUT_PATH_OPTION = _make_path_annotation(
+    typer.Option,
+    help="output",
+    optional=True,
+)
 RENDER_PROFILE_PATH_ARGUMENT = _make_path_annotation(
     typer.Argument,
     help="document profile",
@@ -49,7 +60,6 @@ RENDER_PROFILE_PATH_OPTION = _make_path_annotation(
     help="document profile (default: render everything)",
     optional=True,
 )
-
 RENDER_TEMPLATE_PATH_OPTION = _make_path_annotation(
     typer.Option,
     help="template to render with",
