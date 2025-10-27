@@ -80,11 +80,13 @@ class MultiLingualText(RootModel):
 
     # split/merge
 
-    def copy_for_language(self, *languages: str) -> Self:
+    def copy_for_language(self, *languages: str) -> MultiLingualText:
         """
         A version of this text, restricted in languages
         """
-        return self.__class__({language: self.root.get(language, template_text(language)) for language in languages})
+        return self.__class__(
+            root={language: self.root.get(language, template_text(language)) for language in languages},
+        )
 
     def __or__(self, other: MultiLingualText) -> MultiLingualText:
         return self.join(self, other)
@@ -99,12 +101,8 @@ class MultiLingualText(RootModel):
     # template / example
 
     @classmethod
-    def template(cls, language: str) -> Self:
-        return cls(
-            root={
-                language: template_text(language),
-            }
-        )
+    def template(cls, *languages: str) -> MultiLingualText:
+        return cls(root={language: template_text(language) for language in languages})
 
     @classmethod
     def _example_yaml_dict(cls, *_args, **_kwargs) -> dict[str, str]:

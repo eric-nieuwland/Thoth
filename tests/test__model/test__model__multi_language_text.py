@@ -250,7 +250,7 @@ Dit is alinea #2.
         actual = mlt.copy_for_language("nl", "de")
         # then
         expect = MultiLingualText(
-            {
+            root={
                 "de": "please fill with text",
                 "nl": "Dit is alinea #1.\n\nDit is alinea #2.",
             }

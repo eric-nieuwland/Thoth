@@ -16,7 +16,7 @@ from thoth.model.meta_model import DocumentMetaModel
 
 
 def check_model(
-    path: Path = typer.Argument(metavar="MODEL", help="model path", exists=True, readable=True),
+    path: Path = typer.Argument(metavar="PATH", help="model", exists=True, readable=True),
 ) -> None:
     """
     check syntax of a document model

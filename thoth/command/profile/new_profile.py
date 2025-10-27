@@ -12,15 +12,16 @@ import typer
 
 # own imports
 from thoth.command.shared.arguments_and_options_info import (
-    MODEL_OPTION,
+    DOCUMENT_MODEL_PATH_OPTION,
+    OUTPUT_PATH_OPTION,
 )
 from thoth.command.shared.write_output import write_output
 from thoth.model.meta_model import DocumentMetaModel
 
 
 def new_profile(
-    model: Path = MODEL_OPTION,
-    output: Path | None = None,
+    model: DOCUMENT_MODEL_PATH_OPTION,
+    output: OUTPUT_PATH_OPTION(optional=True) = None,
     force: bool = False,
 ) -> None:
     """

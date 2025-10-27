@@ -6,6 +6,7 @@ from __future__ import annotations
 
 # standard library imports
 from enum import Enum
+from pathlib import Path
 
 # third party imports
 # own imports
@@ -20,6 +21,15 @@ class OutputFormat(Enum):
     @classmethod
     def all(cls) -> tuple[OutputFormat, ...]:
         return tuple(cls)
+
+    @classmethod
+    def from_path(cls, path: Path | None) -> OutputFormat | None:
+        if path is None:
+            return None
+        try:
+            return cls(path.suffix[1:])
+        except ValueError:
+            return None
 
     def resolve(self) -> OutputFormat:
         if self in (OutputFormat.HTML, OutputFormat.MD):

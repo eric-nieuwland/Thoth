@@ -5,17 +5,19 @@ new_model - create a new document model
 from __future__ import annotations
 
 # standard library imports
-from pathlib import Path
 
 # third party imports
 
 # own imports
+from thoth.command.shared.arguments_and_options_info import (
+    OUTPUT_PATH_OPTION,
+)
 from thoth.command.shared.write_output import write_output
 from thoth.model.meta_model import DocumentMetaModel
 
 
 def new_model(
-    output: Path | None = None,
+    output: OUTPUT_PATH_OPTION(optional=True) = None,
     force: bool = False,
 ) -> None:
     """

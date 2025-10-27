@@ -17,10 +17,11 @@ from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 
 # own imports
 from thoth.command.shared.arguments_and_options_info import (
-    MODEL_OPTION,
+    DOCUMENT_MODEL_PATH_OPTION,
     DOCUMENT_PATH_ARGUMENT,
-    PROFILE_OPTION,
-    TEMPLATE_OPTION,
+    OUTPUT_PATH_OPTION,
+    RENDER_PROFILE_PATH_OPTION,
+    RENDER_TEMPLATE_PATH_OPTION,
 )
 from thoth.command.shared.output_format import OutputFormat
 from thoth.command.shared.write_output import write_output
@@ -32,21 +33,12 @@ FORMAT_REQUIRES_OUTPUT = {
 }
 
 
-def path_to_format(path: Path | None) -> OutputFormat | None:
-    if path is None:
-        return None
-    try:
-        return OutputFormat(path.suffix[1:])
-    except ValueError:
-        return None
-
-
 def determine_format(
     template: Path,
     output: Path | None = None,
     format: OutputFormat | None = None,
 ) -> OutputFormat:
-    determined_format = format or path_to_format(template) or path_to_format(output)
+    determined_format = format or OutputFormat.from_path(template) or OutputFormat.from_path(output)
     if determined_format is None:
         print("need format from '--format', '--output', or '--template'", file=sys.stderr)
         sys.exit(1)
@@ -71,8 +63,8 @@ def handle_language(document, path, language) -> None:
     if language_counts[language] < total_count:
         print(
             f"""
-    WARNING: language '{language}' incomplete in - {path}
-             check output for warnings
+WARNING: language '{language}' incomplete in - {path}
+         check output for warnings
             """.strip(),
             file=sys.stderr,
         )
@@ -82,12 +74,12 @@ LANGUAGE_ARGUMENT = typer.Argument(help="language to render", exists=True, reada
 
 
 def render_document(
-    model: Path = MODEL_OPTION,
-    path: Path = DOCUMENT_PATH_ARGUMENT,
+    model: DOCUMENT_MODEL_PATH_OPTION,
+    path: DOCUMENT_PATH_ARGUMENT,
+    template: RENDER_TEMPLATE_PATH_OPTION,
     language: str = LANGUAGE_ARGUMENT,
-    profile: PROFILE_OPTION = None,
-    template: Path = TEMPLATE_OPTION,
-    output: Path | None = None,
+    profile: RENDER_PROFILE_PATH_OPTION(optional=True) = None,
+    output: OUTPUT_PATH_OPTION(optional=True) = None,
     force: bool = False,
     format: OutputFormat | None = None,
 ) -> None:

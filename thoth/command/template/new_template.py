@@ -13,14 +13,14 @@ import typer
 
 # own imports
 from thoth.command.shared.arguments_and_options_info import (
-    MODEL_OPTION,
+    DOCUMENT_MODEL_PATH_OPTION,
 )
 from thoth.command.shared.write_output import write_output
 from thoth.model.meta_model import DocumentMetaModel
 
 
 def new_template(
-    model: Path = MODEL_OPTION,
+    model: Path = DOCUMENT_MODEL_PATH_OPTION,
     indent: Annotated[int, typer.Option(min=0, max=8, clamp=True)] = 0,
     output: Path | None = None,
     force: bool = False,
