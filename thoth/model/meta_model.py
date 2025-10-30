@@ -104,7 +104,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
             result["type"] = type_name
             if not required and not repeated:  # need default
                 if hasattr(type_class, "_example_yaml_dict"):
-                    result["default"] = type_class._example_yaml_dict()  # type: ignore[attr-defined]
+                    result["default"] = type_class._example_yaml_dict()
                 elif (example := cls.example_for_class(type_class)) is not None:
                     result["default"] = example
                 else:

@@ -56,6 +56,6 @@ def new_template(
     document.set_indent(indent)  # type: ignore[attr-defined]
     determined_format = determine_format(output, format)
     if determined_format is OutputFormat.DOCX:
-        document.set_docx_rendering()
+        document.set_docx_rendering()  # type: ignore[attr-defined]
     template = document.render_template()  # type: ignore[attr-defined]
     write_output(template, destination=output, force=force)
