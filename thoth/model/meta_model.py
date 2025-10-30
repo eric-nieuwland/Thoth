@@ -110,7 +110,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
             kind = result["type"] = choice(list(TYPE_MAPPING))
             if not required and not repeated:  # default required
                 if hasattr(TYPE_MAPPING[kind], "_example_yaml_dict"):
-                    result["default"] = TYPE_MAPPING[kind]._example_yaml_dict()
+                    result["default"] = TYPE_MAPPING[kind]._example_yaml_dict()  # type: ignore[attr-defined]
                 elif examples := YAML_EXAMPLE_VALUES[kind]:
                     result["default"] = choice(examples)
         return result

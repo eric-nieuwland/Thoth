@@ -40,7 +40,7 @@ class MultiLingualText(RootModel):
             key: "\n\n".join(
                 add_paragraph(
                     *reduce(
-                        lambda acc, line: add_line(*acc, line.strip()),
+                        lambda acc, line: add_line(*acc, line.strip()),  # type: ignore[arg-type, call-arg, return-value]
                         value.splitlines(),
                         ([], []),
                     )
