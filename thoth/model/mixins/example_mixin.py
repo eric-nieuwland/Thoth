@@ -54,10 +54,14 @@ class ExampleMixIn:
             return origin, get_args(field.annotation), field.default
         return field.annotation, None, field.default
 
+    @staticmethod
+    def example_for_class(klass) -> Any:
+        return choice(EXAMPLES[klass]) if klass in EXAMPLES else None
+
     @classmethod
     def _example_yaml_value_for(cls, kind, base, stack, detect_loop=True) -> Any:
-        if kind in EXAMPLES:
-            return choice(EXAMPLES[kind])
+        if (example := cls.example_for_class(kind)) is not None:
+            return example
         elif hasattr(kind, "_example_yaml_dict"):
             return kind._example_yaml_dict(stack, detect_loop)
         elif kind is UnionType:

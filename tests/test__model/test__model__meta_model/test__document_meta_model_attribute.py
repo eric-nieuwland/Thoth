@@ -105,22 +105,16 @@ class TestDocumentMetaModelAttributeYaml(unittest.TestCase):
         mock.__contains__.side_effect = mock_dict.__contains__
         mock.__getitem__.side_effect = mock_dict.__getitem__
         mock.__iter__.side_effect = mock_dict.__iter__
+        mock.items.side_effect = mock_dict.items
 
     @patch("model.mixins.example_mixin.EXAMPLES")
-    @patch("model.meta_model.YAML_EXAMPLE_VALUES")
     @patch("model.meta_model.TYPE_MAPPING")
-    def test_example(self, mock_types, mock_yaml_examples, mock_examples):
+    def test_example(self, mock_type_mapping, mock_examples):
         # given
         self.install_mock_dict(
-            mock_types,
+            mock_type_mapping,
             {
                 "mock": "MOCK",
-            },
-        )
-        self.install_mock_dict(
-            mock_yaml_examples,
-            {
-                "mock": ("MOCK",),
             },
         )
         self.install_mock_dict(

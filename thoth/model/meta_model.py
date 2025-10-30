@@ -22,13 +22,6 @@ TYPE_MAPPING = {
     "multilingual": MultiLingualText,
 }
 
-YAML_EXAMPLE_VALUES = {
-    "bool": (True, False),
-    "int": (42, -1, 1984),
-    "float": (2.71828183, 3.14159265),
-    "str": ("Lorem ipsum dolor sit amet", "Ut labore et dolore magna aliqua"),
-}
-
 
 class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
     default: SUPPORTED_TYPES | None = None
@@ -107,12 +100,15 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         if cls.__name__ not in stack:
             result["struct"] = cls._example_yaml_value_for(DocumentMetaModel, None, stack + [cls.__name__])
         else:
-            kind = result["type"] = choice(list(TYPE_MAPPING))
-            if not required and not repeated:  # default required
-                if hasattr(TYPE_MAPPING[kind], "_example_yaml_dict"):
-                    result["default"] = TYPE_MAPPING[kind]._example_yaml_dict()  # type: ignore[attr-defined]
-                elif examples := YAML_EXAMPLE_VALUES[kind]:
-                    result["default"] = choice(examples)
+            type_name, type_class = choice(list(TYPE_MAPPING.items()))
+            result["type"] = type_name
+            if not required and not repeated:  # need default
+                if hasattr(type_class, "_example_yaml_dict"):
+                    result["default"] = type_class._example_yaml_dict()  # type: ignore[attr-defined]
+                elif (example := cls.example_for_class(type_class)) is not None:
+                    result["default"] = example
+                else:
+                    raise ValueError(f"could not find default value for {type_class.__name__}")
         return result
 
     def as_model_definition(self, model_name: str = "") -> Any | tuple[str, Any]:
