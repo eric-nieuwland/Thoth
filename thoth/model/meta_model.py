@@ -12,7 +12,9 @@ from pydantic import BaseModel, RootModel, create_model, model_validator
 from .mixins import ExampleMixIn, ProfileMixIn, RenderTemplateMixIn, YamlMixIn
 from .multi_lingual_text import MultiLingualText
 
-TYPES = {
+SUPPORTED_TYPES = str | int | float | bool | MultiLingualText
+
+TYPE_MAPPING = {
     "bool": bool,
     "int": int,
     "float": float,
@@ -20,17 +22,16 @@ TYPES = {
     "multilingual": MultiLingualText,
 }
 
-YAML_EXAMPLES = {
-    "bool": ("true", "false"),
-    "int": ("42", "-1", "1984"),
-    "float": ("2.71828183", "3.14159265"),
-    "str": ("Lorem ipsum dolor sit amet",),
-    "multilingual": None,
+YAML_EXAMPLE_VALUES = {
+    "bool": (True, False),
+    "int": (42, -1, 1984),
+    "float": (2.71828183, 3.14159265),
+    "str": ("Lorem ipsum dolor sit amet", "Ut labore et dolore magna aliqua"),
 }
 
 
 class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
-    default: str | None = None
+    default: SUPPORTED_TYPES | None = None
     description: str | None = None
     repeated: bool = False
     required: bool = False
@@ -42,7 +43,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         """Ensure 'type' is a known type, if defined."""
         has_type = self.type is not None
 
-        if has_type and self.type not in TYPES:
+        if has_type and self.type not in TYPE_MAPPING:
             raise ValueError('Unknown "type" - %s', self.type)
 
         return self
@@ -59,18 +60,26 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         return self
 
     @model_validator(mode="after")
-    def _require_type_has_default_or_required(self):
-        """Ensure 'type' has either default or is required."""
+    def _require_type_default_required_repeated_consistency(self):
+        """Ensure 'type' has either default or is required/repeated."""
         has_type = self.type is not None
         has_default = self.default is not None
         is_repeated = self.repeated
         is_required = self.required
 
-        if has_type and not is_repeated and not is_required and not has_default:
-            raise ValueError("""Need default value for not required field.""")
+        # do the tests apply?
+        if not has_type:
+            return self
+        if is_repeated and not has_default:
+            return self
 
-        if has_type and not is_repeated and is_required and has_default:
+        # are setting consistent?
+        if is_repeated and has_default:
+            raise ValueError("""Default value for repeated field is meaningless.""")
+        if is_required and has_default:
             raise ValueError("""Default value for required field is meaningless.""")
+        if not is_required and not has_default:
+            raise ValueError("""Need default value for not required field.""")
 
         return self
 
@@ -92,15 +101,18 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
     def _example_yaml_dict(cls, stack=[], *_args, **_kwargs) -> dict:
         result = {
             "description": cls._example_yaml_value_for(str, None, stack + ["description"]),
-            "repeated": cls._example_yaml_value_for(bool, None, stack + ["repeated"]),
+            "repeated": (repeated := cls._example_yaml_value_for(bool, None, stack + ["repeated"])),
             "required": (required := cls._example_yaml_value_for(bool, None, stack + ["required"])),
         }
         if cls.__name__ not in stack:
             result["struct"] = cls._example_yaml_value_for(DocumentMetaModel, None, stack + [cls.__name__])
         else:
-            kind = result["type"] = choice(list(TYPES))
-            if (examples := YAML_EXAMPLES[kind]) and not required:
-                result["default"] = choice(examples)
+            kind = result["type"] = choice(list(TYPE_MAPPING))
+            if not required and not repeated:  # default required
+                if hasattr(TYPE_MAPPING[kind], "_example_yaml_dict"):
+                    result["default"] = TYPE_MAPPING[kind]._example_yaml_dict()
+                elif examples := YAML_EXAMPLE_VALUES[kind]:
+                    result["default"] = choice(examples)
         return result
 
     def as_model_definition(self, model_name: str = "") -> Any | tuple[str, Any]:
@@ -110,7 +122,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         if self.struct:
             attribute_type = self.struct.create_document_class(model_name=model_name)
         else:
-            attribute_type = TYPES.get(self.type)  # type: ignore[arg-type]
+            attribute_type = TYPE_MAPPING.get(self.type)  # type: ignore[arg-type]
         if self.repeated:
             attribute_type = list[attribute_type]
 
