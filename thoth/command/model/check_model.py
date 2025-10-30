@@ -5,10 +5,8 @@ check_model - check syntax of a document model
 from __future__ import annotations
 
 # standard library imports
-from pathlib import Path
 
 # third party imports
-import typer
 
 # own imports
 from thoth.command.shared.arguments_and_options_info import (
