@@ -101,7 +101,7 @@ class RenderTemplateMixIn:
             # multiple bases - use first
             if type(None) in base:  # optional value - suppress if absent
                 head.append(cls.render_command(f"if {document_var}"))
-                tail.insert(0, cls.render_command(f"endif"))
+                tail.insert(0, cls.render_command("endif"))
                 selected_kind = [b for b in base if b is not type(None)][0]
             else:
                 selected_kind = base[0]

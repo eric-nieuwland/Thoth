@@ -5,9 +5,9 @@ new_template - create a new template
 from __future__ import annotations
 
 # standard library imports
+import sys
 from pathlib import Path
 from typing_extensions import Annotated
-import sys
 
 # third party imports
 import typer
