@@ -107,8 +107,8 @@ class TestDocumentMetaModelAttributeYaml(unittest.TestCase):
         mock.__iter__.side_effect = mock_dict.__iter__
 
     @patch("model.mixins.example_mixin.EXAMPLES")
-    @patch("model.meta_model.YAML_EXAMPLES")
-    @patch("model.meta_model.TYPES")
+    @patch("model.meta_model.YAML_EXAMPLE_VALUES")
+    @patch("model.meta_model.TYPE_MAPPING")
     def test_example(self, mock_types, mock_yaml_examples, mock_examples):
         # given
         self.install_mock_dict(
