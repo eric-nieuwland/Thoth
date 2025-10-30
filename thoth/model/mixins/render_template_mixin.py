@@ -21,6 +21,12 @@ class RenderTemplateMixIn:
     """
 
     _INDENT_PREFIX = " " * 4
+    _RENDER_COMMAND_PREFIX = "{%"
+    _RENDER_COMMAND_SUFFIX = "%}"
+    _RENDER_COMMENT_PREFIX = "{#"
+    _RENDER_COMMENT_SUFFIX = "#}"
+    _RENDER_VALUE_PREFIX = "{{"
+    _RENDER_VALUE_SUFFIX = "}}"
 
     @classmethod
     def set_indent(cls, indent: int | str) -> None:
@@ -33,6 +39,22 @@ class RenderTemplateMixIn:
             RenderTemplateMixIn._INDENT_PREFIX = " " * indent
         else:
             raise TypeError(f"cannot set indent to {indent.__class__.__name__}")
+
+    @classmethod
+    def set_docx_rendering(cls):
+        cls._RENDER_COMMAND_PREFIX = "{%p"
+
+    @classmethod
+    def render_command(cls, command: str) -> str:
+        return f"{cls._RENDER_COMMAND_PREFIX} {command} {cls._RENDER_COMMAND_SUFFIX}"
+
+    @classmethod
+    def render_comment(cls, comment: str) -> str:
+        return f"{cls._RENDER_COMMENT_PREFIX} {comment} {cls._RENDER_COMMENT_SUFFIX}"
+
+    @classmethod
+    def render_value(cls, value: str) -> str:
+        return f"{cls._RENDER_VALUE_PREFIX} {value} {cls._RENDER_VALUE_SUFFIX}"
 
     @classmethod
     def indent[T: (str, list[str])](cls, text: T) -> T:
@@ -78,8 +100,8 @@ class RenderTemplateMixIn:
         elif kind is UnionType:
             # multiple bases - use first
             if type(None) in base:  # optional value - suppress if absent
-                head.append(f"{{% if {document_var} %}}")
-                tail.insert(0, "{% endif %}")
+                head.append(cls.render_command(f"if {document_var}"))
+                tail.insert(0, cls.render_command(f"endif"))
                 selected_kind = [b for b in base if b is not type(None)][0]
             else:
                 selected_kind = base[0]
@@ -90,21 +112,21 @@ class RenderTemplateMixIn:
             )
         elif kind is list and base is not None:
             loop_var = cls.singular(document_var.split(".")[-1])
-            head.append(f"{{% for {loop_var} in {document_var} %}}")
-            tail.insert(0, "{% endfor %}")
+            head.append(cls.render_command(f"for {loop_var} in {document_var}"))
+            tail.insert(0, cls.render_command("endfor"))
             body.extend(
                 cls._render_template_from_value(loop_var, profile_var, base[0], None, include_profile_check=False)
             )
         elif kind is MultiLingualText:
-            body.append(f"{{{{ {document_var}[language] }}}}")
+            body.append(cls.render_value(f"{document_var}[language]"))
         else:
-            body.append(f"{{{{ {document_var} }}}}")
+            body.append(cls.render_value(f"{document_var}"))
         if len(head) > 0 or len(tail) > 0:
             body = cls.indent(body)
         if include_profile_check:
             body = cls.indent(head + body + tail)
-            head = [f"{{% if {profile_var} %}}"]
-            tail = ["{% endif %}"]
+            head = [cls.render_command(f"if {profile_var}")]
+            tail = [cls.render_command("endif")]
         return head + body + tail
 
     @classmethod
@@ -112,7 +134,7 @@ class RenderTemplateMixIn:
         root = cls.model_fields["root"]  # type: ignore[attr-defined]
         _kind, _base = cls.field_type_base(root)
         result: list[str] = []
-        result.extend(f"{{# no code for rendering template for {document_var}, yet #}}")
+        result.extend(cls.render_comment(f"no code for rendering template for {document_var}, yet"))
         return result
 
     @classmethod

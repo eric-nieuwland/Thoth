@@ -8,6 +8,7 @@ from __future__ import annotations
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from typing_extensions import Annotated
 
 # third party imports
 import jinja2
@@ -80,7 +81,7 @@ def render_document(
     profile: RENDER_PROFILE_PATH_OPTION = None,
     output: OUTPUT_PATH_OPTION = None,
     force: bool = False,
-    format: OutputFormat | None = None,
+    format: Annotated[OutputFormat | None, typer.Option(help="[default: from --template or --output]")] = None,
 ) -> None:
     """
     render a document
