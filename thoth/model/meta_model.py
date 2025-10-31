@@ -54,7 +54,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
 
     @model_validator(mode="after")
     def _require_type_default_required_repeated_consistency(self):
-        """Ensure 'type' has either default or is required/repeated."""
+        """Ensure 'type' has consistent default w.r.t. required/repeated."""
         has_type = self.type is not None
         has_default = self.default is not None
         is_repeated = self.repeated
@@ -63,16 +63,12 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         # do the tests apply?
         if not has_type:
             return self
-        if is_repeated and not has_default:
-            return self
 
         # are setting consistent?
         if is_repeated and has_default:
             raise ValueError("""Default value for repeated field is meaningless.""")
         if is_required and has_default:
             raise ValueError("""Default value for required field is meaningless.""")
-        if not is_required and not has_default:
-            raise ValueError("""Need default value for not required field.""")
 
         return self
 

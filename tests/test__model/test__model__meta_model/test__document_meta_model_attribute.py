@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch
+from typing import Any
 
 from model.meta_model import DocumentMetaModelAttribute, DocumentMetaModel
 from pydantic import ValidationError
@@ -19,13 +20,6 @@ class TestDocumentMetaModelAttributeCreate(unittest.TestCase):
         # then
         with self.assertRaises(ValueError):
             DocumentMetaModelAttribute(type="unknown")
-
-    def test_type_not_required_not_repeated_no_default(self):
-        # given
-        # when
-        # then
-        with self.assertRaises(ValidationError):
-            _ = DocumentMetaModelAttribute(type="int", required=False, repeated=False)
 
     def test_known_type_required_no_default(self):
         # given
@@ -149,6 +143,143 @@ class TestDocumentMetaModelAttributeYaml(unittest.TestCase):
             },
         }
         self.assertDictEqual(expect, actual)
+
+
+class TestDocumentMetaModelAttributeAsModelDefinition(unittest.TestCase):
+    """
+    test DocumentMetaModelAttribute.as_model_definition() function
+    """
+
+    TYPE_CLASS_DEFAULT: tuple[tuple[str, type, Any], ...] = (
+        ("str", str, "default"),
+        ("int", int, 42),
+        ("float", float, 3.14),
+        ("bool", bool, True),
+    )
+
+    def setUp(self) -> None:
+        self.maxDiff = None
+
+    def test_type_required(self):
+        for t, c, d in self.TYPE_CLASS_DEFAULT:
+            # given
+            args = dict(
+                # default=d,
+                description="foo bar",
+                repeated=False,
+                required=True,
+                struct=None,
+                type=t,
+            )
+            instance = DocumentMetaModelAttribute(**args)
+            # when
+            actual = instance.as_model_definition()
+            # then
+            expect = c
+            self.assertEqual(expect, actual, msg=f"failed for {t}")
+
+    def test_type_repeated(self):
+        for t, c, d in self.TYPE_CLASS_DEFAULT:
+            # given
+            args = dict(
+                # default=d,
+                description="foo bar",
+                repeated=True,
+                required=False,
+                struct=None,
+                type=t,
+            )
+            instance = DocumentMetaModelAttribute(**args)
+            # when
+            actual = instance.as_model_definition()
+            # then
+            expect = list[c], []
+            self.assertEqual(expect, actual, msg=f"failed for {t}")
+
+    def test_type_optional_with_default(self):
+        for t, c, d in self.TYPE_CLASS_DEFAULT:
+            # given
+            args = dict(
+                default=d,
+                description="foo bar",
+                repeated=False,
+                required=False,
+                struct=None,
+                type=t,
+            )
+            instance = DocumentMetaModelAttribute(**args)
+            # when
+            actual = instance.as_model_definition()
+            # then
+            expect = c, d
+            self.assertEqual(expect, actual, msg=f"failed for {t}")
+
+    def test_type_optional_without_default(self):
+        for t, c, d in self.TYPE_CLASS_DEFAULT:
+            # given
+            args = dict(
+                # default=d,
+                description="foo bar",
+                repeated=False,
+                required=False,
+                struct=None,
+                type=t,
+            )
+            instance = DocumentMetaModelAttribute(**args)
+            # when
+            actual = instance.as_model_definition()
+            # then
+            expect = c | None, None
+            self.assertEqual(expect, actual, msg=f"failed for {t}")
+
+    def test_struct_optional(self):
+        from types import UnionType, NoneType
+        from typing import get_origin, get_args
+        # given
+        args = dict(
+            description="the foo bar struct",
+            repeated=False,
+            required=False,
+            struct={
+                "foo": dict(
+                    description="a foo",
+                    repeated=False,
+                    required=False,
+                    struct=None,
+                    type="str",
+                ),
+                "bar": dict(
+                    default=42,
+                    description="a bar",
+                    repeated=False,
+                    required=False,
+                    struct=None,
+                    type="int",
+                ),
+            },
+            type=None,
+        )
+        instance = DocumentMetaModelAttribute(**args)
+        # when
+        actual = instance.as_model_definition("TEST")
+        # then
+        expect = None
+        self.assertEqual(expect, actual[1])
+        expect = UnionType
+        self.assertEqual(expect, get_origin(actual[0]))
+        expect = NoneType
+        self.assertIn(expect, get_args(actual[0]))
+        actual_dynamic_type = [t for t in get_args(actual[0]) if t != NoneType][0]
+        expect = "Test"
+        self.assertEqual(expect, actual_dynamic_type.__name__)
+        actual_dynamic_instance = actual_dynamic_type()
+        self.assertTrue(hasattr(actual_dynamic_instance, "foo"))
+        expect = None
+        self.assertEqual(expect, actual_dynamic_instance.foo)
+        self.assertTrue(hasattr(actual_dynamic_instance, "bar"))
+        expect = 42
+        self.assertEqual(expect, actual_dynamic_instance.bar)
+        self.assertFalse(hasattr(actual_dynamic_instance, "qux"))
 
 
 if __name__ == "__main__":
