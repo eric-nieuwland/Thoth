@@ -70,10 +70,17 @@ class RenderTemplateMixIn:
     @staticmethod
     def singular(plural: str) -> str:
         """simple attempt to turn a plural into a singular"""
-        if plural.endswith("ies"):
-            return f"{plural[:-3]}y"
-        if plural.endswith("s"):
-            return plural[:-1]
+        rules = {  # order is important!
+            "ies": "y",
+            "ives": "ife",
+            "ves": "f",
+            "oes": "o",
+            "es": "",
+            "s": "",
+        }
+        for end, replace in rules.items():
+            if plural.endswith(end):
+                return f"{plural[:-len(end)]}{replace}"
         return plural
 
     @staticmethod
