@@ -182,10 +182,11 @@ class RenderTemplateMixIn:
         result: tuple[int, dict[str, int]] = 0, {}
         for field_name, field_def in obj.model_fields.items():
             kind, base = self.field_type_base(field_def)
+            xxx = getattr(obj, field_name)
             if kind == list:
-                result = add_counts(result, self.count_multi_lingual_list(getattr(obj, field_name)))
-            else:
-                print(f"don't know how to count {kind}")
+                result = add_counts(result, self.count_multi_lingual_list(xxx))
+            elif hasattr(xxx, "count_multi_lingual"):
+                result = add_counts(result, xxx.count_multi_lingual())
         return result
 
     def count_multi_lingual_list(self, lst) -> tuple[int, dict[str, int]]:

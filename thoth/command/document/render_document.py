@@ -50,13 +50,26 @@ def determine_format(
 
 
 def check_language_code(value: str):
-    if not is_iso_639_language_code(value):
+    if value is not None and not is_iso_639_language_code(value):
         raise typer.BadParameter(f"unknown language code '{value}'")
     return value
 
 
-def handle_language(document, path, language) -> None:
+def handle_language(document, path: Path, language: str | None) -> None:
     total_count, language_counts = document.count_multi_lingual()
+    if language is None and total_count > 0:
+        language_names = [f"'{lang}'" for lang in language_counts]
+        if len(language_names) == 1:
+            languages = language_names[0]
+            s = ""
+        elif len(language_names) == 2:
+            languages = " and ".join(language_names)
+            s = "s"
+        else:
+            languages = ", ".join(language_names[:-1]) + f", and {language_names[-1]}"
+            s = "s"
+        print(f"no language selected, document contains language{s} {languages}", file=sys.stderr)
+        sys.exit(1)
     if language not in language_counts:
         print(f"language '{language}' not in - {path}", file=sys.stderr)
         sys.exit(1)
@@ -70,14 +83,17 @@ WARNING: language '{language}' incomplete in - {path}
         )
 
 
-LANGUAGE_ARGUMENT = typer.Argument(help="language to render", exists=True, readable=True, callback=check_language_code)
+LANGUAGE_OPTION = Annotated[
+    str | None,
+    typer.Argument(help="language to render", callback=check_language_code)
+]
 
 
 def render_document(
     model: DOCUMENT_MODEL_PATH_OPTION,
     path: DOCUMENT_PATH_ARGUMENT,
     template: RENDER_TEMPLATE_PATH_OPTION,
-    language: str = LANGUAGE_ARGUMENT,
+    language: LANGUAGE_OPTION = None,
     profile: RENDER_PROFILE_PATH_OPTION = None,
     output: OUTPUT_PATH_OPTION = None,
     force: bool = False,
@@ -89,8 +105,6 @@ def render_document(
     Prints a message to help you correct any issue found and "OK" if no issues were found.
     """
 
-    format = determine_format(template, output, format)
-
     document_model = DocumentMetaModel.from_yaml(model)
     document_class = document_model.create_document_class(model.stem)  # derive document class
     profile_class = document_model.create_profile_class(model.stem)  # derive profile class
@@ -98,6 +112,8 @@ def render_document(
     document_profile = profile_class.from_yaml(profile) if profile else profile_class.yes_to_all()  # type: ignore[attr-defined]
 
     handle_language(document, path, language)
+
+    format = determine_format(template, output, format)
 
     context = {
         "document": document,
