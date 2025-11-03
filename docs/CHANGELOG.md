@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
-- document definition as a configuration
+- Document model is no longer fixed, you now define it yourself
 
 ## v0.4.4 - 2025/09/23
 
