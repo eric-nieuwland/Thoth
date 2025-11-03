@@ -21,7 +21,7 @@ Do your magic.
 
 This will create a directory `dist` containing
 - a file with extension `.tar.gz` - the distributable source code
-- a file with extension `.whl` - the distributable wheel
+- a file with extension `.whl` - the distributable wheel (you need this)
 
 Also, there will now be a directory `Thoth-dhwtj.egg-info`.
 It is safe to discard this directory and its content.

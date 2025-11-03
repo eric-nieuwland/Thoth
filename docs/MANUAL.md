@@ -40,8 +40,11 @@ templates and commands to render those documents using templates and profiles.
 knowledge, writing, hieroglyphs, science, magic, art and judgement. As such he plays a major
 role to maintain Ma'at, the proper order in the world and the universe.
 
-As this software aims to help to create, maintain and render knowledge in structured documents
-is seems quite fitting to name it after this deity.
+This software aims to comprehensively capture structured knowledge,
+to allow information to be created and maintained with tools,
+and bring some order into what would otherwise be a pile of forms on a desk
+or in digital storage.
+It thus seems quite fitting to name the software after this deity.
 
 To avoid a name clash with a Python package already named `thoth` this software's package name
 is `Thoth-dhwtj`, which stresses its relation to Ma'at.
