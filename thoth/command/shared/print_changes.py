@@ -29,7 +29,7 @@ def print_changes(original: str | list[str], changed: str | list[str]) -> bool:
         changes = True
         if line in ("--- ", "+++ "):
             continue
-        if found := re.match(r"@@ -(?P<first>\d+),.* @@", line):
+        if found := re.match(r"@@ -(?P<first>\d+).* @@", line):
             line_nr = int(found["first"])
             if line_nr > 1:
                 print("  ...")
