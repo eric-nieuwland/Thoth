@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools==80.8.0"]
+requires = ["setuptools==80.9.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "Thoth-dhwtj"
-version = "0.4.4"
-description = "Maintain the Ma'at of Secure Software Development"
+version = "1.0.0"
+description = "Define, create, and render structured documents"
 license="Apache-2.0"
 authors = [
     {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
@@ -27,7 +27,7 @@ dependencies = [
     "Jinja2==3.1.6",
     "pydantic==2.12.3",
     "pyyaml==6.0.3",
-    "setuptools==80.8.0",
+    "setuptools==80.9.0",
     "typer-slim==0.20.0",
 ]
 
@@ -37,7 +37,7 @@ dev = [
     "mypy==1.18.2",
     "pytest==8.4.2",
     "pytest-cov==7.0.0",
-    "ruff==0.14.2",
+    "ruff==0.14.3",
     "types-PyYAML==6.0.12.20250915",
 ]
 
