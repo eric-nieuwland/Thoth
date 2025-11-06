@@ -80,7 +80,7 @@ class RenderTemplateMixIn:
         }
         for end, replace in rules.items():
             if plural.endswith(end):
-                return f"{plural[:-len(end)]}{replace}"
+                return f"{plural[: -len(end)]}{replace}"
         return plural
 
     @staticmethod

@@ -83,10 +83,7 @@ WARNING: language '{language}' incomplete in - {path}
         )
 
 
-LANGUAGE_OPTION = Annotated[
-    str | None,
-    typer.Argument(help="language to render", callback=check_language_code)
-]
+LANGUAGE_OPTION = Annotated[str | None, typer.Argument(help="language to render", callback=check_language_code)]
 
 
 def render_document(

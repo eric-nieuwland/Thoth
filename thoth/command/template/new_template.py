@@ -7,8 +7,6 @@ from __future__ import annotations
 # standard library imports
 import sys
 from pathlib import Path
-from sys import meta_path
-
 from typing_extensions import Annotated
 
 # third party imports
@@ -16,7 +14,6 @@ import jinja2
 import typer
 from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 
-from command.document import render_document
 # own imports
 from thoth.command.shared.arguments_and_options_info import (
     DOCUMENT_MODEL_PATH_OPTION,
