@@ -49,6 +49,9 @@ OUTPUT_PATH_OPTION = _make_path_annotation(
     typer.Option,
     help="output",
     optional=True,
+    exists=False,
+    readable=False,
+    resolve_path=True,
 )
 RENDER_PROFILE_PATH_ARGUMENT = _make_path_annotation(
     typer.Argument,

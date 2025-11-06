@@ -127,7 +127,7 @@ def render_document(
         loader = jinja2.FileSystemLoader(template.parent)
         jinja2_template = jinja2.Environment(loader=loader).get_template(template.name)
         rendered = jinja2_template.render(**context)
-        write_output(rendered, output, force=force)
+        write_output(rendered, destination=output, force=force)
     elif format == OutputFormat.DOCX:
         doc = DocxTemplate(template)
         doc.render(context)
