@@ -11,7 +11,7 @@ The examples below assume it is installed as a package.
 If you use the source code replace `thoth` by `python thoth/main.py` in the commands.
 
 
-Examples:
+Example:
 ```commandline
 # thoth ‑‑help
 
@@ -53,7 +53,7 @@ to this first line. Those lines define the properties of the field's value.
 
 | property    | value type                        | default | description                                         |
 |-------------|-----------------------------------|---------|-----------------------------------------------------|
-| default     | any                               | -none-  | a value to use as default                           |
+| default     | any                               | -none-  | a value to use as default for optional simple types |
 | description | text                              | -none-  | a text to explain the property                      |
 | repeated    | true or false                     | false   | 'true' if this is a list of any number of values    |
 | required    | true or false                     | false   | 'true' if a value must be provided                  |
