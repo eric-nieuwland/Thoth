@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <style>
+        </style>
+        <title>{% raw %}{{ source }} - {{ timestamp.strftime("%Y/%m/%d %H:%M") }}{% endraw %}</title>
+    </head>
+    <body>
+        <h1>Main document</h1>
+        {% for line in template.lines -%}
+        {{ line }}
+        {% endfor %}
+        <h1>You can also use</h1>
+        {% raw -%}
+        {{ source }} - the document rendered
+        {{ timestamp.strftime("%Y/%m/%d %H:%M") }} - the date and time the document was rendered
+        {%- endraw %}
+    </body>
+</html>

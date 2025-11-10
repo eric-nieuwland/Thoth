@@ -37,7 +37,6 @@ def determine_format(
     determined_format = format or OutputFormat.from_path(output)
     if determined_format is None:
         return DEFAULT_FORMAT
-    determined_format = determined_format.resolve()
     if output is None and determined_format in FORMAT_REQUIRES_OUTPUT:
         print(f"please use '--output' to save files of format - {determined_format.value}", file=sys.stderr)
         sys.exit(1)
@@ -61,8 +60,13 @@ def new_template(
 
     format = determine_format(output, format)
 
+    template = templates_home() / f"template.{format.value}"
+    if not template.exists():
+        raise FileNotFoundError(template)
+
     if format == OutputFormat.DOCX:
         document_class.set_docx_rendering()  # type: ignore[attr-defined]
+
     template_lines = document_class.render_template()  # type: ignore[attr-defined]
     context = {
         "template": {
@@ -70,15 +74,12 @@ def new_template(
         },
     }
 
-    if format == OutputFormat.TEXT:
-        loader = jinja2.FileSystemLoader(templates_home())
-        jinja2_template = jinja2.Environment(loader=loader).get_template("template.txt")
-        rendered = jinja2_template.render(**context)
-        write_output(rendered, destination=output, force=force)
-    elif format == OutputFormat.DOCX:
-        meta_template = templates_home() / "template.docx"
-        if not meta_template.exists():
-            raise FileNotFoundError(meta_template)
-        doc = DocxTemplate(meta_template)
+    if format == OutputFormat.DOCX:
+        doc = DocxTemplate(template)
         doc.render(context)
         doc.save(output.with_suffix(".docx"))
+    else:
+        loader = jinja2.FileSystemLoader(template.parent)
+        jinja2_template = jinja2.Environment(loader=loader).get_template(template.name)
+        rendered = jinja2_template.render(**context)
+        write_output(rendered, destination=output, force=force)
