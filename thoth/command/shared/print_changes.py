@@ -28,7 +28,7 @@ class DiffBlock:
     def add_line(self, line: str):
         first, line = line[0], line[1:]
         if first not in (" ", "-", "+"):
-            raise ValueError(f"Line not recognized - first character is '{first}'")
+            raise ValueError(f"Line not recognised - first character is '{first}'")
         stripped = line.strip()
         if first == "-" and (stripped == "" or stripped[0] == "#"):
             first = " "
@@ -42,14 +42,12 @@ class DiffBlock:
     def __iter__(self) -> Generator[str, None, None]:
         if self.last_change is None:
             return
-        last_line = min(len(self.text), self.last_change + self.context + 1)
-        text = self.text[:last_line]
+        last_line = min(len(self.text), self.last_change + self.context)
+        text = self.text[:last_line + 1]
         line_nr = self.line_nr
         if line_nr > 1:
             yield "  ..."
         for first, line in text:
-            if first == "-" and line.strip() == "":
-                first = " "
             if first == "+":  #
                 lnr = " " * 3
             else:
@@ -70,15 +68,14 @@ def human_centric_diff(original: str | list[str], changed: str | list[str]) -> I
 
     diff_block: DiffBlock | None = None
     for line in unified_diff(original, changed, lineterm=""):
-        if line in ("--- ", "+++ "):
+        if line in ("--- ", "+++ "):  # suppress original/changed info
             continue
         if found := re.match(r"@@ -(?P<first>\d+).* @@", line):
-            line_nr = int(found["first"])
             if diff_block:
                 yield from diff_block
-            diff_block = DiffBlock(line_nr)
-            continue
-        diff_block.add_line(line)
+            diff_block = DiffBlock(int(found["first"]))
+        elif diff_block:
+            diff_block.add_line(line)
     if diff_block:
         yield from diff_block
 
