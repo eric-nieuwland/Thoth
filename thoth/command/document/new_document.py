@@ -14,7 +14,7 @@ from thoth.command.shared.arguments_and_options_info import (
     OUTPUT_PATH_OPTION,
 )
 from thoth.command.shared.write_output import write_output
-from thoth.model.meta_model import DocumentMetaModel
+from thoth.model.document_model import DocumentModel
 
 
 def new_document(
@@ -25,6 +25,6 @@ def new_document(
     """
     create a starting point for a document
     """
-    document_class = DocumentMetaModel.document_class_from_file(model)
+    document_class = DocumentModel.document_class_from_file(model)
     document = document_class.example(detect_loop=False)  # type: ignore[attr-defined]
     write_output(document.as_yaml_text(), destination=output, force=force)

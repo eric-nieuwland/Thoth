@@ -13,7 +13,7 @@ from thoth.command.shared.arguments_and_options_info import (
     OUTPUT_PATH_OPTION,
 )
 from thoth.command.shared.write_output import write_output
-from thoth.model.meta_model import DocumentMetaModel
+from thoth.model.document_model import DocumentModel
 
 
 def new_model(
@@ -24,7 +24,7 @@ def new_model(
     create a starting point for a document model
     """
     write_output(
-        DocumentMetaModel.example().as_yaml_text(),
+        DocumentModel.example().as_yaml_text(),
         destination=output,
         force=force,
     )

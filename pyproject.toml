@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools==80.9.0"]
+requires = ["setuptools==80.8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -28,7 +28,7 @@ dependencies = [
     "Jinja2==3.1.6",
     "pydantic==2.12.4",
     "pyyaml==6.0.3",
-    "setuptools==80.9.0",
+    "setuptools==80.8.0",
     "typer-slim==0.20.0",
 ]
 

@@ -14,7 +14,7 @@ from thoth.command.shared.arguments_and_options_info import (
     RENDER_PROFILE_PATH_ARGUMENT,
 )
 from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
-from thoth.model.meta_model import DocumentMetaModel
+from thoth.model.document_model import DocumentModel
 
 
 def check_profile(
@@ -26,8 +26,8 @@ def check_profile(
 
     Prints a message to help you correct any issue found and "OK" if no issues were found.
     """
-    document_model = DocumentMetaModel.from_yaml(model, exit_on_error=True)
-    profile_model = document_model.create_profile_class(model.stem)  # derive profile model
-    copy = profile_model.from_yaml(path).as_yaml_text()  # type: ignore[attr-defined]
+    document_model = DocumentModel.from_yaml(model, exit_on_error=True)
+    profile_class = document_model.create_profile_class(model.stem)  # derive profile class
+    copy = profile_class.from_yaml(path).as_yaml_text()  # type: ignore[attr-defined]
     # here only if path was successfully loaded
     print_file_contents_comparison(path, copy)

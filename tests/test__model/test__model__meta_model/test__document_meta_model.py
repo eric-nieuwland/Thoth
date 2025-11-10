@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from model.meta_model import DocumentMetaModel, DocumentMetaModelAttribute
+from model.document_model import DocumentModel, DocumentModelAttribute
 from pydantic import ValidationError
 from pydantic.fields import FieldInfo
 
@@ -18,7 +18,7 @@ class TestDocumentMetaModelCreate(unittest.TestCase):
         # given
         root = {}
         # when
-        actual = DocumentMetaModel(root=root)
+        actual = DocumentModel(root=root)
         # then
         expect = {}
         self.assertDictEqual(expect, actual.root)
@@ -35,10 +35,10 @@ class TestDocumentMetaModelCreate(unittest.TestCase):
             }
             # then
             with self.assertRaises(ValidationError):
-                _ = DocumentMetaModel(root=root)
+                _ = DocumentModel(root=root)
 
     def test_not_empty_right_type(self):
-        mock_attribute = DocumentMetaModelAttribute(type="str", required=True)
+        mock_attribute = DocumentModelAttribute(type="str", required=True)
         # given
         root = {
             "foo": mock_attribute,
@@ -46,7 +46,7 @@ class TestDocumentMetaModelCreate(unittest.TestCase):
             "baz": mock_attribute,
         }
         # when
-        actual = DocumentMetaModel(root=root)
+        actual = DocumentModel(root=root)
         # then
         expect = {
             "foo": mock_attribute,
@@ -67,9 +67,9 @@ class TestDocumentMetaModelCreateDocumentClass(unittest.TestCase):
     def test_empty(self):
         # given
         root = {}
-        meta_model = DocumentMetaModel(root=root)
+        model = DocumentModel(root=root)
         # when
-        actual = meta_model.create_document_class("TEST")
+        actual = model.create_document_class("TEST")
         # then
         expect = "Test"
         self.assertEqual(expect, actual.__name__)
@@ -77,16 +77,16 @@ class TestDocumentMetaModelCreateDocumentClass(unittest.TestCase):
         self.assertSetEqual(expect, set(actual.model_fields))
 
     def test_not_empty(self):
-        mock_attribute = DocumentMetaModelAttribute(type="str", required=True)
+        mock_attribute = DocumentModelAttribute(type="str", required=True)
         # given
         root = {
             "foo": mock_attribute,
             "bar": mock_attribute,
             "baz": mock_attribute,
         }
-        meta_model = DocumentMetaModel(root=root)
+        model = DocumentModel(root=root)
         # when
-        actual = meta_model.create_document_class("TEST")
+        actual = model.create_document_class("TEST")
         # then
         expect = {  # not interested in attribute conversion, just names
             "foo",
@@ -100,21 +100,21 @@ class TestDocumentMetaModelCreateDocumentClass(unittest.TestCase):
             self.assertEqual(expect, field.annotation, msg=f"failed for {name}")
 
     def test_nested(self):
-        nested_attribute = DocumentMetaModelAttribute(type="str", required=True)
+        nested_attribute = DocumentModelAttribute(type="str", required=True)
         # given
         nested_root = {
             "foo": nested_attribute,
             "bar": nested_attribute,
             "baz": nested_attribute,
         }
-        nested_meta_model = DocumentMetaModel(root=nested_root)
-        struct = DocumentMetaModelAttribute(struct=nested_meta_model, required=True)
+        nested_model = DocumentModel(root=nested_root)
+        struct = DocumentModelAttribute(struct=nested_model, required=True)
         root = {
             "qux": struct,
         }
-        meta_model = DocumentMetaModel(root=root)
+        model = DocumentModel(root=root)
         # when
-        actual = meta_model.create_document_class("TEST")
+        actual = model.create_document_class("TEST")
         # then
         expect = {  # not interested in attribute conversion, just names
             "qux",
@@ -143,9 +143,9 @@ class TestDocumentMetaModelCreateProfileClass(unittest.TestCase):
     def test_empty(self):
         # given
         root = {}
-        meta_model = DocumentMetaModel(root=root)
+        model = DocumentModel(root=root)
         # when
-        actual = meta_model.create_profile_class("TEST")
+        actual = model.create_profile_class("TEST")
         # then
         expect = "Test"
         self.assertEqual(expect, actual.__name__)
@@ -153,16 +153,16 @@ class TestDocumentMetaModelCreateProfileClass(unittest.TestCase):
         self.assertSetEqual(expect, set(actual.model_fields))
 
     def test_not_empty(self):
-        mock_attribute = DocumentMetaModelAttribute(type="str", required=True)
+        mock_attribute = DocumentModelAttribute(type="str", required=True)
         # given
         root = {
             "foo": mock_attribute,
             "bar": mock_attribute,
             "baz": mock_attribute,
         }
-        meta_model = DocumentMetaModel(root=root)
+        model = DocumentModel(root=root)
         # when
-        actual = meta_model.create_profile_class("TEST")
+        actual = model.create_profile_class("TEST")
         # then
         expect = {  # not interested in attribute conversion, just names
             "foo",
@@ -176,21 +176,21 @@ class TestDocumentMetaModelCreateProfileClass(unittest.TestCase):
             self.assertEqual(expect, field.annotation, msg=f"failed for {name}")
 
     def test_nested(self):
-        nested_attribute = DocumentMetaModelAttribute(type="str", required=True)
+        nested_attribute = DocumentModelAttribute(type="str", required=True)
         # given
         nested_root = {
             "foo": nested_attribute,
             "bar": nested_attribute,
             "baz": nested_attribute,
         }
-        nested_meta_model = DocumentMetaModel(root=nested_root)
-        struct = DocumentMetaModelAttribute(struct=nested_meta_model, required=True)
+        nested_model = DocumentModel(root=nested_root)
+        struct = DocumentModelAttribute(struct=nested_model, required=True)
         root = {
             "qux": struct,
         }
-        meta_model = DocumentMetaModel(root=root)
+        model = DocumentModel(root=root)
         # when
-        actual = meta_model.create_profile_class("TEST")
+        actual = model.create_profile_class("TEST")
         # then
         expect = {  # not interested in attribute conversion, just names
             "qux",

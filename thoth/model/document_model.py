@@ -23,12 +23,12 @@ TYPE_MAPPING = {
 }
 
 
-class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
+class DocumentModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
     default: SUPPORTED_TYPES | None = None
     description: str | None = None
     repeated: bool = False
     required: bool = False
-    struct: DocumentMetaModel | None = None
+    struct: DocumentModel | None = None
     type: str | None = None
 
     @model_validator(mode="after")
@@ -94,7 +94,7 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
             "required": (required := cls._example_yaml_value_for(bool, None, stack + ["required"])),
         }
         if cls.__name__ not in stack:
-            result["struct"] = cls._example_yaml_value_for(DocumentMetaModel, None, stack + [cls.__name__])
+            result["struct"] = cls._example_yaml_value_for(DocumentModel, None, stack + [cls.__name__])
         else:
             type_name, type_class = choice(list(TYPE_MAPPING.items()))
             result["type"] = type_name
@@ -141,8 +141,8 @@ class DocumentMetaModelAttribute(ExampleMixIn, YamlMixIn, BaseModel):
         return attribute_type, True
 
 
-class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
-    root: dict[str, DocumentMetaModelAttribute]
+class DocumentModel(ExampleMixIn, YamlMixIn, RootModel):
+    root: dict[str, DocumentModelAttribute]
 
     def create_document_class(self, model_name: str) -> BaseModel:
         """
@@ -171,7 +171,7 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
         exit_on_error: bool = True,
     ) -> BaseModel:
         """
-        convenience method to directly create a document model from a file
+        convenience method to directly create a document class from a file
         """
         return cls.from_yaml(
             model_file,
@@ -180,4 +180,4 @@ class DocumentMetaModel(ExampleMixIn, YamlMixIn, RootModel):
 
 
 # resolve forward references
-DocumentMetaModelAttribute.model_rebuild()
+DocumentModelAttribute.model_rebuild()

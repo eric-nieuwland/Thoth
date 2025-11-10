@@ -25,7 +25,7 @@ from thoth.command.shared.arguments_and_options_info import (
 )
 from thoth.command.shared.output_format import OutputFormat
 from thoth.command.shared.write_output import write_output
-from thoth.model.meta_model import DocumentMetaModel
+from thoth.model.document_model import DocumentModel
 from thoth.utils.iso_639 import is_iso_639_language_code
 
 FORMAT_REQUIRES_OUTPUT = {
@@ -102,7 +102,7 @@ def render_document(
     Prints a message to help you correct any issue found and "OK" if no issues were found.
     """
 
-    document_model = DocumentMetaModel.from_yaml(model)
+    document_model = DocumentModel.from_yaml(model)
     document_class = document_model.create_document_class(model.stem)  # derive document class
     profile_class = document_model.create_profile_class(model.stem)  # derive profile class
     document = document_class.from_yaml(path)  # type: ignore[attr-defined]

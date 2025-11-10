@@ -14,7 +14,7 @@ from thoth.command.shared.arguments_and_options_info import (
     OUTPUT_PATH_OPTION,
 )
 from thoth.command.shared.write_output import write_output
-from thoth.model.meta_model import DocumentMetaModel
+from thoth.model.document_model import DocumentModel
 
 
 def new_profile(
@@ -25,7 +25,7 @@ def new_profile(
     """
     create a starting point for a profile
     """
-    document_model = DocumentMetaModel.from_yaml(model, exit_on_error=True)
-    profile_model = document_model.create_profile_class(model.stem)  # derive profile class
-    profile = profile_model.yes_to_all()  # type: ignore[attr-defined] # create profile with all elements enabled
+    document_model = DocumentModel.from_yaml(model, exit_on_error=True)
+    profile_class = document_model.create_profile_class(model.stem)  # derive profile class
+    profile = profile_class.yes_to_all()  # type: ignore[attr-defined] # create profile with all elements enabled
     write_output(profile.as_yaml_text(), destination=output, force=force)

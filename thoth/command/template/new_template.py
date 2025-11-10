@@ -21,7 +21,7 @@ from thoth.command.shared.arguments_and_options_info import (
 )
 from thoth.command.shared.output_format import OutputFormat
 from thoth.command.shared.write_output import write_output
-from thoth.model.meta_model import DocumentMetaModel
+from thoth.model.document_model import DocumentModel
 from thoth.templates import templates_home
 
 FORMAT_REQUIRES_OUTPUT = {
@@ -55,7 +55,7 @@ def new_template(
 
     Output is always plain text, which may be converted to other formats.
     """
-    document_class = DocumentMetaModel.document_class_from_file(model)
+    document_class = DocumentModel.document_class_from_file(model)
     document_class.set_indent(indent)  # type: ignore[attr-defined]
 
     format = determine_format(output, format)

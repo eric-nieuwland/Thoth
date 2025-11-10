@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch
 from typing import Any
 
-from model.meta_model import DocumentMetaModelAttribute, DocumentMetaModel
+from model.document_model import DocumentModelAttribute, DocumentModel
 from pydantic import ValidationError
 
 
@@ -19,14 +19,14 @@ class TestDocumentMetaModelAttributeCreate(unittest.TestCase):
         # when
         # then
         with self.assertRaises(ValueError):
-            DocumentMetaModelAttribute(type="unknown")
+            DocumentModelAttribute(type="unknown")
 
     def test_known_type_required_no_default(self):
         # given
         known_types = "bool", "int", "float", "str", "multilingual"
         # when
         for known_type in known_types:
-            actual = DocumentMetaModelAttribute(type=known_type, required=True, repeated=False)
+            actual = DocumentModelAttribute(type=known_type, required=True, repeated=False)
             # then
             expect = known_type
             self.assertEqual(expect, actual.type, msg=f"failed for {known_type}")
@@ -38,7 +38,7 @@ class TestDocumentMetaModelAttributeCreate(unittest.TestCase):
         known_types = "bool", "int", "float", "str", "multilingual"
         # when
         for known_type in known_types:
-            actual = DocumentMetaModelAttribute(type=known_type, required=False, repeated=True)
+            actual = DocumentModelAttribute(type=known_type, required=False, repeated=True)
             # then
             expect = known_type
             self.assertEqual(expect, actual.type, msg=f"failed for {known_type}")
@@ -53,13 +53,13 @@ class TestDocumentMetaModelAttributeCreate(unittest.TestCase):
         for known_type in known_types:
             # then
             with self.assertRaises(ValidationError, msg=f"failed for {known_type}"):
-                _ = DocumentMetaModelAttribute(type=known_type, default=default, required=True, repeated=False)
+                _ = DocumentModelAttribute(type=known_type, default=default, required=True, repeated=False)
 
     def test_struct(self):
         # given
-        struct = DocumentMetaModel(root={})
+        struct = DocumentModel(root={})
         # when
-        actual = DocumentMetaModelAttribute(struct=struct)
+        actual = DocumentModelAttribute(struct=struct)
         # then
         expect = None
         self.assertEqual(expect, actual.type)
@@ -69,21 +69,21 @@ class TestDocumentMetaModelAttributeCreate(unittest.TestCase):
     def test_struct_default(self):
         # given
         default = "default"
-        struct = DocumentMetaModel(root={})
+        struct = DocumentModel(root={})
         # when
         # then
         with self.assertRaises(ValidationError):
-            _ = DocumentMetaModelAttribute(default=default, struct=struct)
+            _ = DocumentModelAttribute(default=default, struct=struct)
 
     def test_type_and_struct(self):
         # given
         known_types = "bool", "int", "float", "str", "multilingual"
-        struct = DocumentMetaModel(root={})
+        struct = DocumentModel(root={})
         # when
         for known_type in known_types:
             # then
             with self.assertRaises(ValidationError, msg=f"failed for {known_type}"):
-                _ = DocumentMetaModelAttribute(type=known_type, struct=struct)
+                _ = DocumentModelAttribute(type=known_type, struct=struct)
 
 
 class TestDocumentMetaModelAttributeYaml(unittest.TestCase):
@@ -102,7 +102,7 @@ class TestDocumentMetaModelAttributeYaml(unittest.TestCase):
         mock.items.side_effect = mock_dict.items
 
     @patch("model.mixins.example_mixin.EXAMPLES")
-    @patch("model.meta_model.TYPE_MAPPING")
+    @patch("model.document_model.TYPE_MAPPING")
     def test_example(self, mock_type_mapping, mock_examples):
         # given
         self.install_mock_dict(
@@ -121,7 +121,7 @@ class TestDocumentMetaModelAttributeYaml(unittest.TestCase):
             },
         )
         # when
-        actual = DocumentMetaModelAttribute._example_yaml_dict()
+        actual = DocumentModelAttribute._example_yaml_dict()
         # then
         expect = {
             "description": "foo bar",
@@ -171,7 +171,7 @@ class TestDocumentMetaModelAttributeAsModelDefinition(unittest.TestCase):
                 struct=None,
                 type=t,
             )
-            instance = DocumentMetaModelAttribute(**args)
+            instance = DocumentModelAttribute(**args)
             # when
             actual = instance.as_model_definition()
             # then
@@ -189,7 +189,7 @@ class TestDocumentMetaModelAttributeAsModelDefinition(unittest.TestCase):
                 struct=None,
                 type=t,
             )
-            instance = DocumentMetaModelAttribute(**args)
+            instance = DocumentModelAttribute(**args)
             # when
             actual = instance.as_model_definition()
             # then
@@ -207,7 +207,7 @@ class TestDocumentMetaModelAttributeAsModelDefinition(unittest.TestCase):
                 struct=None,
                 type=t,
             )
-            instance = DocumentMetaModelAttribute(**args)
+            instance = DocumentModelAttribute(**args)
             # when
             actual = instance.as_model_definition()
             # then
@@ -225,7 +225,7 @@ class TestDocumentMetaModelAttributeAsModelDefinition(unittest.TestCase):
                 struct=None,
                 type=t,
             )
-            instance = DocumentMetaModelAttribute(**args)
+            instance = DocumentModelAttribute(**args)
             # when
             actual = instance.as_model_definition()
             # then
@@ -259,7 +259,7 @@ class TestDocumentMetaModelAttributeAsModelDefinition(unittest.TestCase):
             },
             type=None,
         )
-        instance = DocumentMetaModelAttribute(**args)
+        instance = DocumentModelAttribute(**args)
         # when
         actual = instance.as_model_definition("TEST")
         # then
