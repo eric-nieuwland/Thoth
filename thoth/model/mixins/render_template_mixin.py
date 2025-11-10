@@ -69,13 +69,10 @@ class RenderTemplateMixIn:
 
     @staticmethod
     def singular(plural: str) -> str:
-        """simple attempt to turn a plural into a singular"""
+        """brain-dead attempt to turn a plural into a singular"""
         rules = {  # order is important!
             "ies": "y",
-            "ives": "ife",
-            "ves": "f",
-            "oes": "o",
-            "es": "",
+            "ria": "rium",
             "s": "",
         }
         for end, replace in rules.items():
