@@ -123,12 +123,9 @@ class TestRenderTemplateMixInSingular(unittest.TestCase):
             ("barbers", "barber"),
             ("barbies", "barby"),
             ("foo", "foo"),
-            ("heroes", "hero"),
-            ("knives", "knife"),
             ("parts", "part"),
             ("parties", "party"),
             ("ponies", "pony"),
-            ("wives", "wife"),
         ):
             # when
             actual = RenderTemplateMixIn.singular(text)

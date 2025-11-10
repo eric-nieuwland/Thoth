@@ -37,13 +37,13 @@ class DiffBlock:
         self.text.append((first, line))
         if self.last_change is None and len(self.text) > self.context:
             self.line_nr += len(self.text) - self.context
-            self.text = self.text[-self.context:]
+            self.text = self.text[-self.context :]
 
     def __iter__(self) -> Generator[str, None, None]:
         if self.last_change is None:
             return
         last_line = min(len(self.text), self.last_change + self.context)
-        text = self.text[:last_line + 1]
+        text = self.text[: last_line + 1]
         line_nr = self.line_nr
         if line_nr > 1:
             yield "  ..."
