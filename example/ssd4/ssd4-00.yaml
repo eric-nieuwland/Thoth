@@ -1,31 +1,27 @@
-identifier: '000'
+identifier: '00'
 
 title:
-  en: Thoth norm definitions
-  nl: Thoth normdefinities
+  en: Norm definitions in SSD4
+  nl: Normdefinities in SSD4
 
 intro:
-  en: |
-    Starting with the fourth incarnation of the Secure Software Development (SSD)
+  en: Starting with the fourth incarnation of the Secure Software Development (SSD)
     standards framework of the Dutch Center for Information security and Privacy protection
     (CIP) norm texts are managed and maintained as YAML definitions. This allows for
     tools to process the definitions, e.g. to render the texts in various formats.
     The base tool to create, manage, and maintain the YAML definitions is called 'thoth'.
     This norm text is not a part of SSD itself but serves as demonstration and documentation
-    of the file format of the YAML definitions supported by 'thoth'.
-    
-    Please note definitions are designed to support multi-lingual texts. Each text fragment that can be defined
+    of the file format of the YAML definitions supported by 'thoth'. Please note definitions
+    are designed to support multi-lingual texts. Each text fragment that can be defined
     in multiple languages is prefixed by a two-character language code (ISO 639),
     e.g. 'en' (English) or 'nl' (Dutch).
-  nl: |
-    Met de komst van versie 4 van het normenkader voor Secure Software Development
+  nl: Met de komst van versie 4 van het normenkader voor Secure Software Development
     (SSD) van het Centrum voor Informatiebeveiliging en Privacybescherming (CIP) worden
     normteksten beheerd en onderhouden als YAML-definities. Hierdoor kunnen tools
     gebruikt worden om bijvoorbeeld teksten op te maken in verschillende documentformaten.
     De basistool voor het maken, beheren en onderhouden van de YAML-definities hete
     'thoth'. Deze normtekst is geen onderdeel van SSD zelf, maar dient als demonstratie
     en documentatie van het bestandsformaat van de YAML-definitie die 'thoth' ondersteunt.
-    
     Merk op dat de definities bedoeld zijn om meertaligheid te ondersteunen. Elk tekstfragment
     dat in meerdere talen kan worden gedefinieerd, wordt vooraf gegaan door de twee-lettercode
     van de taal (ISO 639), bijvoorbeeld 'en' (Engels) of 'nl' (Nederlands).

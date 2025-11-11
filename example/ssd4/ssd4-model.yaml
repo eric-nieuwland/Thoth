@@ -1,0 +1,120 @@
+identifier:
+  description: Unique identifier for the SSD4 norm. Two digits, thus use a string not an integer.
+  repeated: false
+  required: true
+  type: str
+title:
+  description: Title of the SSD4 norm.
+  repeated: false
+  required: true
+  type: multilingual
+intro:
+  description: Introduction text.
+  repeated: false
+  required: true
+  type: multilingual
+scope:
+  description: Scope description.
+  repeated: false
+  required: true
+  type: multilingual
+triggers:
+  description: What triggers the applicability of this norm.
+  repeated: true
+  required: true
+  type: multilingual
+criteria:
+  description: Criteria to meet this norm.
+  repeated: true
+  required: true
+  type: multilingual
+objectives:
+  description: Objectives to establish with this norm.
+  repeated: true
+  required: true
+  type: multilingual
+risks:
+  description: Risks if the objectives are not met.
+  repeated: true
+  required: true
+  type: multilingual
+drivers:
+  description: What inspired this norm.
+  repeated: true
+  required: true
+  struct:
+    name:
+      description: Name of the driver.
+      repeated: false
+      required: true
+      type: str
+    details:
+      description: Reference to a detail within the driver.
+      repeated: true
+      required: false
+      type: str
+indicators:
+  description: Indicator of conformance.
+  repeated: true
+  required: true
+  struct:
+    identifier:
+      description: Unique identifier for the indicator. Two digits, thus use a string not an integer.
+      repeated: false
+      required: true
+      type: str
+    title:
+      description: Title of the indicator.
+      repeated: false
+      required: true
+      type: multilingual
+    description:
+      description: Description of the indicator.
+      repeated: false
+      required: true
+      type: multilingual
+    conformities:
+      description: Conformity details
+      repeated: true
+      required: true
+      struct:
+        identifier:
+          description: Unique identifier for the conformity. Two digits, thus use a string not an integer.
+          repeated: false
+          required: true
+          type: str
+        description:
+          description: Description of the conformity.
+          repeated: false
+          required: true
+          type: multilingual
+        guidance:
+          description: Guidance to how to implement the conformity.
+          repeated: false
+          required: false
+          type: multilingual
+    explanation:
+      description: Explanation why this indicator matters.
+      repeated: false
+      required: true
+      type: multilingual
+references:
+  description: References to sources of information on the topic of this norm.
+  repeated: true
+  required: false
+  struct:
+    name:
+      description: Name of the reference
+      repeated: false
+      required: true
+      type: str
+    url:
+      description: URL to the webpage with the actual information about the topic of this norm.
+      repeated: false
+      required: false
+      type: str
+    notes:
+      description: Any additional notes or remarks on the reference.
+      repeated: true
+      required: false
+      type: multilingual
