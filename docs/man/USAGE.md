@@ -33,6 +33,22 @@ Commands:
   template  Document template commands
 ```
 
+### Notation
+
+Almost all __Thoth__ commands have values as arguments, these are shown between angled
+brackets (i.e. `<` and `>`) like this
+```commandline
+# thoth-command <value>
+```
+Most of the values are files: enter the path to the file instead of `<value>`.
+
+Some __Thoth__ commands have optional command line elements, these are shown between square
+brackets (i.e. `[` and `]`) like this
+```commandline
+# thoth-command [optional part]
+```
+If you want to provide the optional part, drop the `[` and `]` from the command line.
+Otherwise, drop the `[` and `]` and everything between.
 
 ## Create a model
 
@@ -83,7 +99,7 @@ In addition there is
 
 An example of a multilingual is
 ```yaml
-en: This is an example of a 'multilingual'. The text is preceded by its language indicator.
+en: This is an example of a 'multilingual'. The text is preceded by a language indicator.
 nl: Dit is een voorbeeld van een 'multilingual'. De tekst wordt vooraf gegaan door een taalindicator.
 ```
 See [below](#language-codes) for language codes.
@@ -106,9 +122,7 @@ measurement:
 
 ### Language codes
 
-To create a multilingual text first decide in which languages you'll write it.
-
-Use the two-letter language code from [ISO 639][ISO-639]:
+For multilingual text use the two-letter language codes from [ISO 639][ISO-639], e.g.:
 - `en` English
 - `nl` Dutch
 
@@ -121,7 +135,7 @@ A document matches its model, i.e. fills the structure defined in the model.
 Given a document model you can create a document as a starting point.
 
 ```commandline
-# thoth document new --model model-file
+# thoth document new --model <model-file> [--output <document-file>]
 ```
 This will output a document that matches the model, with example values for you to edit.
 As documents are plain text files, you can use any text editor to change it.
@@ -129,7 +143,7 @@ As documents are plain text files, you can use any text editor to change it.
 When you're done editing you can check if the document still matches its model.
 
 ```commandline
-# thoth document check --model model-file document-file
+# thoth document check --model <model-file> <document-file>
 ```
 
 Error messages should be reasonably clear to a non-technical audience.
@@ -142,24 +156,41 @@ If all is well, __Thoth__ will simply say "OK".
 A template defines how to print a document as defined by a model.
 Given a document model you can create a template as a starting point.
 
-### Create a text-based template
+### Create a plain text template
 
-```commandline
-# thoth template new --model model-file
-```
-This will output a template for the model.
-As templates are plain text files, you can use any text editor to change it.
+Plain text templates are:
+- markdown (md)
+- HTML (html)
+- text (txt)
+
+As these are plain text files, you can use any text editor to change it.
 
 See the [Jinja2 template language][JINJA2] on how to control the output from the template.
+
+#### Create a markdown template
+
+```commandline
+# thoth template new --model <model-file> --format md [--output <template-file>]
+```
+
+#### Create an HTML template
+
+```commandline
+# thoth template new --model <model-file> --format html [--output <template-file>]
+```
+
+#### Create a text template
+
+```commandline
+# thoth template new --model <model-file> --format txt [--output <template-file>]
+```
 
 ### Create a Microsoft Word template
 
 To create a template for Microsoft Word, start with
 ```commandline
-# thoth template new --model model-file --format docx --output template-file
+# thoth template new --model <model-file> --format docx --output <template-file>
 ```
-Then open `template-file` in Microsoft Word and save it as a `.docx` file.
-
 See the [Word template language][DOCXTPL] on how to control the output of the template.
 
 ### Test the template
@@ -167,13 +198,13 @@ See the [Word template language][DOCXTPL] on how to control the output of the te
 When you're done editing the template you can check the result with.
 
 ```commandline
-# thoth document render --model model-file --template template-file document-file
+# thoth document render --model <model-file> --template <template-file> <document-file> [<language>]  [--output <rendered-file>]
 ```
-NOTE #1 If you render using a Microsoft Word template, you will always need to define an
-output file.
+NOTE #1 If your document contains multilingual texts, you will need to include a `<language>`
+for the rendering.
 
-NOTE #2 If your document contains multilingual texts, you will need to tell which language
-must be used in the rendering.
+NOTE #2 If you render using a Microsoft Word template, you will always need to define an
+output file.
 
 [JINJA2]: https://jinja.palletsprojects.com/en/stable/templates/
 [DOCXTPL]: https://docxtpl.readthedocs.io/en/latest/
@@ -191,7 +222,7 @@ all parts of the document. It generates a profile internally, with all parts ena
 Given a document model you can create a profile as a starting point.
 
 ```commandline
-# thoth profile new --model model-file
+# thoth profile new --model <model-file>
 ```
 This will output a profile for the model, with all parts enabled.
 As profiles are plain text files, you can use any text editor to change it.
@@ -209,13 +240,14 @@ labels only required when the structured field is rendered.
 Once you have a document model, one or more templates, and optionally one or more profiles,
 you render to file them using
 ```commandline
-# thoth document render --model model-file --template template-file document-file --output output-file
+# thoth document render --model <model-file> --template <template-file> <document-file> [<language>] --output <output-file>
 ```
 or
 ```commandline
-# thoth document render --model model-file --template template-file --profile profile-file document-file --output output-file
+# thoth document render --model <model-file> --template <template-file> --profile <profile-file> <document-file> [<language>] --output <output-file>
 ```
 __Thoth__ guesses the output format based on the extension of the template and output file.
 If it guesses wrong, you can explicitly tell it the format using `--format`.
 
-NOTE If the `output-file` already exists, add `--force` to overwrite it.
+NOTE If the `output-file` already exists, either choose another file name or add `--force` to
+overwrite it.
