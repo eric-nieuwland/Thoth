@@ -6,51 +6,58 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
-- Document model is no longer fixed, you now define it yourself
+- Multilingual text fragments for inclusion in document rendering
+
+## v1.0.0 - 2025/11/11
+
+A major overhaul:
+- The document model is no longer fixed, you now define it yourself.
+- The examples contain the former, fixed document model of SSD4.
+- Documentation has largely been rewritten.
 
 ## v0.4.4 - 2025/09/23
 
-- fix mult-line support: use an empty line to separate paragraphs
+- Fix mult-line support: use an empty line to separate paragraphs
 
 ## v0.4.3 - 2025/09/23
 
-- fix build to include Markdown templates
+- Fix build to include Markdown templates
 
 ## v0.4.2 - 2025/09/08
 
-- prepare for other document types
+- Prepare for other document types
 
 ## v0.4.1 - 2025/09/08
 
-- updated documentation
+- Updated documentation
 
 ## v0.4.0 - 2025/09/08
 
-- added rendering to the `md` (Markdown) format
+- Added rendering to the `md` (Markdown) format
 - provided a `norm.md` template
 
 ## v0.3.0 - 2025/07/29
 
-- added the `template` command to create customizable copies of the internal templates:
+- Added the `template` command to create customizable copies of the internal templates:
 
   | subcommand  | description                                          |
   |-------------|------------------------------------------------------|
   | `new`       | create customizable copies of the internal templates |
 
-- the `norm render` command now has an optional argument `--template` to select customized templates
+- The `norm render` command now has an optional argument `--template` to select customized templates
 
 
 ## v0.2.3 - 2025/07/17
 
-- fix packaging bug
+- Fix packaging bug
 
 ## v0.2.2 - 2025/07/17
 
-- distributable package
+- Distributable package
 
 ## v0.2.1 - 2025/04/29
 
-- internal clean-up.
+- Internal clean-up.
 
 ## v0.2.0 - 2025/04/25
 
@@ -59,14 +66,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## v0.1.0 - 2025/03/25
 
-- added the `profile` command for profiles that control parts that are rendered:
+- Added the `profile` command for profiles that control parts that are rendered:
 
   | subcommand  | description                                      |
   |-------------|--------------------------------------------------|
   | `new`       | create a starting point for a profile definition |
   | `reformat`  | reformat a profile                               |
  
-- added the `--profile` option to `norm render` to control the parts that are rendered
+- Added the `--profile` option to `norm render` to control the parts that are rendered
 
 ## v0.0.1 - 2025/03/25
 
