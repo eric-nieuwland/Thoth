@@ -1,0 +1,86 @@
+"""
+yaml_mixin - mix-in for Pydantic classes to add the ability to instantiate a model from YAML
+"""
+
+from __future__ import annotations
+
+# standard library
+import sys
+from pathlib import Path
+from typing import Self
+
+# third party
+import yaml
+from yaml.scanner import ScannerError
+
+# own
+from .json_mixin import JsonMixIn
+
+
+def print_yaml_errors(error: ScannerError, source: str | Path):
+    """
+    a more user-friendly version of YAML scanner errors
+    """
+    print(f"=== ERROR in {source} ===")
+    print(error)
+
+
+class YamlMixIn(JsonMixIn):
+    """
+    mix-in for Pydantic classes to add the ability to instantiate a model from YAML
+    uses JSON as an intermediary format
+    """
+
+    @classmethod
+    def from_yaml_stream(
+        cls,
+        yaml_stream,
+        source: str | Path,
+        exit_on_error: bool = True,
+    ) -> Self:
+        """
+        create instance from a YAML definition
+        """
+        try:
+            return cls.from_json_definition(
+                yaml.safe_load(yaml_stream),
+                source,
+                exit_on_error=exit_on_error,
+            )
+        except ScannerError as err:
+            if exit_on_error:
+                print_yaml_errors(err, source)
+                sys.exit(1)
+            else:
+                raise err from None
+
+    @classmethod
+    def _remove_nones(cls, data: dict) -> dict:
+        result = {}
+        for key, value in data.items():
+            if value is None:
+                continue
+            result[key] = cls._remove_nones(value) if isinstance(value, dict) else value
+        return result
+
+    def as_yaml_text(self) -> str:
+        """
+        the YAML definition of this instance
+        """
+        return yaml.safe_dump(
+            self._remove_nones(self.as_json_definition()),
+            default_flow_style=False,
+            sort_keys=False,
+        )
+
+    @classmethod
+    def from_yaml(
+        cls,
+        yaml_file: Path,
+        exit_on_error: bool = True,
+    ) -> Self:
+        """
+        create instance from a YAML definition file
+        """
+        with open(yaml_file) as yaml_stream:
+            return cls.from_yaml_stream(yaml_stream, yaml_file, exit_on_error=exit_on_error)
