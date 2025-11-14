@@ -8,9 +8,6 @@ from __future__ import annotations
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from zoneinfo import available_timezones
-
-from lxml.html import document_fromstring
 from typing_extensions import Annotated
 
 # third party imports
@@ -55,7 +52,7 @@ def determine_format(
     determined_format = format or OutputFormat.from_path(template) or OutputFormat.from_path(output)
     if determined_format is None:
         _quit_with_message("need format from '--format', '--output', or '--template'")
-    determined_format = determined_format.resolve()
+    determined_format = determined_format.resolve()  # type: ignore[union-attr]
     if output is None and determined_format in FORMAT_REQUIRES_OUTPUT:
         _quit_with_message(f"please use '--output' to save files of format - {determined_format.value}")
     return determined_format
@@ -133,7 +130,7 @@ def determine_language(
         elif fragments_language_counts[language] < fragments_total_count:
             warnings.append(f"{fragments_path}")
     if errors:
-        _quit_with_message(f"language '{language}' not in - {", ".join(errors)}")
+        _quit_with_message(f"language '{language}' not in - {', '.join(errors)}")
     if warnings:
         _notify(
             f"""
