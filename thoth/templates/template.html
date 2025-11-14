@@ -14,5 +14,19 @@
         {{ source }} - the document rendered
         {{ timestamp.strftime("%Y/%m/%d %H:%M") }} - the date and time the document was rendered
         {%- endraw %}
+
+        <h2>Fragments</h2>
+        {% raw -%}
+        {{ fragments.title[language] }}
+        {{ fragments.chapter.one[language] }}
+        {{ fragments.chapter.two[language] }}
+        {{ fragments.copyright[language] }}
+        {%- endraw %}
+
+        <h2>Rendering info</h2>
+        {% raw -%}
+        {{ source }} - the document rendered
+        {{ timestamp.strftime("%Y/%m/%d %H:%M") }} - the date and time the document was rendered
+        {%- endraw %}
     </body>
 </html>
