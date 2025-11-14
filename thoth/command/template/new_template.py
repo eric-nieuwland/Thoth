@@ -44,7 +44,7 @@ def determine_format(
 
 
 def new_template(
-    model: Path = DOCUMENT_MODEL_PATH_OPTION,
+    model: DOCUMENT_MODEL_PATH_OPTION,
     indent: Annotated[int, typer.Option(min=0, max=8, clamp=True)] = 0,
     output: OUTPUT_PATH_OPTION = None,
     force: bool = False,

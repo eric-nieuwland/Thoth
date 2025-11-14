@@ -2,7 +2,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from model.multi_lingual_text import MultiLingualText
+from model.multi_lingual_text import MultiLingualText, count_multi_lingual_add
 
 
 class TestMultiLingualTextCreate(unittest.TestCase):
@@ -344,6 +344,54 @@ class TestMultiLingualTextJoin(unittest.TestCase):
         # then
         with self.assertRaises(ValueError):
             _ = MultiLingualText.join(mlt_1, mlt_2).root
+
+
+class TestAddCountMultiLingualAdd(unittest.TestCase):
+    """
+    test count_multi_lingual_add() function
+    """
+
+    def setUp(self):
+        self.maxDiff = None
+
+    def test_zero_zero(self):
+        # given
+        a = b = 0, {}
+        # when
+        actual = count_multi_lingual_add(a, b)
+        # then
+        expect = 0, {}
+        self.assertTupleEqual(expect, actual)
+
+    def test_zero_one(self):
+        # given
+        a = 0, {}
+        b = 1, {"en": 1, "nl": 1}
+        # when
+        actual = count_multi_lingual_add(a, b)
+        # then
+        expect = 1, {"en": 1, "nl": 1}
+        self.assertTupleEqual(expect, actual)
+
+    def test_one_one(self):
+        # given
+        a = 1, {"en": 1}
+        b = 1, {"nl": 1}
+        # when
+        actual = count_multi_lingual_add(a, b)
+        # then
+        expect = 2, {"en": 1, "nl": 1}
+        self.assertTupleEqual(expect, actual)
+
+    def test_some_some(self):
+        # given
+        a = 3, {"en": 2, "nl": 1}
+        b = 3, {"en": 1, "nl": 2}
+        # when
+        actual = count_multi_lingual_add(a, b)
+        # then
+        expect = 6, {"en": 3, "nl": 3}
+        self.assertTupleEqual(expect, actual)
 
 
 if __name__ == "__main__":

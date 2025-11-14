@@ -3,7 +3,7 @@ from types import UnionType
 
 from pydantic.fields import FieldInfo
 
-from model.mixins.render_template_mixin import RenderTemplateMixIn, add_counts
+from model.mixins.render_template_mixin import RenderTemplateMixIn
 
 
 class TestRenderTemplateMixInSetIndent(unittest.TestCase):
@@ -178,54 +178,6 @@ class TestRenderTemplateMixInFieldTypeBase(unittest.TestCase):
         actual = RenderTemplateMixIn.field_type_base(field_info)
         # then
         expect = UnionType, (str, int, float, bool,)
-        self.assertTupleEqual(expect, actual)
-
-
-class TestAddCounts(unittest.TestCase):
-    """
-    test add_counts() function
-    """
-
-    def setUp(self):
-        self.maxDiff = None
-
-    def test_zero_zero(self):
-        # given
-        a = b = 0, {}
-        # when
-        actual = add_counts(a, b)
-        # then
-        expect = 0, {}
-        self.assertTupleEqual(expect, actual)
-
-    def test_zero_one(self):
-        # given
-        a = 0, {}
-        b = 1, {"en": 1, "nl": 1}
-        # when
-        actual = add_counts(a, b)
-        # then
-        expect = 1, {"en": 1, "nl": 1}
-        self.assertTupleEqual(expect, actual)
-
-    def test_one_one(self):
-        # given
-        a = 1, {"en": 1}
-        b = 1, {"nl": 1}
-        # when
-        actual = add_counts(a, b)
-        # then
-        expect = 2, {"en": 1, "nl": 1}
-        self.assertTupleEqual(expect, actual)
-
-    def test_some_some(self):
-        # given
-        a = 3, {"en": 2, "nl": 1}
-        b = 3, {"en": 1, "nl": 2}
-        # when
-        actual = add_counts(a, b)
-        # then
-        expect = 6, {"en": 3, "nl": 3}
         self.assertTupleEqual(expect, actual)
 
 
