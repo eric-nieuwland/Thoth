@@ -6,6 +6,7 @@ import typer
 # own imports
 from . import (
     document,
+    fragments,
     model,
     profile,
     template,
@@ -17,6 +18,7 @@ app = typer.Typer()
 app.command("about")(about)
 
 app.add_typer(document.app, name="document", help="Document commands")
+app.add_typer(fragments.app, name="fragments", help="Fragments commands")
 app.add_typer(model.app, name="model", help="Document model commands")
 app.add_typer(profile.app, name="profile", help="Document profile commands")
 app.add_typer(template.app, name="template", help="Document template commands")

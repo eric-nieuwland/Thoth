@@ -222,7 +222,7 @@ all parts of the document. It generates a profile internally, with all parts ena
 Given a document model you can create a profile as a starting point.
 
 ```commandline
-# thoth profile new --model <model-file>
+# thoth profile new --model <model-file>  [--output <profile-file>]
 ```
 This will output a profile for the model, with all parts enabled.
 As profiles are plain text files, you can use any text editor to change it.
@@ -234,6 +234,46 @@ NOTE If all parts of a [structured field](#structured-fields) are set to 'false'
 the structured field itself is also set to 'false'. You may use this fact e.g. to control
 labels only required when the structured field is rendered.
 
+When you're done editing you can check if the profile still matches its model.
+
+```commandline
+# thoth document check --model <model-file> <document-file>
+```
+
+Error messages should be reasonably clear to a non-technical audience.
+
+If all is well, __Thoth__ will simply say "OK".
+
+
+## Create fragments
+
+Fragments are pieces of static multi-lingual text for your rendered document,
+i.e. given a language the same piece a text should be included in each rendered document.
+This could be chapter names, a copyright notice, a project name, etc.
+
+Instead of creating a template with static texts for each language, you create a single
+fragments file and include it when rendering a document.
+
+You can create fragments as a starting point.
+
+```commandline
+# thoth fragments new   [--output <fragments-file>]
+```
+This will output example fragments.
+As fragments are plain text files, you can use any text editor to change it.
+
+The syntax of fragments should be quite familiar if you have created a model and a document.
+
+When you're done editing you can check if the fragments.
+
+```commandline
+# thoth fragments check <fragments-file>
+```
+
+Error messages should be reasonably clear to a non-technical audience.
+
+If all is well, __Thoth__ will simply say "OK".
+
 
 ### Render a document
 
@@ -244,7 +284,7 @@ you render to file them using
 ```
 or
 ```commandline
-# thoth document render --model <model-file> --template <template-file> --profile <profile-file> <document-file> [<language>] --output <output-file>
+# thoth document render --model <model-file> --template <template-file> [--fragments <fragments-file>] [--profile <profile-file>] <document-file> [<language>] --output <output-file> [--format <fmt>] [--force]
 ```
 __Thoth__ guesses the output format based on the extension of the template and output file.
 If it guesses wrong, you can explicitly tell it the format using `--format`.

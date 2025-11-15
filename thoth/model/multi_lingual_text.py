@@ -107,3 +107,17 @@ class MultiLingualText(RootModel):
     @classmethod
     def _example_yaml_dict(cls, *_args, **_kwargs) -> dict[str, str]:
         return template_texts()
+
+
+# functions accumulate the values returned by MultiLingualText.count_multi_lingual()
+
+
+def count_multi_lingual_init() -> tuple[int, dict[str, int]]:
+    return 0, {}
+
+
+def count_multi_lingual_add(
+    a: tuple[int, dict[str, int]],
+    b: tuple[int, dict[str, int]],
+) -> tuple[int, dict[str, int]]:
+    return a[0] + b[0], {key: a[1].get(key, 0) + b[1].get(key, 0) for key in set(a[1]) | set(b[1])}

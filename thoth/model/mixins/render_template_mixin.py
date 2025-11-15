@@ -12,7 +12,7 @@ from typing import Any, get_args, get_origin
 from pydantic import BaseModel, RootModel
 
 # own
-from ..multi_lingual_text import MultiLingualText
+from ..multi_lingual_text import MultiLingualText, count_multi_lingual_add, count_multi_lingual_init
 
 
 class RenderTemplateMixIn:
@@ -176,28 +176,28 @@ class RenderTemplateMixIn:
         """
         count the number of multilingual elements and the languages therein
         """
-        result: tuple[int, dict[str, int]] = 0, {}
+        result: tuple[int, dict[str, int]] = count_multi_lingual_init()
         for field_name, field_def in obj.model_fields.items():
             kind, base = self.field_type_base(field_def)
             xxx = getattr(obj, field_name)
             if kind == list:
-                result = add_counts(result, self.count_multi_lingual_list(xxx))
+                result = count_multi_lingual_add(result, self.count_multi_lingual_list(xxx))
             elif hasattr(xxx, "count_multi_lingual"):
-                result = add_counts(result, xxx.count_multi_lingual())
+                result = count_multi_lingual_add(result, xxx.count_multi_lingual())
         return result
 
     def count_multi_lingual_list(self, lst) -> tuple[int, dict[str, int]]:
         """
         count the number of multilingual elements and the languages therein
         """
-        result: tuple[int, dict[str, int]] = 0, {}
+        result: tuple[int, dict[str, int]] = count_multi_lingual_init()
         for element in lst:
             if hasattr(element, "count_multi_lingual"):
-                result = add_counts(result, element.count_multi_lingual())
+                result = count_multi_lingual_add(result, element.count_multi_lingual())
             elif isinstance(element, RootModel):
-                result = add_counts(result, self.count_multi_lingual_root_model(element))
+                result = count_multi_lingual_add(result, self.count_multi_lingual_root_model(element))
             elif isinstance(element, BaseModel):
-                result = add_counts(result, self.count_multi_lingual_base_model(element))
+                result = count_multi_lingual_add(result, self.count_multi_lingual_base_model(element))
         return result
 
     def count_multi_lingual(self) -> tuple[int, dict[str, int]]:
@@ -209,10 +209,3 @@ class RenderTemplateMixIn:
         if isinstance(self, BaseModel):
             return self.count_multi_lingual_base_model(self)
         raise TypeError(f"cannot count multilingual elements in {self.__class__.__name__}")
-
-
-def add_counts(
-    a: tuple[int, dict[str, int]],
-    b: tuple[int, dict[str, int]],
-) -> tuple[int, dict[str, int]]:
-    return a[0] + b[0], {key: a[1].get(key, 0) + b[1].get(key, 0) for key in set(a[1]) | set(b[1])}
