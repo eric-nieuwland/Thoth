@@ -13,7 +13,10 @@ It thus seems quite fitting to name the software after this deity.
 The [manual](./docs/MANUAL.md) should be sufficient to get you started.
 
 The __Thoth__ software can be found at [github][Thoth-github].
-You will also find some documentation and an example norm definition there.
+You will also find some documentation and example models and documents there.
 
 [Thoth-wikipedia]: https://en.wikipedia.org/wiki/Thoth
-[Thoth-github]: https://github.com/CIP-HUB/Thoth
+[Thoth-github]: https://github.com/eric-nieuwland/Thoth
+
+
+Additional documentation [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/eric-nieuwland/Thoth)
