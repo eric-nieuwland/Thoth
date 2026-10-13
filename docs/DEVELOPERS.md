@@ -6,7 +6,7 @@ The information here assumes you are already familiar with the Python language.
 
 Assure you have the dependencies and developer's tools handy
 ```
-# python -m pip install -e ".[dev]"
+# python -m pip install --group deploy --group develop
 ```
 
 ## Make changes

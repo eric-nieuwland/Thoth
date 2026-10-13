@@ -11,7 +11,7 @@ authors = [
     {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
 ]
 readme = "README.md"
-requires-python = ">= 3.13"
+requires-python = ">= 3.14"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",
@@ -23,22 +23,23 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Topic :: Documentation",
 ]
-dependencies = [
+
+[dependency-groups]
+deploy = [
     "docxtpl==0.20.2",
     "Jinja2==3.1.6",
-    "pydantic==2.13.5",
+    "pydantic==2.14.1",
     "pyyaml==6.0.3",
     "setuptools==84.0.0",
     "typer-slim==0.24.0",
 ]
-
-[project.optional-dependencies]
-dev = [
-    "build==1.6.0",
-    "mypy==2.3.1",
+develop = [
+    "build==1.6.1",
+    "mypy==2.4.0",
     "pytest==9.1.1",
     "pytest-cov==7.1.0",
-    "ruff==0.16.6",
+    "ruff==0.17.0",
+    "setuptools==84.0.0",
     "types-PyYAML==6.0.12.20260906",
 ]
 
