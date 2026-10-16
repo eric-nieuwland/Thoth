@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch
 from typing import Any
 
-from model.document_model import DocumentModelAttribute, DocumentModel
+from thoth.model.document_model import DocumentModelAttribute, DocumentModel
 from pydantic import ValidationError
 
 
@@ -101,8 +101,8 @@ class TestDocumentMetaModelAttributeYaml(unittest.TestCase):
         mock.__iter__.side_effect = mock_dict.__iter__
         mock.items.side_effect = mock_dict.items
 
-    @patch("model.mixins.example_mixin.EXAMPLES")
-    @patch("model.document_model.TYPE_MAPPING")
+    @patch("thoth.model.mixins.example_mixin.EXAMPLES")
+    @patch("thoth.model.document_model.TYPE_MAPPING")
     def test_example(self, mock_type_mapping, mock_examples):
         # given
         self.install_mock_dict(

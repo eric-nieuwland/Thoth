@@ -8,7 +8,7 @@ from typing import Self
 from pydantic import RootModel, model_validator
 
 # own imports
-from thoth.utils.iso_639 import known_iso_639_language_code_or_error
+from ..utils.iso_639 import known_iso_639_language_code_or_error
 
 from ._translation import template_text, template_texts
 

@@ -9,10 +9,10 @@ from __future__ import annotations
 # third party imports
 
 # own imports
-from thoth.command.shared.arguments_and_options_info import (
+from ..shared.arguments_and_options_info import (
     OUTPUT_PATH_OPTION,
 )
-from thoth.command.shared.write_output import write_output
+from ..shared.write_output import write_output
 
 
 def new_fragments(
@@ -26,7 +26,7 @@ def new_fragments(
 title:
   en: Single source multiple format output document management
   nl: Enkelvoudige bron, meervoudige opmaak documentbeheer
-chapters:
+chapter:
   one:
     en: Chapter One
     nl: Hoofdstuk Een

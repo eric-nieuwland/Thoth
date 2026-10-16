@@ -10,7 +10,7 @@ from pathlib import Path
 # third party imports
 
 # own imports
-from thoth.command.shared.print_changes import print_changes
+from .print_changes import print_changes
 
 
 def print_file_contents_comparison(path: Path, current: str | list[str]) -> None:

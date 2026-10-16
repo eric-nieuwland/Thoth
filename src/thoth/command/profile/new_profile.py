@@ -9,12 +9,12 @@ from __future__ import annotations
 # third party imports
 
 # own imports
-from thoth.command.shared.arguments_and_options_info import (
+from ..shared.arguments_and_options_info import (
     DOCUMENT_MODEL_PATH_OPTION,
     OUTPUT_PATH_OPTION,
 )
-from thoth.command.shared.write_output import write_output
-from thoth.model.document_model import DocumentModel
+from ..shared.write_output import write_output
+from ...model.document_model import DocumentModel
 
 
 def new_profile(

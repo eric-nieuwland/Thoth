@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from model.document_model import DocumentModel, DocumentModelAttribute
+from thoth.model.document_model import DocumentModel, DocumentModelAttribute
 from pydantic import ValidationError
 from pydantic.fields import FieldInfo
 

@@ -3,7 +3,7 @@ from types import UnionType
 
 from pydantic.fields import FieldInfo, PydanticUndefined
 
-from model.mixins.example_mixin import ExampleMixIn, EXAMPLES
+from thoth.model.mixins.example_mixin import ExampleMixIn, EXAMPLES
 
 
 class TestExampleMixInFieldTypeBaseAndDefault(unittest.TestCase):

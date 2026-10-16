@@ -15,14 +15,14 @@ import typer
 from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 
 # own imports
-from thoth.command.shared.arguments_and_options_info import (
+from ..shared.arguments_and_options_info import (
     DOCUMENT_MODEL_PATH_OPTION,
     OUTPUT_PATH_OPTION,
 )
-from thoth.command.shared.output_format import OutputFormat
-from thoth.command.shared.write_output import write_output
-from thoth.model.document_model import DocumentModel
-from thoth.templates import templates_home
+from ..shared.output_format import OutputFormat
+from ..shared.write_output import write_output
+from ...model.document_model import DocumentModel
+from ...templates import templates_home
 
 FORMAT_REQUIRES_OUTPUT = {
     OutputFormat.DOCX,

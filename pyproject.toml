@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Thoth-dhwtj"
-version = "1.1.1"
+version = "1.1.2"
 description = "Define, create, and render structured documents"
 license="Apache-2.0"
 authors = [
     {name = "Eric Nieuwland", email = "eric.nieuwland@ictu.nl"},
 ]
 readme = "README.md"
-requires-python = ">= 3.14"
+requires-python = ">= 3.13"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",
@@ -21,7 +21,16 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Topic :: Documentation",
+]
+dependencies = [
+    "docxtpl==0.20.2",
+    "Jinja2==3.1.6",
+    "pydantic==2.14.1",
+    "pyyaml==6.0.3",
+    "setuptools==84.0.0",
+    "typer-slim==0.24.0",
 ]
 
 [dependency-groups]
@@ -46,19 +55,15 @@ develop = [
 [project.scripts]
 thoth = "thoth.main:main"
 
-
-[tool.setuptools]
-packages = [
-    "thoth",
-]
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["*.__pycache__"]
 
 [tool.setuptools.package-data]
-"thoth" = ["**/*.py"]
-"thoth.templates" = ["**/*"]
+"thoth.templates" = ["template.*"]
 
 [tool.setuptools.exclude-package-data]
-"thoth.templates" = ["__pycache__/*"]
-
+"thoth.templates" = ["__pycache__/**"]
 
 [tool.ruff.lint]
 select = [
@@ -72,7 +77,7 @@ fixable = ["ALL"]
 
 
 [tool.mypy]
-python_version = "3.14"
+python_version = "3.15"
 error_summary = false
 ignore_missing_imports = false
 incremental = false
@@ -83,7 +88,7 @@ warn_unused_ignores = true
 
 
 [tool.ruff]
-target-version = "py314"
+target-version = "py315"
 line-length = 120
 indent-width = 4
 output-format = "gitlab"
