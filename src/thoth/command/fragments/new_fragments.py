@@ -26,7 +26,7 @@ def new_fragments(
 title:
   en: Single source multiple format output document management
   nl: Enkelvoudige bron, meervoudige opmaak documentbeheer
-chapters:
+chapter:
   one:
     en: Chapter One
     nl: Hoofdstuk Een
