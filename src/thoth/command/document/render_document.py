@@ -16,7 +16,7 @@ import typer
 from docxtpl import DocxTemplate  # type: ignore[import-untyped]
 
 # own imports
-from thoth.command.shared.arguments_and_options_info import (
+from ..shared.arguments_and_options_info import (
     DOCUMENT_MODEL_PATH_OPTION,
     DOCUMENT_PATH_ARGUMENT,
     FRAGMENT_PATH_OPTION,
@@ -24,11 +24,11 @@ from thoth.command.shared.arguments_and_options_info import (
     RENDER_PROFILE_PATH_OPTION,
     RENDER_TEMPLATE_PATH_OPTION,
 )
-from thoth.command.shared.output_format import OutputFormat
-from thoth.command.shared.write_output import write_output
-from thoth.model.document_model import DocumentModel
-from thoth.model.fragments import Fragments
-from thoth.utils.iso_639 import is_iso_639_language_code
+from ..shared.output_format import OutputFormat
+from ..shared.write_output import write_output
+from ...model.document_model import DocumentModel
+from ...model.fragments import Fragments
+from ...utils.iso_639 import is_iso_639_language_code
 
 FORMAT_REQUIRES_OUTPUT = {
     OutputFormat.DOCX,

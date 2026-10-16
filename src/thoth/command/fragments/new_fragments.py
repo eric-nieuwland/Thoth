@@ -9,10 +9,10 @@ from __future__ import annotations
 # third party imports
 
 # own imports
-from thoth.command.shared.arguments_and_options_info import (
+from ..shared.arguments_and_options_info import (
     OUTPUT_PATH_OPTION,
 )
-from thoth.command.shared.write_output import write_output
+from ..shared.write_output import write_output
 
 
 def new_fragments(

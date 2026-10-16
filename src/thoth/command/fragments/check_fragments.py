@@ -9,11 +9,11 @@ from __future__ import annotations
 # third party imports
 
 # own imports
-from thoth.command.shared.arguments_and_options_info import (
+from ..shared.arguments_and_options_info import (
     DOCUMENT_PATH_ARGUMENT,
 )
-from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
-from thoth.model.fragments import Fragments
+from ..shared.print_file_contents_comparison import print_file_contents_comparison
+from ...model.fragments import Fragments
 
 
 def check_fragments(

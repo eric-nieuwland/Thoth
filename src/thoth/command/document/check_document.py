@@ -9,12 +9,12 @@ from __future__ import annotations
 # third party imports
 
 # own imports
-from thoth.command.shared.arguments_and_options_info import (
+from ..shared.arguments_and_options_info import (
     DOCUMENT_MODEL_PATH_OPTION,
     DOCUMENT_PATH_ARGUMENT,
 )
-from thoth.command.shared.print_file_contents_comparison import print_file_contents_comparison
-from thoth.model.document_model import DocumentModel
+from ..shared.print_file_contents_comparison import print_file_contents_comparison
+from ...model.document_model import DocumentModel
 
 
 def check_document(
