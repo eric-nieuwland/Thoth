@@ -3,7 +3,7 @@ from types import UnionType
 
 from pydantic.fields import FieldInfo
 
-from model.mixins.render_template_mixin import RenderTemplateMixIn
+from thoth.model.mixins.render_template_mixin import RenderTemplateMixIn
 
 
 class TestRenderTemplateMixInSetIndent(unittest.TestCase):

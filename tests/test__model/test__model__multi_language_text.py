@@ -2,7 +2,7 @@ import unittest
 
 from pydantic import ValidationError
 
-from model.multi_lingual_text import MultiLingualText, count_multi_lingual_add
+from thoth.model.multi_lingual_text import MultiLingualText, count_multi_lingual_add
 
 
 class TestMultiLingualTextCreate(unittest.TestCase):
